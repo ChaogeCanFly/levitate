@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Examples &mdash; Levitate Python Toolbox 0.3.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Documentation" href="api_docs.html" />
+    <link rel="prev" title="Package Organization and Functionality" href="package.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Levitate Python Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">Package Organization and Functionality</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="package.html#models">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package.html#algorithms">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package.html#visualization">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package.html#workflow">Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-trap">Basic Trap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#field-superposition">Field Superposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#complex-setups">Complex Setups</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_docs.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.arrays">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.transducers">Transducers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.cost_functions">Cost Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.visualize">Visualization</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Levitate Python Toolbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Examples</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="examples">
+<span id="id1"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basic-trap">
+<h2>Basic Trap<a class="headerlink" href="#basic-trap" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Simple trap optimization.</span>
+
+<span class="sd">A very basic use-case, finding the correct phases to levitate a bead centered</span>
+<span class="sd">5 cm above a 9x9 element rectangular array, then inspecting the resultant field.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">levitate</span>
+<span class="kn">from</span> <span class="nn">plotly.offline</span> <span class="kn">import</span> <span class="n">plot</span>
+
+<span class="n">array</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">arrays</span><span class="o">.</span><span class="n">RectangularArray</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">50e-3</span><span class="p">])</span>
+
+<span class="c1"># Create the cost functions and minimize them.</span>
+<span class="n">gorkov_laplacian</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">gorkov_laplacian</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">pressure</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">pressure</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">1e3</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">minimize</span><span class="p">([</span><span class="n">gorkov_laplacian</span><span class="p">,</span> <span class="n">pressure</span><span class="p">],</span> <span class="n">array</span><span class="p">)</span>
+
+<span class="c1"># Visualize the field.</span>
+<span class="n">array</span><span class="o">.</span><span class="n">complex_amplitudes</span> <span class="o">=</span> <span class="n">results</span>
+<span class="n">plot</span><span class="p">([</span><span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">pressure</span><span class="p">(),</span> <span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">transducers</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="field-superposition">
+<h2>Field Superposition<a class="headerlink" href="#field-superposition" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Superposition of two fields.</span>
+
+<span class="sd">A more advanced usage, designed to create a field with a levitation trap</span>
+<span class="sd">and a haptics focus point.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">levitate</span>
+<span class="kn">from</span> <span class="nn">plotly.offline</span> <span class="kn">import</span> <span class="n">plot</span>
+
+<span class="n">array</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">arrays</span><span class="o">.</span><span class="n">RectangularArray</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">trap_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">20e-3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">60e-3</span><span class="p">])</span>
+<span class="n">haptics_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">40e-3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">90e-3</span><span class="p">])</span>
+
+
+<span class="c1"># The fields are superposed using mutual quiet zones, created by minimizing the</span>
+<span class="c1"># pressure and velocity at the secondary point in each field.</span>
+<span class="n">gorkov_laplacian</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">second_order_stiffness</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">trap_pos</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">trap_pressure_null</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">pressure</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">trap_pos</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">trap_velocity_null</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">velocity</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">trap_pos</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">))</span>
+<span class="n">haptics_pressure_null</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">pressure</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">haptics_pos</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">haptics_velocity_null</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">velocity</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">haptics_pos</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">))</span>
+<span class="c1"># To create a focus point we set a negative weight for the pressure.</span>
+<span class="n">haptics_focus_pressure</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">pressure</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">trap_pos</span><span class="p">,</span> <span class="n">weight</span><span class="o">=-</span><span class="mf">1e-3</span><span class="p">)</span>
+
+<span class="c1"># The levitation trap is found using a minimization sequence.</span>
+<span class="c1"># First the phases are optimized for just a trap,</span>
+<span class="c1"># then the phases and amplitudes are optimized to include the quiet zone.</span>
+<span class="n">funcs</span> <span class="o">=</span> <span class="p">[[</span><span class="n">gorkov_laplacian</span><span class="p">,</span> <span class="n">trap_pressure_null</span><span class="p">],</span>
+         <span class="p">[</span><span class="n">gorkov_laplacian</span><span class="p">,</span> <span class="n">trap_pressure_null</span><span class="p">,</span> <span class="n">haptics_pressure_null</span><span class="p">,</span> <span class="n">haptics_velocity_null</span><span class="p">]]</span>
+<span class="n">trap_results</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">funcs</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">variable_amplitudes</span><span class="o">=</span><span class="p">[</span><span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># The haptics point can be created using a simple focusing algorithm,</span>
+<span class="c1"># so we can optimize for the inclusion of the quiet zone straight away.</span>
+<span class="n">funcs</span> <span class="o">=</span> <span class="p">[</span><span class="n">trap_pressure_null</span><span class="p">,</span> <span class="n">trap_velocity_null</span><span class="p">,</span> <span class="n">haptics_focus_pressure</span><span class="p">]</span>
+<span class="n">array</span><span class="o">.</span><span class="n">phases</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">focus_phases</span><span class="p">(</span><span class="n">haptics_pos</span><span class="p">)</span>
+<span class="n">haptics_result</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">cost_functions</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">funcs</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">variable_amplitudes</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># Visualize the individual fields, as well as the compound field.</span>
+<span class="n">array</span><span class="o">.</span><span class="n">complex_amplitudes</span> <span class="o">=</span> <span class="n">trap_results</span>
+<span class="n">plot</span><span class="p">([</span><span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">pressure</span><span class="p">(),</span> <span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">transducers</span><span class="p">()],</span>
+     <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;trap_results.html&#39;</span><span class="p">)</span>
+<span class="n">array</span><span class="o">.</span><span class="n">complex_amplitudes</span> <span class="o">=</span> <span class="n">haptics_result</span>
+<span class="n">plot</span><span class="p">([</span><span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">pressure</span><span class="p">(),</span> <span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">transducers</span><span class="p">()],</span>
+     <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;haptics_results.html&#39;</span><span class="p">)</span>
+<span class="n">array</span><span class="o">.</span><span class="n">complex_amplitudes</span> <span class="o">=</span> <span class="n">haptics_result</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">+</span> <span class="n">trap_results</span> <span class="o">*</span> <span class="mf">0.7</span>
+<span class="n">plot</span><span class="p">([</span><span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">pressure</span><span class="p">(),</span> <span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">transducers</span><span class="p">()],</span>
+     <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;combined_results.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="complex-setups">
+<h2>Complex Setups<a class="headerlink" href="#complex-setups" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Incorporating transducer models, reflectors, and doublesided arrays.</span>
+
+<span class="sd">The setup shown here is a doublesided array where the two halves</span>
+<span class="sd">are standing vertically 3 cm above a reflecting surface.</span>
+<span class="sd">The two halves are separated by 20 cm, and each side has 50 elements.</span>
+<span class="sd">The transducers are modeled as circular pistons, and the reflection is</span>
+<span class="sd">included by using the `ReflectingTransducer ` meta-class.</span>
+
+<span class="sd">In this example no optimization is done, but all optimization functions</span>
+<span class="sd">support complex arrangements like this one.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">levitate</span>
+<span class="kn">from</span> <span class="nn">plotly.offline</span> <span class="k">import</span> <span class="n">plot</span>
+
+<span class="n">transducer</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">transducers</span><span class="o">.</span><span class="n">ReflectingTransducer</span><span class="p">(</span>
+    <span class="n">levitate</span><span class="o">.</span><span class="n">transducers</span><span class="o">.</span><span class="n">CircularPiston</span><span class="p">,</span> <span class="n">effective_radius</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">,</span>
+    <span class="n">plane_distance</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">plane_normal</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">array</span> <span class="o">=</span> <span class="n">levitate</span><span class="o">.</span><span class="n">arrays</span><span class="o">.</span><span class="n">DoublesidedArray</span><span class="p">(</span>
+    <span class="n">levitate</span><span class="o">.</span><span class="n">arrays</span><span class="o">.</span><span class="n">RectangularArray</span><span class="p">,</span> <span class="n">separation</span><span class="o">=</span><span class="mf">200e-3</span><span class="p">,</span>
+    <span class="n">normal</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">50e-3</span><span class="p">),</span>
+    <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">transducer_model</span><span class="o">=</span><span class="n">transducer</span><span class="p">)</span>
+
+<span class="n">array</span><span class="o">.</span><span class="n">phases</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">focus_phases</span><span class="p">((</span><span class="mf">25e-3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">40e-3</span><span class="p">))</span>
+<span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">zlimits</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">([</span><span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">transducers</span><span class="p">(),</span> <span class="n">array</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">pressure</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_docs.html" class="btn btn-neutral float-right" title="API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="package.html" class="btn btn-neutral" title="Package Organization and Functionality" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Carl Andersson
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

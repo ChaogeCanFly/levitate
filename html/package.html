@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Package Organization and Functionality &mdash; Levitate Python Toolbox 0.3.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Levitate Python Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Package Organization and Functionality</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#models">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#algorithms">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workflow">Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#basic-trap">Basic Trap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#field-superposition">Field Superposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#complex-setups">Complex Setups</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_docs.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.arrays">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.transducers">Transducers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.cost_functions">Cost Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.visualize">Visualization</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Levitate Python Toolbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Package Organization and Functionality</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/package.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="package-organization-and-functionality">
+<h1>Package Organization and Functionality<a class="headerlink" href="#package-organization-and-functionality" title="Permalink to this headline">¶</a></h1>
+<p>This section covers a broad overview of the package, for a more detailed description see the full <a class="reference internal" href="api_docs.html#api-docs"><span class="std std-ref">API Documentation</span></a>.
+The package is created using the de facto numerical and scientific computing libraries for python, <a class="reference external" href="http://www.numpy.org">Numpy</a> and <a class="reference external" href="http://www.scipy.org">Scipy</a>.
+There are three major parts to the toolbox: models, algorithms, and visualization.</p>
+<div class="section" id="models">
+<h2>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+<p>The primary responsibility of the models component is to provide means for easy handling of virtual ultrasonic transducer arrays and their elements.
+This is the foundation on which the other parts build, with methods to calculate sound fields from arbitrary arrays arrangements.
+This part of the package in class-oriented, organized in two python modules.
+The <code class="docutils literal notranslate"><span class="pre">arrays</span></code> module with the primary class <code class="docutils literal notranslate"><span class="pre">TransducerArray</span></code> handles collections of individual transducer elements, i.e. arrays, operating all elements as a whole.
+The <code class="docutils literal notranslate"><span class="pre">transducers</span></code> module with the primary class <code class="docutils literal notranslate"><span class="pre">TransducerModel</span></code> handles single transducers and their radiation characteristics.</p>
+</div>
+<div class="section" id="algorithms">
+<h2>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h2>
+<p>The algorithms component of the package collects the sound field design methods under a unified framework.
+The current implementation covers optimization of transducer array amplitudes and phases according to a set of cost functions.
+All the cost functions have a physical interpretation such as the force on a small bead of a specific size, or the sound pressure at a certain point.</p>
+</div>
+<div class="section" id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
+<p>Visualization of data is a complicated topic, and visualization in python in particular comes in many flavors.
+For the purposes of this toolbox, the main concern is to quickly verify that the design algorithms deliver the intended result.
+To this end, a small set of tools are implemented using the <a class="reference external" href="https://plot.ly/python/">Plotly</a> graphing library, which has good support for interactive visualizations.
+The current implementation is focused on providing representations of the sound field generated by an array.</p>
+</div>
+<div class="section" id="workflow">
+<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h2>
+<p>Designing a sound field for a specific application involves choosing appropriate combinations of cost functions and optimization routines.
+A typical workflow from application specification to result is:</p>
+<ol class="arabic simple">
+<li>Specify what the sound field should do; <em>Levitate a bead.</em></li>
+<li>Find the appropriate mathematical formulation and choose the equivalent cost functions; <em>Maximize the Gor’kov Laplacian and minimize the sound pressure</em></li>
+<li>Choose an optimization routine; <em>minimization with fixed amplitudes</em></li>
+<li>Run the optimization.</li>
+<li>Visualize the resulting sound field.</li>
+<li>Export the result to use with a physical array.</li>
+</ol>
+<p>For more detailed descriptions of workflows, refer to the <a class="reference internal" href="examples.html#examples"><span class="std std-ref">Examples</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Carl Andersson
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
