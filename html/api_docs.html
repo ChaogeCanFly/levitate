@@ -1390,44 +1390,6 @@ be the three Cartesian components of the velocity.</p>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="levitate.visualize.find_trap">
-<code class="descclassname">levitate.visualize.</code><code class="descname">find_trap</code><span class="sig-paren">(</span><em>array</em>, <em>start_pos</em>, <em>tolerance=1e-05</em>, <em>time_interval=50</em>, <em>return_path=False</em>, <em>rho=25</em>, <em>radius=0.001</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.find_trap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the approximate location of a levitation trap.</p>
-<p>Find an approximate position of a acoustic levitation trap close to a starting point.
-This is done by following the radiation force in the sound field using an differential
-equation solver. The differential equation is the unphysical equation <span class="math notranslate nohighlight">\(d\vec x/dt  = \vec F(x,t)\)</span>,
-i.e. interpreting the force field as a velocity field.
-This works for finding the location of a trap and the field line from the starting position
-to the trap position, but it can not be seen as a proper kinematic simulation of the system.</p>
-<p>The solving of the above equation takes place until the whole time interval is covered,
-or the tolerance is met. The tolerance is evaluated using the assumption that the force
-is zero at the trap, evaluating the distance from the zero-force position using the force
-gradient.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>array</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">TransducerArray</span></code>) – The array creating the sound field.</li>
-<li><strong>start_pos</strong> (<em>array_like</em><em>, </em><em>3 elements</em>) – The starting point for the solving.</li>
-<li><strong>tolerance</strong> (<em>numeric</em><em>, </em><em>default 10e-6</em>) – The approximate tolerance of the solution, i.e. how close should
-the found position be to the true position, in meters.</li>
-<li><strong>time_interval</strong> (<em>numeric</em><em>, </em><em>default 10</em>) – The unphysical time of the solution range in the differential equation above.</li>
-<li><strong>return_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default False</em>) – Controls if the path from the starting point to the found trap is returned.
-Set to an int to specify the number of points in the path.</li>
-<li><strong>rho</strong> (<em>numeric</em><em>, </em><em>default 25</em>) – The density of the spherical bead.</li>
-<li><strong>radius</strong> (<em>numeric</em><em>, </em><em>default 1e-3</em>) – The radius of the spherical bead.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>trap_pos</strong> (<em>numpy.ndarray</em>) – The found trap position, or the path from the starting position to the trap position, see <code class="xref py py-obj docutils literal notranslate"><span class="pre">return_path</span></code>.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="class">
 <dt id="levitate.visualize.Visualizer">
 <em class="property">class </em><code class="descclassname">levitate.visualize.</code><code class="descname">Visualizer</code><span class="sig-paren">(</span><em>array</em>, <em>xlimits=None</em>, <em>ylimits=None</em>, <em>zlimits=None</em>, <em>resolution=10</em>, <em>constant_axis=('y'</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer" title="Permalink to this definition">¶</a></dt>
@@ -1508,6 +1470,43 @@ Uses the color of the elements to show data.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>trace</strong> (<em>dict</em>) – A plotly style dictionary with the trace for the transducers.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate.visualize.Visualizer.find_trap">
+<code class="descname">find_trap</code><span class="sig-paren">(</span><em>start_pos</em>, <em>tolerance=1e-05</em>, <em>time_interval=50</em>, <em>return_path=False</em>, <em>rho=25</em>, <em>radius=0.001</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.find_trap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the approximate location of a levitation trap.</p>
+<p>Find an approximate position of a acoustic levitation trap close to a starting point.
+This is done by following the radiation force in the sound field using an differential
+equation solver. The differential equation is the unphysical equation <span class="math notranslate nohighlight">\(d\vec x/dt  = \vec F(x,t)\)</span>,
+i.e. interpreting the force field as a velocity field.
+This works for finding the location of a trap and the field line from the starting position
+to the trap position, but it can not be seen as a proper kinematic simulation of the system.</p>
+<p>The solving of the above equation takes place until the whole time interval is covered,
+or the tolerance is met. The tolerance is evaluated using the assumption that the force
+is zero at the trap, evaluating the distance from the zero-force position using the force
+gradient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start_pos</strong> (<em>array_like</em><em>, </em><em>3 elements</em>) – The starting point for the solving.</li>
+<li><strong>tolerance</strong> (<em>numeric</em><em>, </em><em>default 10e-6</em>) – The approximate tolerance of the solution, i.e. how close should
+the found position be to the true position, in meters.</li>
+<li><strong>time_interval</strong> (<em>numeric</em><em>, </em><em>default 10</em>) – The unphysical time of the solution range in the differential equation above.</li>
+<li><strong>return_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default False</em>) – Controls if the path from the starting point to the found trap is returned.
+Set to an int to specify the number of points in the path.</li>
+<li><strong>rho</strong> (<em>numeric</em><em>, </em><em>default 25</em>) – The density of the spherical bead.</li>
+<li><strong>radius</strong> (<em>numeric</em><em>, </em><em>default 1e-3</em>) – The radius of the spherical bead.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>trap_pos</strong> (<em>numpy.ndarray</em>) – The found trap position, or the path from the starting position to the trap position, see <code class="xref py py-obj docutils literal notranslate"><span class="pre">return_path</span></code>.</p>
 </td>
 </tr>
 </tbody>
