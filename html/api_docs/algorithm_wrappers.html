@@ -1,0 +1,1707 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Algorithm Wrappers &mdash; Levitate Python Toolbox 2.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Utilities" href="utilities.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Levitate Python Toolbox
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../package.html">Package Organization and Functionality</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../package.html#models">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../package.html#algorithms">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../package.html#visualization">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../package.html#workflow">Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#basic-trap">Basic Trap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#field-superposition">Field Superposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#complex-setups">Complex Setups</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="transducers.html">Transducers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optimization.html">Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.visualize">Visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.materials">Materials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.hardware">Hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Algorithm Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-types">Basic Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#magnitude-squared-types">Magnitude Squared Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#points">Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#collections">Collections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-details">Implementation Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-list">Class list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#public-api">Public API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Basic Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Magnitude Squared Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Collections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#private-classes">Private Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Levitate Python Toolbox</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">API Documentation</a> &raquo;</li>
+        
+      <li>Algorithm Wrappers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api_docs/algorithm_wrappers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-levitate._algorithm">
+<span id="id1"></span><span id="algorithm-wrappers"></span><h1>Algorithm Wrappers<a class="headerlink" href="#module-levitate._algorithm" title="Permalink to this headline">¶</a></h1>
+<p>Implementation of algorithm wrapper protocol.</p>
+<p>The API for the implemented algorithms consists of two parts:
+the actual implementation of the algorithms in <code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplemention</span></code>
+objects, and the wrapper classes <a class="reference internal" href="#levitate._algorithm.AlgorithmBase" title="levitate._algorithm.AlgorithmBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmBase</span></code></a> and its subclasses.
+When objects of the <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a> type is instantiated
+they will automagically be wrapped inside a different object, which is
+returned to the caller.
+The wrapper objects are of different variants, corresponding to the use case.</p>
+<p>Note that it is not intended that a user manually creates any of these objects,
+since there are many pit-falls when choosing the correct type. Instead call the
+implemented algorithms to get a basic algorithm type and manipulate it using
+the arithmetic API to create the desired functionality.
+To validate that an API arithmetic manipulation actually does what was intended,
+simply print the resulting object to inspect the new structure.</p>
+<div class="section" id="basic-types">
+<h2>Basic Types<a class="headerlink" href="#basic-types" title="Permalink to this headline">¶</a></h2>
+<p>The basic type is a simple <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a>, which is the default return type from
+instantiating. When called with transducer complex amplitudes and a set of positions,
+the object evaluates the algorithm implementation with the required parameters and
+returns just the value from the algorithm.</p>
+<p>If the algorithm is bound by using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">&#64;</span></code> operation a new <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a>
+object is created, and the position is implicit in the call.
+This is more efficient for repeated calling with the same position,
+since some parts of the calculation can be cached.</p>
+<p>If the algorithm is weighed with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">*</span></code> operation a new <a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a>
+object is created, and the return from a call is changed. Cost function type
+objects will return the weighed sum of the different parts of the implemented
+algorithm, as well as the jacobians of said value with respect to the transducers.
+The jacobians are returned if a form that allow for simple calculation of the
+jacobians with respect to transducer real part, imaginary part, amplitude, or phase.</p>
+<p>If an algorithm if both bound and weighted it is a <a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a>, created wither
+by binding an <a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a> or by weighting a <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a>.
+This will have the same caching and call signature as a <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a>, but
+the same return values as an <a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a>. This form is the most suitable
+for numerical optimizations.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a></p></td>
+<td><p>Primary class for single point, single algorithms.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a></p></td>
+<td><p>Position-bound class for single point, single algorithms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a></p></td>
+<td><p>Unbound cost functions for single point, single algorithms.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a></p></td>
+<td><p>Cost functions for single point, single algorithms.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="magnitude-squared-types">
+<h2>Magnitude Squared Types<a class="headerlink" href="#magnitude-squared-types" title="Permalink to this headline">¶</a></h2>
+<p>Each of the above types can be used to change the values (and jacobians)
+to calculate the squared magnitude of the values, possible with a static
+target shift applied before taking the magnitude.
+There are four types, <a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredAlgorithm" title="levitate._algorithm.MagnitudeSquaredAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredAlgorithm</span></code></a>, <a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredBoundAlgorithm" title="levitate._algorithm.MagnitudeSquaredBoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredBoundAlgorithm</span></code></a>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnnitudeSquaredUnboundCostFunction</span></code>, and <a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredCostFunction" title="levitate._algorithm.MagnitudeSquaredCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredCostFunction</span></code></a>, each
+corresponding to one of the basic types.
+They are created by taking the absolute value of a basic object, or by subtracting
+a fixed value from a basic object. Note that the square is not apparent from the API,
+which is less intuitive that the other parts in the API.
+In all other regards, the magnitude squared versions behave like their basic counterparts.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredAlgorithm" title="levitate._algorithm.MagnitudeSquaredAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredAlgorithm</span></code></a></p></td>
+<td><p>Magnitude target algorithm class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredBoundAlgorithm" title="levitate._algorithm.MagnitudeSquaredBoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredBoundAlgorithm</span></code></a></p></td>
+<td><p>Magnitude target bound algorithm class.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredUnboundCostFunction" title="levitate._algorithm.MagnitudeSquaredUnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredUnboundCostFunction</span></code></a></p></td>
+<td><p>Magnitude target unbound cost function class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredCostFunction" title="levitate._algorithm.MagnitudeSquaredCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredCostFunction</span></code></a></p></td>
+<td><p>Magnitude target cost function class.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="points">
+<h2>Points<a class="headerlink" href="#points" title="Permalink to this headline">¶</a></h2>
+<p>Points are objects which collect basic objects operating at the same point in space.
+Two objects of the same basic type (or a magnitude squared version of said basic type)
+can be added together. If the algorithm are either unbound or bound to the same
+position, a point-type object is created. Again, there are four types, each corresponding
+to one of the basic types: <a class="reference internal" href="#levitate._algorithm.AlgorithmPoint" title="levitate._algorithm.AlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmPoint</span></code></a>, <a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a>, <a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a>,
+and <a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a>.
+The two algorithm-style points will evaluate all included algorithm and return the individual
+values from the included algorithms. The two cost-function-style points will sum the values
+from the included cost functions.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#levitate._algorithm.AlgorithmPoint" title="levitate._algorithm.AlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmPoint</span></code></a></p></td>
+<td><p>Class for multiple algorithm, single position calculations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a></p></td>
+<td><p>Class for multiple algorithm, single fixed position calculations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a></p></td>
+<td><p>Class for multiple cost function, single position calculations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a></p></td>
+<td><p>Class for multiple cost function, single fixed position calculations.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="collections">
+<h2>Collections<a class="headerlink" href="#collections" title="Permalink to this headline">¶</a></h2>
+<p>Collections are objects which collect point-type object bound to different points.
+There are only two types: <a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a> similar to a <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a>,
+and <a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a> similar to a <a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a>. It is not possible to
+have unbound collections, they would simply be unbound points.
+An <a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a> returns the values from the stored algorithms.
+A <a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a> will sum the values and jacobians of the stored objects.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a></p></td>
+<td><p>Collects algorithms bound to different positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a></p></td>
+<td><p>Collects cost functions bound to different positions.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="implementation-details">
+<h2>Implementation Details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
+<p>To make the API work as intended, there are a couple additional
+classes and functions.
+The base class for the implemented algorithms, <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a> is
+only used as a super class when implementing new algorithms. See its documentation
+for more details on how to extend the package with new algorithm implementations.</p>
+<p>The wrapping of <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a> inside <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> objects is implemented
+in the <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementationMeta" title="levitate._algorithm.AlgorithmImplementationMeta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementationMeta</span></code></a> class, in the <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementationMeta.__call__" title="levitate._algorithm.AlgorithmImplementationMeta.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a> method.
+This also accepts additional <code class="xref py py-obj docutils literal notranslate"><span class="pre">weight</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code> parameters to directly create
+the other three basic types, instead of the default <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a>.</p>
+<p><a class="reference internal" href="#levitate._algorithm.AlgorithmBase" title="levitate._algorithm.AlgorithmBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmBase</span></code></a> is the top-level class for all wrappers, and handles evaluation of
+spatial structures, caching, etc.
+Similarly there is a <a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredBase" title="levitate._algorithm.MagnitudeSquaredBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredBase</span></code></a>, which is wrapping the base <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> objects’
+calculation functions with the magnitude and square.</p>
+</div>
+<div class="section" id="class-list">
+<h2>Class list<a class="headerlink" href="#class-list" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="public-api">
+<h3>Public API<a class="headerlink" href="#public-api" title="Permalink to this headline">¶</a></h3>
+<p>These are the only classes and functions regarded as part of the public API,
+but they will only be used directly when implementing new algorithm types.</p>
+<dl class="class">
+<dt id="levitate._algorithm.AlgorithmImplementation">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">AlgorithmImplementation</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmImplementation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for AlgorithmImplementations.</p>
+<p>The attributes listed below are part of the API and should be
+implemented in subclasses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>array</strong> (<a class="reference internal" href="arrays.html#levitate.arrays.TransducerArray" title="levitate.arrays.TransducerArray"><em>TransducerArray</em></a>) – The array object to use for calculations.</p>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>values_require</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Each key in this dictionary specifies a requirement for
+the <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation.values" title="levitate._algorithm.AlgorithmImplementation.values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code></a> method. The wrapper classes will manage
+calling the method with the specified arguments.</p></li>
+<li><p><strong>jacobians_require</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Each key in this dictionary specifies a requirement for
+the <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation.jacobians" title="levitate._algorithm.AlgorithmImplementation.jacobians"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jacobians</span></code></a> method. The wrapper classes will manage
+calling the method with the specified arguments.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmImplementation.values">
+<code class="sig-name descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmImplementation.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to calculate the value(s) for the algorithm.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmImplementation.jacobians">
+<code class="sig-name descname">jacobians</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmImplementation.jacobians" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to calculate the jacobians for the algorithm.
+This method is optional if the implementation is not used
+as a cost function in optimizations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmImplementation.requirement">
+<em class="property">static </em><code class="sig-name descname">requirement</code><span class="sig-paren">(</span><em class="sig-param">**requirements</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmImplementation.requirement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a set of requirements.</p>
+<p><a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a> objects should define requirements for values and jacobians.
+This function parses the requirements and checks that the request can be met upon call.
+Currently the inputs are converted to a dict and returned as is, but this might change
+without warning in the future.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>complex_transducer_amplitudes</strong> – The algorithm requires the actual complex transducer amplitudes directly.
+This is a fallback requirement when it is not possible to implement and algorithm
+with the other requirements, and no performance optimization is possible.</p></li>
+<li><p><strong>pressure_derivs_summed</strong> – The number of orders of Cartesian spatial derivatives of the total sound pressure field.
+Currently implemented to third order derivatives.
+See <a class="reference internal" href="utilities.html#levitate.utils.pressure_derivs_order" title="levitate.utils.pressure_derivs_order"><code class="xref py py-obj docutils literal notranslate"><span class="pre">levitate.utils.pressure_derivs_order</span></code></a> and <a class="reference internal" href="utilities.html#levitate.utils.num_pressure_derivs" title="levitate.utils.num_pressure_derivs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">levitate.utils.num_pressure_derivs</span></code></a>
+for a description of the structure.</p></li>
+<li><p><strong>pressure_derivs_summed</strong> – Like pressure_derivs_summed, but for individual transducers.</p></li>
+<li><p><strong>spherical_harmonics_summed</strong> – A spherical harmonics decomposition of the total sound pressure field, up to and
+including the order specified.
+where remaining dimensions are determined by the positions.</p></li>
+<li><p><strong>spherical_harmonics_individual</strong> – Like spherical_harmonics_summed, but for individual transducers.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>requirements</strong> (<em>dict</em>) – The parsed requirements.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If one or more of the requested keys is not implemented.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h3>Basic Types<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="levitate._algorithm.Algorithm">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">Algorithm</code><span class="sig-paren">(</span><em class="sig-param">algorithm</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.Algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Primary class for single point, single algorithms.</p>
+<p>This is a wrapper class for <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a> to simplify the manipulation
+and evaluation of the implemented algorithms. Normally it is not necessary to manually
+create the wrapper, since it should be done automagically.
+Many properties are inherited from the underlying algorithm implementation, e.g.
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code>, <a class="reference external" href="https://docs.python.org/3/library/array.html#module-array" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">jacobians</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>algorithm</strong> (<a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a>) – The implemented algorithm to use for calculations.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds this algorithm with another <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> or <a class="reference internal" href="#levitate._algorithm.AlgorithmPoint" title="levitate._algorithm.AlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmPoint</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.AlgorithmPoint" title="levitate._algorithm.AlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmPoint</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Weight the algorithm with a suitable weight.
+The weight needs to have the correct number of dimensions, but will
+otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Bind the algorithm to a point in space. The point needs to have
+3 elements in the first dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Converts to a magnitude target algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredAlgorithm" title="levitate._algorithm.MagnitudeSquaredAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredAlgorithm</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.Algorithm.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em>, <em class="sig-param">position</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.Algorithm.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the algorithm implementation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p></li>
+<li><p><strong>position</strong> (<em>array-like</em>) – The position(s) where to evaluate the algorithm.
+The first dimension needs to have 3 elements.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>values</strong> (<em>ndarray</em>) – The values of the implemented algorithm used to create the wrapper.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.BoundAlgorithm">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">BoundAlgorithm</code><span class="sig-paren">(</span><em class="sig-param">algorithm</em>, <em class="sig-param">position</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.BoundAlgorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Position-bound class for single point, single algorithms.</p>
+<p>See <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> for more precise description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><em>AlgorithmImplementation</em></a>) – The implemented algorithm to use for calculations.</p></li>
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The position to bind to.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds this algorithm with another <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a>,
+<a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a>, or <a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a> or <a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Weight the algorithm with a suitable weight.
+The weight needs to have the correct number of dimensions, but will
+otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Re-bind the algorithm to a new point in space. The point needs to have
+3 elements in the first dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Converts to a magnitude target algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredBoundAlgorithm" title="levitate._algorithm.MagnitudeSquaredBoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredBoundAlgorithm</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.BoundAlgorithm.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.BoundAlgorithm.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the algorithm implementation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>values</strong> (<em>ndarray</em>) – The values of the implemented algorithm used to create the wrapper.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.UnboundCostFunction">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">UnboundCostFunction</code><span class="sig-paren">(</span><em class="sig-param">algorithm</em>, <em class="sig-param">weight</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.UnboundCostFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unbound cost functions for single point, single algorithms.</p>
+<p>See <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> for more precise description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><em>AlgorithmImplementation</em></a>) – The implemented algorithm to use for calculations.</p></li>
+<li><p><strong>weight</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The weight to use for the summation of values. Needs to have the same
+number of dimensions as the <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a> used.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds this algorithm with another <a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a> or <a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Rescale the weight, i.e. multiplies the current weight with the new value.
+The weight needs to have the correct number of dimensions, but will
+otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Bind the algorithm to a point in space. The point needs to have
+3 elements in the first dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Converts to a magnitude target algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredUnboundCostFunction" title="levitate._algorithm.MagnitudeSquaredUnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredUnboundCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.UnboundCostFunction.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em>, <em class="sig-param">position</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.UnboundCostFunction.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the algorithm implementation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p></li>
+<li><p><strong>position</strong> (<em>array-like</em>) – The position(s) where to evaluate the algorithm.
+The first dimension needs to have 3 elements.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>values</strong> (<em>ndarray</em>) – The values of the implemented algorithm used to create the wrapper.</p></li>
+<li><p><strong>jacobians</strong> (<em>ndarray</em>) – The jacobians of the values with respect to the transducers.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.CostFunction">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">CostFunction</code><span class="sig-paren">(</span><em class="sig-param">algorithm</em>, <em class="sig-param">weight</em>, <em class="sig-param">position</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.CostFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cost functions for single point, single algorithms.</p>
+<p>See <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> for more precise description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><em>AlgorithmImplementation</em></a>) – The implemented algorithm to use for calculations.</p></li>
+<li><p><strong>weight</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The weight to use for the summation of values. Needs to have the same
+number of dimensions as the <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a> used.</p></li>
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The position to bind to.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds this algorithm with another <a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a>,
+<a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a>, or <a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a>,or <a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Rescale the weight, i.e. multiplies the current weight with the new value.
+The weight needs to have the correct number of dimensions, but will
+otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Re-bind the algorithm to a new point in space. The point needs to have
+3 elements in the first dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Converts to a magnitude target algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredCostFunction" title="levitate._algorithm.MagnitudeSquaredCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.CostFunction.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.CostFunction.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the algorithm implementation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>values</strong> (<em>ndarray</em>) – The values of the implemented algorithm used to create the wrapper.</p></li>
+<li><p><strong>jacobians</strong> (<em>ndarray</em>) – The jacobians of the values with respect to the transducers.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id3">
+<h3>Magnitude Squared Types<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="levitate._algorithm.MagnitudeSquaredBase">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">MagnitudeSquaredBase</code><span class="sig-paren">(</span><em class="sig-param">algorithm</em>, <em class="sig-param">target</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.MagnitudeSquaredBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for magnitude target algorithms.</p>
+<p>Uses an algorithm  <span class="math notranslate nohighlight">\(A\)</span> to instead calculate <span class="math notranslate nohighlight">\(V = |A - A_0|^2\)</span>,
+i.e. the squared magnitude difference to a target. For multi-dimensional algorithms
+the target needs to have the same (or a broadcastable) shape.
+The jacobians are calculated as <span class="math notranslate nohighlight">\(dV = 2 dA (A-A_0)\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<em>Algorithm-like</em>) – A wrapper of an algorithm implementation, of the same type as the magnitude target.</p></li>
+<li><p><strong>numpy.ndarray</strong> (<em>target</em>) – The static offset target value(s).</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class should not be instantiated directly, only use subclasses.</p>
+</div>
+<dl class="method">
+<dt id="levitate._algorithm.MagnitudeSquaredBase.values">
+<code class="sig-name descname">values</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.MagnitudeSquaredBase.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate squared magnitude difference.</p>
+<p>If the underlying algorithm returns <span class="math notranslate nohighlight">\(A\)</span>, this function returns
+<span class="math notranslate nohighlight">\(|A - A_0|^2\)</span>, where <span class="math notranslate nohighlight">\(A_0\)</span> is the target value.</p>
+<p>For information about parameters, see the documentation of the values function
+of the underlying objects, accessed through the <code class="xref py py-obj docutils literal notranslate"><span class="pre">algorithm</span></code> properties.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.MagnitudeSquaredBase.jacobians">
+<code class="sig-name descname">jacobians</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.MagnitudeSquaredBase.jacobians" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate jacobians squared magnitude difference.</p>
+<p>If the underlying algorithm returns <span class="math notranslate nohighlight">\(dA\)</span>, the derivative of the value(s)
+with respect to the transducers, this function returns
+<span class="math notranslate nohighlight">\(2 dA (A - A_0)\)</span>, where <span class="math notranslate nohighlight">\(A_0\)</span> is the target value.</p>
+<p>For information about parameters, see the documentation of the values function
+of the underlying objects, accessed through the <code class="xref py py-obj docutils literal notranslate"><span class="pre">algorithm</span></code> properties.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.MagnitudeSquaredAlgorithm">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">MagnitudeSquaredAlgorithm</code><span class="sig-paren">(</span><em class="sig-param">algorithm</em>, <em class="sig-param">target</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.MagnitudeSquaredAlgorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Magnitude target algorithm class.</p>
+<p>Calculates the squared magnitude difference between the algorithm value(s)
+and a static target value(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><em>Algorithm</em></a>) – A wrapper of an algorithm implementation.</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The static offset target value(s).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds this algorithm with another <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> or <a class="reference internal" href="#levitate._algorithm.AlgorithmPoint" title="levitate._algorithm.AlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmPoint</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.AlgorithmPoint" title="levitate._algorithm.AlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Weight the algorithm with a suitable weight.
+The weight needs to have the correct number of dimensions, but will
+otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredUnboundCostFunction" title="levitate._algorithm.MagnitudeSquaredUnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredUnboundCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Bind the algorithm to a point in space. The point needs to have
+3 elements in the first dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredBoundAlgorithm" title="levitate._algorithm.MagnitudeSquaredBoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredBoundAlgorithm</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Shifts the current target value(s) with the new values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredAlgorithm" title="levitate._algorithm.MagnitudeSquaredAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredAlgorithm</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.MagnitudeSquaredBoundAlgorithm">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">MagnitudeSquaredBoundAlgorithm</code><span class="sig-paren">(</span><em class="sig-param">algorithm</em>, <em class="sig-param">target</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.MagnitudeSquaredBoundAlgorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Magnitude target bound algorithm class.</p>
+<p>Calculates the squared magnitude difference between the algorithm value(s)
+and a static target value(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><em>BoundAlgorithm</em></a>) – A wrapper of an algorithm implementation.</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The static offset target value(s).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds this algorithm with another <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a>,
+<a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a>, or <a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a>, or <a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Weight the algorithm with a suitable weight.
+The weight needs to have the correct number of dimensions, but will
+otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredCostFunction" title="levitate._algorithm.MagnitudeSquaredCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Re-bind the algorithm to a point in space. The point needs to have
+3 elements in the first dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredBoundAlgorithm" title="levitate._algorithm.MagnitudeSquaredBoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredBoundAlgorithm</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Shifts the current target value(s) with the new values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredBoundAlgorithm" title="levitate._algorithm.MagnitudeSquaredBoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredBoundAlgorithm</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.MagnitudeSquaredUnboundCostFunction">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">MagnitudeSquaredUnboundCostFunction</code><span class="sig-paren">(</span><em class="sig-param">algorithm</em>, <em class="sig-param">target</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.MagnitudeSquaredUnboundCostFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Magnitude target unbound cost function class.</p>
+<p>Calculates the squared magnitude difference between the algorithm value(s)
+and a static target value(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><em>UnboundCostFunction</em></a>) – A wrapper of an algorithm implementation.</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The static offset target value(s).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds this algorithm with another <a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a> or <a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Rescale the weight, i.e. multiplies the current weight with the new value.
+The weight needs to have the correct number of dimensions, but will
+otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredUnboundCostFunction" title="levitate._algorithm.MagnitudeSquaredUnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredUnboundCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Bind the algorithm to a point in space. The point needs to have
+3 elements in the first dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredCostFunction" title="levitate._algorithm.MagnitudeSquaredCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Shifts the current target value(s) with the new values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredUnboundCostFunction" title="levitate._algorithm.MagnitudeSquaredUnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredUnboundCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.MagnitudeSquaredCostFunction">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">MagnitudeSquaredCostFunction</code><span class="sig-paren">(</span><em class="sig-param">algorithm</em>, <em class="sig-param">target</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.MagnitudeSquaredCostFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Magnitude target cost function class.</p>
+<p>Calculates the squared magnitude difference between the algorithm value(s)
+and a static target value(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><em>CostFunction</em></a>) – A wrapper of an algorithm implementation.</p></li>
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The static offset target value(s).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds this algorithm with another <a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a>,
+<a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a>, or <a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a>, or <a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Rescale the weight, i.e. multiplies the current weight with the new value.
+The weight needs to have the correct number of dimensions, but will
+otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredCostFunction" title="levitate._algorithm.MagnitudeSquaredCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Bind the algorithm to a point in space. The point needs to have
+3 elements in the first dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredCostFunction" title="levitate._algorithm.MagnitudeSquaredCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Shifts the current target value(s) with the new values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.MagnitudeSquaredCostFunction" title="levitate._algorithm.MagnitudeSquaredCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MagnitudeSquaredCostFunction</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id4">
+<h3>Points<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="levitate._algorithm.AlgorithmPoint">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">AlgorithmPoint</code><span class="sig-paren">(</span><em class="sig-param">*algorithms</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for multiple algorithm, single position calculations.</p>
+<p>This class collects multiple <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> objects for simultaneous evaluation at
+the same position(s). Since the algorithms can use the same spatial structures
+this is more efficient than to evaluate all the algorithms one by one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*algorithms</strong> (<a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><em>Algorithm</em></a>) – Any number of <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> objects.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds an <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> or <a class="reference internal" href="#levitate._algorithm.AlgorithmPoint" title="levitate._algorithm.AlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmPoint</span></code></a> to the current set
+of algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.AlgorithmPoint" title="levitate._algorithm.AlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Weights all algorithms with the same weight. This requires
+that all the algorithms can actually use the same weight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Binds all the algorithms to the same position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Converts all the algorithms to magnitude target algorithms.
+This requires that all the algorithms can use the same target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.AlgorithmPoint" title="levitate._algorithm.AlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmPoint.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em>, <em class="sig-param">position</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmPoint.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate all algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p></li>
+<li><p><strong>position</strong> (<em>array-like</em>) – The position(s) where to evaluate the algorithms.
+The first dimension needs to have 3 elements.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>values</strong> (<em>list</em>) – A list of the return values from the individual algorithms.
+Depending on the number of dimensions of the algorithms, the
+arrays in the list might not have compatible shapes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.BoundAlgorithmPoint">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">BoundAlgorithmPoint</code><span class="sig-paren">(</span><em class="sig-param">*algorithms</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.BoundAlgorithmPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for multiple algorithm, single fixed position calculations.</p>
+<p>This class collects multiple <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a> bound to the same position(s)
+for simultaneous evaluation. Since the algorithms can use the same spatial
+structures this is more efficient than to evaluate all the algorithms one by one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*algorithms</strong> (<a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><em>BoundAlgorithm</em></a>) – Any number of <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a> objects.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the class is initialized with algorithms bound to different points,
+some of the algorithms are simply discarded.</p>
+</div>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds an <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a> or <a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a> to the current set
+of algorithms. If the newly added algorithm is not bound to the same position,
+an <a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a> will be created and returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a> or <a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Weights all algorithms with the same weight. This requires
+that all the algorithms can actually use the same weight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Re-binds all the algorithms to a new position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Converts all the algorithms to magnitude target algorithms.
+This requires that all the algorithms can use the same target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.BoundAlgorithmPoint.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.BoundAlgorithmPoint.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate all algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>values</strong> (<em>list</em>) – A list of the return values from the individual algorithms.
+Depending on the number of dimensions of the algorithms, the
+arrays in the list might not have compatible shapes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.UnboundCostFunctionPoint">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">UnboundCostFunctionPoint</code><span class="sig-paren">(</span><em class="sig-param">*algorithms</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.UnboundCostFunctionPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for multiple cost function, single position calculations.</p>
+<p>This class collects multiple <a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a> objects for simultaneous evaluation at
+the same position(s). Since the algorithms can use the same spatial structures
+this is more efficient than to evaluate all the algorithms one by one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*algorithms</strong> (<a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><em>UnboundCostFunction</em></a>) – Any number of <a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a> objects.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds an <a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a> or <a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a> to the
+current set of algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Rescale the weights of all algorithms, i.e. multiplies the current set of
+weight with the new value. The weight needs to have the correct number of
+dimensions, but will otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Binds all the algorithms to the same position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Converts all the algorithms to magnitude target algorithms.
+This requires that all the algorithms can use the same target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.UnboundCostFunctionPoint" title="levitate._algorithm.UnboundCostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.UnboundCostFunctionPoint.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em>, <em class="sig-param">position</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.UnboundCostFunctionPoint.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the all cost functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p></li>
+<li><p><strong>position</strong> (<em>array-like</em>) – The position(s) where to evaluate the algorithm.
+The first dimension needs to have 3 elements.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>values</strong> (<em>ndarray</em>) – The summed values of all cost functions.</p></li>
+<li><p><strong>jacobians</strong> (<em>ndarray</em>) – The the summed jacobians of all cost functions.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.CostFunctionPoint">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">CostFunctionPoint</code><span class="sig-paren">(</span><em class="sig-param">*algorithms</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.CostFunctionPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for multiple cost function, single fixed position calculations.</p>
+<p>This class collects multiple <a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a> bound to the same position(s)
+for simultaneous evaluation. Since the algorithms can use the same spatial
+structures this is more efficient than to evaluate all the algorithms one by one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*algorithms</strong> (<a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><em>CostFunction</em></a>) – Any number of <a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a> objects.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the class is initialized with algorithms bound to different points,
+some of the algorithms are simply discarded.</p>
+</div>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds an <a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a> or <a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a> to the  current set of algorithms.
+If the newly added algorithm is not bound to the same position,
+a <a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a> will be created and returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a> or <a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Rescale the weights of all algorithms, i.e. multiplies the current set of
+weight with the new value. The weight needs to have the correct number of
+dimensions, but will otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">&#64;</code></dt>
+<dd><p>Re-binds all the algorithms to a new position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">-</code></dt>
+<dd><p>Converts all the algorithms to magnitude target algorithms.
+This requires that all the algorithms can use the same target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.CostFunctionPoint.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.CostFunctionPoint.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the all cost functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>values</strong> (<em>ndarray</em>) – The summed values of all cost functions.</p></li>
+<li><p><strong>jacobians</strong> (<em>ndarray</em>) – The the summed jacobians of all cost functions.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id5">
+<h3>Collections<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="levitate._algorithm.AlgorithmCollection">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">AlgorithmCollection</code><span class="sig-paren">(</span><em class="sig-param">*algorithms</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collects algorithms bound to different positions.</p>
+<p>Convenience class to evaluate and manipulate algorithms bound to
+different positions in space. Will not improve the computational
+efficiency beyond the gains from merging the algorithms bound
+to the same positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*algorithms</strong> (<a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><em>BoundAlgorithm</em></a><em> or </em><a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><em>BoundAlgorithmPoint</em></a>) – Any number of algorithms bound to any number of points.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds an additional <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a>, <a class="reference internal" href="#levitate._algorithm.BoundAlgorithmPoint" title="levitate._algorithm.BoundAlgorithmPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithmPoint</span></code></a>
+or <a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a> to the set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.AlgorithmCollection" title="levitate._algorithm.AlgorithmCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmCollection</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Weights all algorithms in the set with the same weight.
+Requires that they can actually be weighted with the same
+weight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFuncitonCollection</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmCollection.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmCollection.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate all algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>values</strong> (<em>list</em>) – A list of the return values from the individual algorithms.
+Depending on the number of dimensions of the algorithms, the
+arrays in the list might not have compatible shapes, and some
+might be lists with values corresponding to the same point in space.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.CostFunctionCollection">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">CostFunctionCollection</code><span class="sig-paren">(</span><em class="sig-param">*algorithms</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.CostFunctionCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collects cost functions bound to different positions.</p>
+<p>Convenience class to evaluate and manipulate cost functions bound to
+different positions in space. Will not improve the computational
+efficiency beyond the gains from merging the algorithms bound
+to the same positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*algorithms</strong> (<a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><em>CostFunction</em></a><em> or </em><a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><em>CostFunctionPoint</em></a>) – Any number of cost functions bound to any number of points.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt>
+<code class="sig-name descname">+</code></dt>
+<dd><p>Adds an additional <a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a>, <a class="reference internal" href="#levitate._algorithm.CostFunctionPoint" title="levitate._algorithm.CostFunctionPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionPoint</span></code></a>
+or <a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a> to the set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#levitate._algorithm.CostFunctionCollection" title="levitate._algorithm.CostFunctionCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunctionCollection</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">*</code></dt>
+<dd><p>Rescale the weights, i.e. multiplies the current weights with the new value.
+The weight needs to have the correct number of dimensions, but will
+otherwise broadcast properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFuncitonCollection</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.CostFunctionCollection.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.CostFunctionCollection.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the all cost functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>compelx_transducer_amplitudes</strong> (<em>complex numpy.ndarray</em>) – Complex representation of the transducer phases and amplitudes of the
+array used to create the algorithm.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>values</strong> (<em>ndarray</em>) – The summed values of all cost functions.</p></li>
+<li><p><strong>jacobians</strong> (<em>ndarray</em>) – The the summed jacobians of all cost functions.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="private-classes">
+<h3>Private Classes<a class="headerlink" href="#private-classes" title="Permalink to this headline">¶</a></h3>
+<p>These classes are not considered part of the public API, and should not appear
+other than as superclasses.</p>
+<dl class="class">
+<dt id="levitate._algorithm.AlgorithmBase">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">AlgorithmBase</code><a class="headerlink" href="#levitate._algorithm.AlgorithmBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for all algorithm type objects.</p>
+<p>This wraps a few common procedures for algorithms,
+primarily dealing with preparation and evaluation of requirements
+for algorithm implementations.
+The algorithms support some numeric manipulations to simplify
+the creation of variants of the basic types.
+Not all types of algorithm support all operations, and the order of
+operation can matter in some cases.
+If unsure if the arithmetics return the desired outcome, print the
+resulting object to inspect the new structure.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class should not be instantiated directly.</p>
+</div>
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmBase._type">
+<em class="property">property </em><code class="sig-name descname">_type</code><a class="headerlink" href="#levitate._algorithm.AlgorithmBase._type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the algorithm.</p>
+<p>In this context <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></a> refers for the combination of <code class="xref py py-obj docutils literal notranslate"><span class="pre">bound</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">cost</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmBase._evaluate_requirements">
+<code class="sig-name descname">_evaluate_requirements</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em>, <em class="sig-param">spatial_structures</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmBase._evaluate_requirements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate requirements for given complex transducer amplitudes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>complex_transducer_amplitudes</strong> (<em>complex ndarray</em>) – The transducer phase and amplitude on complex form,
+must correspond to the same array used to create the algorithm.</p></li>
+<li><p><strong>spatial_structures</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary with the calculated spatial structures required by the algorithm(s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>requirements</strong> (<em>dict</em>) – Has (at least) the same fields as <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.requires</span></code>, but instead of values specifying the level
+of the requirement, this dict has the evaluated requirement at the positions and
+transducer amplitudes specified.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmBase._spatial_structures">
+<code class="sig-name descname">_spatial_structures</code><span class="sig-paren">(</span><em class="sig-param">position=None</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmBase._spatial_structures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate spatial structures.</p>
+<p>Uses <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.requires</span></code> to fill a dictionary of calculated required
+spatial structures at a give position to satisfy the algorithm(s) used
+for calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>position</strong> (<em>ndarray</em>) – The position where to calculate the spatial structures needed.
+Shape (3,…). If position is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> or not passed, it is assumed
+that the algorithm is bound to a position and <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.position</span></code> will be used.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sptaial_structures</strong> (<em>dict</em>) – Dictionary with the spatial structures required to fulfill the evaluation
+of the algorithm(s).</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Algorithm which are bound to a position will cache the spatial structures. It is
+therefore important to not manually change the position, since that will not clear the cache
+and the new position is not actually used.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.AlgorithmImplementationMeta">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">AlgorithmImplementationMeta</code><a class="headerlink" href="#levitate._algorithm.AlgorithmImplementationMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metaclass to wrap <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a> objects in <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> objects.</p>
+<p>API-wise it is nice to call the implementation classes when requesting an algorithm.
+Since the behavior of the objects should change depending on if they are added etc,
+it would be very difficult to keep track of both the current state and the actual algorithm
+in the same top level object. This class will upon object creation instantiate the called class,
+but also instantiate and return an <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a>-type object.</p>
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmImplementationMeta.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">*cls_args</em>, <em class="sig-param">weight=None</em>, <em class="sig-param">position=None</em>, <em class="sig-param">**cls_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._algorithm.AlgorithmImplementationMeta.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate an <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a>-type object, using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">cls</span></code> as the base algorithm implementation.</p>
+<p>The actual <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a>-type will be chosen based on which optional parameters are passed.
+If no parameters are passed (default) an <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a> object is returned.
+If <code class="xref py py-obj docutils literal notranslate"><span class="pre">weight</span></code> is passed an <a class="reference internal" href="#levitate._algorithm.UnboundCostFunction" title="levitate._algorithm.UnboundCostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnboundCostFunction</span></code></a> object is returned.
+If <code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code> is passed a <a class="reference internal" href="#levitate._algorithm.BoundAlgorithm" title="levitate._algorithm.BoundAlgorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BoundAlgorithm</span></code></a> object is returned.
+If both <code class="xref py py-obj docutils literal notranslate"><span class="pre">weight</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code> is passed a <a class="reference internal" href="#levitate._algorithm.CostFunction" title="levitate._algorithm.CostFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CostFunction</span></code></a> object is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cls</strong> (<em>class</em>) – The <a class="reference internal" href="#levitate._algorithm.AlgorithmImplementation" title="levitate._algorithm.AlgorithmImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlgorithmImplementation</span></code></a> class to use for calculations.</p></li>
+<li><p><strong>*cls_args</strong> – Args passed to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">cls</span></code>.</p></li>
+<li><p><strong>weight</strong> (<em>numeric</em>) – Optional weight.</p></li>
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – Optional array to bind the algorithm to, shape (3,…).</p></li>
+<li><p><strong>**cls_kwargs</strong> – Keyword arguments passed to <code class="xref py py-obj docutils literal notranslate"><span class="pre">cls</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate._algorithm.AlgorithmMeta">
+<em class="property">class </em><code class="sig-prename descclassname">levitate._algorithm.</code><code class="sig-name descname">AlgorithmMeta</code><a class="headerlink" href="#levitate._algorithm.AlgorithmMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metaclass for <a class="reference internal" href="#levitate._algorithm.Algorithm" title="levitate._algorithm.Algorithm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Algorithm</span></code></a>-type objects.</p>
+<p>This metaclass is only needed to make the <a class="reference internal" href="#levitate._algorithm.AlgorithmMeta._type" title="levitate._algorithm.AlgorithmMeta._type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_type</span></code></a> property available
+at both class and instance level.</p>
+<dl class="method">
+<dt id="levitate._algorithm.AlgorithmMeta._type">
+<em class="property">property </em><code class="sig-name descname">_type</code><a class="headerlink" href="#levitate._algorithm.AlgorithmMeta._type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the algorithm.</p>
+<p>In this context <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></a> refers for the combination of <code class="xref py py-obj docutils literal notranslate"><span class="pre">bound</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">cost</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="utilities.html" class="btn btn-neutral float-left" title="Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Carl Andersson
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

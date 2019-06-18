@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Package Organization and Functionality &mdash; Levitate Python Toolbox 1.0.1 documentation</title>
+  <title>Package Organization and Functionality &mdash; Levitate Python Toolbox 2.0.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.0
+                2.0
               </div>
             
           
@@ -100,12 +100,34 @@
 <li class="toctree-l2"><a class="reference internal" href="examples.html#complex-setups">Complex Setups</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api_docs.html">API Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.arrays">Arrays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.transducers">Transducers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.algorithms">Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.optimization">Optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_docs.html#module-levitate.visualize">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_docs/index.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/transducers.html">Transducers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/arrays.html">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/optimization.html">Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/utilities.html#module-levitate.visualize">Visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/utilities.html#module-levitate.materials">Materials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/utilities.html#module-levitate.hardware">Hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/algorithm_wrappers.html">Algorithm Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#basic-types">Basic Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#points">Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#collections">Collections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#implementation-details">Implementation Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#class-list">Class list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#public-api">Public API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#id2">Basic Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#id3">Magnitude Squared Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#id4">Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#id5">Collections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#private-classes">Private Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -174,7 +196,7 @@
             
   <div class="section" id="package-organization-and-functionality">
 <h1>Package Organization and Functionality<a class="headerlink" href="#package-organization-and-functionality" title="Permalink to this headline">¶</a></h1>
-<p>This section covers a broad overview of the package, for a more detailed description see the full <a class="reference internal" href="api_docs.html#api-docs"><span class="std std-ref">API Documentation</span></a>.
+<p>This section covers a broad overview of the package, for a more detailed description see the sections in the full <a class="reference internal" href="api_docs/index.html#api-docs"><span class="std std-ref">API Documentation</span></a>.
 The package is created using the de facto numerical and scientific computing libraries for python, <a class="reference external" href="http://www.numpy.org">Numpy</a> and <a class="reference external" href="http://www.scipy.org">Scipy</a>.
 There are three major parts to the toolbox: models, algorithms, and visualization.</p>
 <div class="section" id="models">
@@ -203,12 +225,12 @@ The current implementation is focused on providing representations of the sound 
 <p>Designing a sound field for a specific application involves choosing appropriate combinations of cost functions and optimization routines.
 A typical workflow from application specification to result is:</p>
 <ol class="arabic simple">
-<li>Specify what the sound field should do; <em>Levitate a bead.</em></li>
-<li>Find the appropriate mathematical formulation and choose the equivalent cost functions; <em>Maximize the Gor’kov Laplacian and minimize the sound pressure</em></li>
-<li>Choose an optimization routine; <em>minimization with fixed amplitudes</em></li>
-<li>Run the optimization.</li>
-<li>Visualize the resulting sound field.</li>
-<li>Export the result to use with a physical array.</li>
+<li><p>Specify what the sound field should do; <em>Levitate a bead.</em></p></li>
+<li><p>Find the appropriate mathematical formulation and choose the equivalent cost functions; <em>Maximize the Gor’kov Laplacian and minimize the sound pressure</em></p></li>
+<li><p>Choose an optimization routine; <em>minimization with fixed amplitudes</em></p></li>
+<li><p>Run the optimization.</p></li>
+<li><p>Visualize the resulting sound field.</p></li>
+<li><p>Export the result to use with a physical array.</p></li>
 </ol>
 <p>For more detailed descriptions of workflows, refer to the <a class="reference internal" href="examples.html#examples"><span class="std std-ref">Examples</span></a>.</p>
 </div>
