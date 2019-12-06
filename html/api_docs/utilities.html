@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Utilities &mdash; Levitate Python Toolbox 2.1.0 documentation</title>
+  <title>Utilities &mdash; Levitate Python Toolbox 2.2.0 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Algorithm Wrappers" href="algorithm_wrappers.html" />
+    <link rel="next" title="Field Wrappers" href="field_wrappers.html" />
     <link rel="prev" title="Optimization" href="optimization.html" /> 
 </head>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.2.0
               </div>
             
           
@@ -98,12 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#basic-trap">Basic Trap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#field-superposition">Field Superposition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#complex-setups">Complex Setups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#force-diagrams">Force Diagrams</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="transducers.html">Transducers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arrays.html">Arrays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html">Fields</a></li>
 <li class="toctree-l2"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#module-levitate.visualize">Visualization</a></li>
@@ -111,19 +112,19 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-levitate.hardware">Hardware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html">Algorithm Wrappers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#basic-types">Basic Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#points">Points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#collections">Collections</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#implementation-details">Implementation Details</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#class-list">Class list</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#public-api">Public API</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id2">Basic Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id3">Magnitude Squared Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id4">Points</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id5">Collections</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#private-classes">Private Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html">Field Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#basic-types">Basic Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#squared-types">Squared Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#multifield">MultiField</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#multipoint">MultiPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#implementation-details">Implementation Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#class-list">Class list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#public-api">Public API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#id2">Basic Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#multifields">MultiFields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#multipoints">MultiPoints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#private-classes">Private Classes</a></li>
 </ul>
 </li>
 </ul>
@@ -224,7 +225,7 @@ where <span class="math notranslate nohighlight">\(\log\)</span> is the base 10 
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>numeric</em>) – Linear amplitude or radio, can be complex.</p></li>
-<li><p><strong>power</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default False</em>) – Toggles if the ration is proportional to power.</p></li>
+<li><p><strong>power</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>default False</em>) – Toggles if the ration is proportional to power.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -241,7 +242,7 @@ where <span class="math notranslate nohighlight">\(\log\)</span> is the base 10 
 Note that the input is the pressure amplitude, not the RMS value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>p</strong> (<em>numeric</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.7)"><em>complex</em></a>) – The complex sound pressure amplitude.</p>
+<dd class="field-odd"><p><strong>p</strong> (<em>numeric</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.8)"><em>complex</em></a>) – The complex sound pressure amplitude.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>SPL</strong> (<em>numeric</em>) – The sound pressure level</p>
@@ -260,7 +261,7 @@ Note that the input the velocity amplitude(s), not the RMS values.</p>
 be the three Cartesian components of the velocity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>u</strong> (<em>numeric</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.7)"><em>complex</em></a>) – The complex sound velocity amplitude, or the vector velocity.</p>
+<dd class="field-odd"><p><strong>u</strong> (<em>numeric</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#complex" title="(in Python v3.8)"><em>complex</em></a>) – The complex sound velocity amplitude, or the vector velocity.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>SVL</strong> (<em>numeric</em>) – The sound velocity level</p>
@@ -283,8 +284,8 @@ to the maximum order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>max_order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The maximum order to iterate to.</p></li>
-<li><p><strong>min_order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The order to start iterations from, default 0</p></li>
+<li><p><strong>max_order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The maximum order to iterate to.</p></li>
+<li><p><strong>min_order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The order to start iterations from, default 0</p></li>
 </ul>
 </dd>
 </dl>
@@ -374,8 +375,8 @@ If no axis is specified, the first suitable axis will be used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>values</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The spherical harmonics expansion coefficients of a field.</p></li>
-<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The axis over which to sum.</p></li>
+<li><p><strong>values</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The spherical harmonics expansion coefficients of a field.</p></li>
+<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – The axis over which to sum.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -388,10 +389,10 @@ If no axis is specified, the first suitable axis will be used.</p>
 
 <div class="section" id="module-levitate.visualize">
 <span id="visualization"></span><h2>Visualization<a class="headerlink" href="#module-levitate.visualize" title="Permalink to this headline">¶</a></h2>
-<p>Visualization methods based on the plotly graphing library, and some connivance functions.</p>
+<p>Visualization methods based on the plotly graphing library, and some convenience functions.</p>
 <dl class="class">
 <dt id="levitate.visualize.Visualizer">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.visualize.</code><code class="sig-name descname">Visualizer</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">xlimits=None</em>, <em class="sig-param">ylimits=None</em>, <em class="sig-param">zlimits=None</em>, <em class="sig-param">resolution=10</em>, <em class="sig-param">constant_axis=('y'</em>, <em class="sig-param">0)</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.visualize.</code><code class="sig-name descname">Visualizer</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">xlimits=None</em>, <em class="sig-param">ylimits=None</em>, <em class="sig-param">zlimits=None</em>, <em class="sig-param">resolution=10</em>, <em class="sig-param">display_scale='mm'</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle array visualizations.</p>
 <p>Two different style of plots are currently implemented: scalar field
 visualizations and transducer visualizations. The methods return
@@ -407,15 +408,15 @@ for high-resolution plots.</p>
 <li><p><strong>ylimits</strong> (<em>2 element array_like</em>) – Override for the default y limits</p></li>
 <li><p><strong>zlimits</strong> (<em>2 element array_like</em>) – Override for the default z limits</p></li>
 <li><p><strong>resolution</strong> (<em>numeric</em><em>, </em><em>default 10</em>) – Resolution of the plots, in elements per wavelength.</p></li>
-<li><p><strong>constant_axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – <code class="xref py py-obj docutils literal notranslate"><span class="pre">(axis,</span> <span class="pre">value)</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">axis</span></code> where <code class="xref py py-obj docutils literal notranslate"><span class="pre">axis</span></code> is in <code class="xref py py-obj docutils literal notranslate"><span class="pre">['x',</span> <span class="pre">'y',</span> <span class="pre">'z']</span></code> and indicates
+<li><p><strong>constant_axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – <code class="xref py py-obj docutils literal notranslate"><span class="pre">(axis,</span> <span class="pre">value)</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">axis</span></code> where <code class="xref py py-obj docutils literal notranslate"><span class="pre">axis</span></code> is in <code class="xref py py-obj docutils literal notranslate"><span class="pre">['x',</span> <span class="pre">'y',</span> <span class="pre">'z']</span></code> and indicates
 which axis to keep constant in the plots. The value indicates at which value
 the slice is taken. Default to <code class="xref py py-obj docutils literal notranslate"><span class="pre">('y',</span> <span class="pre">0)</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="method">
-<dt id="levitate.visualize.Visualizer.scalar_field">
-<code class="sig-name descname">scalar_field</code><span class="sig-paren">(</span><em class="sig-param">calculator</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.scalar_field" title="Permalink to this definition">¶</a></dt>
+<dt id="levitate.visualize.Visualizer.field_slice">
+<code class="sig-name descname">field_slice</code><span class="sig-paren">(</span><em class="sig-param">calculator</em>, <em class="sig-param">min=None</em>, <em class="sig-param">max=None</em>, <em class="sig-param">trace_type='surface'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.field_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate and prepare a scalar field visualization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -434,19 +435,19 @@ previous callable, the first one called with the mesh.</p></li>
 
 <dl class="method">
 <dt id="levitate.visualize.Visualizer.pressure">
-<code class="sig-name descname">pressure</code><span class="sig-paren">(</span><em class="sig-param">min=130</em>, <em class="sig-param">max=170</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.pressure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pressure</code><span class="sig-paren">(</span><em class="sig-param">min=130</em>, <em class="sig-param">max=170</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.pressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Visualize pressure field.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="levitate.visualize.Visualizer.velocity">
-<code class="sig-name descname">velocity</code><span class="sig-paren">(</span><em class="sig-param">min=130</em>, <em class="sig-param">max=170</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.velocity" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">velocity</code><span class="sig-paren">(</span><em class="sig-param">min=130</em>, <em class="sig-param">max=170</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.velocity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Visualize velocity field.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="levitate.visualize.Visualizer.transducers">
-<code class="sig-name descname">transducers</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">phases=None</em>, <em class="sig-param">amplitudes=None</em>, <em class="sig-param">signature_pos=None</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.transducers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">transducers</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">phases=None</em>, <em class="sig-param">amplitudes=None</em>, <em class="sig-param">signature_pos=None</em>, <em class="sig-param">trace_type='mesh3d'</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.transducers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create transducer visualization.</p>
 <p>A 3d scatter trace of the transducer elements in an array.
 Uses the color of the elements to show data.</p>
@@ -484,7 +485,7 @@ gradient.</p>
 <li><p><strong>tolerance</strong> (<em>numeric</em><em>, </em><em>default 10e-6</em>) – The approximate tolerance of the solution, i.e. how close should
 the found position be to the true position, in meters.</p></li>
 <li><p><strong>time_interval</strong> (<em>numeric</em><em>, </em><em>default 10</em>) – The unphysical time of the solution range in the differential equation above.</p></li>
-<li><p><strong>return_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default False</em>) – Controls if the path from the starting point to the found trap is returned.
+<li><p><strong>return_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>default False</em>) – Controls if the path from the starting point to the found trap is returned.
 Set to an int to specify the number of points in the path.</p></li>
 <li><p><strong>rho</strong> (<em>numeric</em><em>, </em><em>default 25</em>) – The density of the spherical bead.</p></li>
 <li><p><strong>radius</strong> (<em>numeric</em><em>, </em><em>default 1e-3</em>) – The radius of the spherical bead.</p></li>
@@ -492,6 +493,57 @@ Set to an int to specify the number of points in the path.</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>trap_pos</strong> (<em>numpy.ndarray</em>) – The found trap position, or the path from the starting position to the trap position, see <code class="xref py py-obj docutils literal notranslate"><span class="pre">return_path</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate.visualize.Visualizer.force_diagram_traces">
+<code class="sig-name descname">force_diagram_traces</code><span class="sig-paren">(</span><em class="sig-param">position, range=None, label=None, color=None, radius_sphere=0.001, force_calculator=None, scale_to_gravity=True, sphere_material=None, _trace_id=[0], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.force_diagram_traces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the force spatial dependency.</p>
+<p>Calculates the radiation force on a bead along the three Cartesian axes centered at a position.
+This is visualized as a 3x3 matrix style plot, with the columns corresponding to movement along
+one of the Cartesian axes, and each row corresponds to a component of the force vector.</p>
+<p>This function only creates the definition of the traces, without any layout.
+Use the <a class="reference internal" href="#levitate.visualize.Visualizer.force_diagram_layout" title="levitate.visualize.Visualizer.force_diagram_layout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">force_diagram_layout</span></code></a> to generate a suitable layout. If needed, it is possible to add
+multiple traces at different points or different array settings etc., by calling this function
+multiple times and concatenating the lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>array_like</em><em>, </em><em>3 elements</em>) – The center position around which to evaluate.</p></li>
+<li><p><strong>range</strong> (<em>numeric</em><em>, </em><em>optional</em>) – Specifies how far away the force should be calculated along each axis.
+Defaults to one wavelength.</p></li>
+<li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – The label of the traces in the plots.</p></li>
+<li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Manually specifying the color of the traces lines.</p></li>
+<li><p><strong>radius_sphere</strong> (<em>numeric</em><em>, </em><em>optional</em>) – Specifies the radius of the spherical bead for force calculations.
+Default 1 mm.</p></li>
+<li><p><strong>force_calculator</strong> (<em>callable</em><em>, </em><em>optional</em>) – The force calculator to use to calculate the force. If none is specified,
+a default calculator will be created using <code class="xref py py-obj docutils literal notranslate"><span class="pre">SphericalHarmonicsForce</span></code> of order <span class="math notranslate nohighlight">\(ka+3\)</span>.</p></li>
+<li><p><strong>scale_to_gravity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>default True</em>) – Toggles if the force is scaled to gravitational force or not.</p></li>
+<li><p><strong>sphere_material</strong> (<a class="reference internal" href="#levitate.materials.Material" title="levitate.materials.Material"><em>Material</em></a>) – Specification of the sphere material. Used for the force calculator and gravitational force.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>traces</strong> (<em>list</em>) – A list of dictionaries specifying the traces in a format compatible with plotly.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate.visualize.Visualizer.force_diagram_layout">
+<code class="sig-name descname">force_diagram_layout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#levitate.visualize.Visualizer.force_diagram_layout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dictionary specifying a layout suitable for force diagrams.</p>
+<p>Specification of a layout used in combination with <a class="reference internal" href="#levitate.visualize.Visualizer.force_diagram_traces" title="levitate.visualize.Visualizer.force_diagram_traces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">force_diagram_traces</span></code></a>
+to visualize the radiation force on a bead around a central point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p><strong>layout</strong> (<em>dict</em>) –</p>
+<dl class="simple">
+<dt>A dictionary with specifications for the 3x3 matrix of axes</dt><dd><p>to show forces around a central point.</p>
+</dd>
+</dl>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -519,7 +571,7 @@ resolve the conflict using either the global or the local properties.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Updating global material properties will change the properties throughout
-the entire package, but some classes (notably the algorithms) pre-calculate
+the entire package, but some classes (notably the fields) pre-calculate
 a lot of material-dependent properties. These properties will <strong>NOT</strong> be
 updated after a material update. It is therefore highly recommended to
 define the material properties once in the beginning of a session.</p>
@@ -628,8 +680,8 @@ is the specific gas constant for the gas.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>temperature</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The ambient temperature, in degrees Celsius. Defaults to 20.</p></li>
-<li><p><strong>pressure</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The static ambient air pressure, in Pa. Defaults to 101325.</p></li>
+<li><p><strong>temperature</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – The ambient temperature, in degrees Celsius. Defaults to 20.</p></li>
+<li><p><strong>pressure</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – The static ambient air pressure, in Pa. Defaults to 101325.</p></li>
 </ul>
 </dd>
 </dl>
@@ -775,7 +827,7 @@ Internally uses <code class="xref py py-obj docutils literal notranslate"><span 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>complex_values</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The complex transducer values for the array.
+<li><p><strong>complex_values</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The complex transducer values for the array.
 The order of the transducers must match the internal order of the array.</p></li>
 <li><p><strong>filename</strong> (<em>string</em>) – The filename of the file to create.</p></li>
 </ul>
@@ -800,8 +852,8 @@ previously written with said function, or with similar conventions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>String</em><em> or </em><em>open file</em>) – The file to read. See <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fromfile.html#numpy.fromfile" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.fromfile</span></code></a>.</p></li>
-<li><p><strong>num_transducers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of transducers in the array. This is important to be able to reshape
+<li><p><strong>file</strong> (<em>String</em><em> or </em><em>open file</em>) – The file to read. See <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fromfile.html#numpy.fromfile" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.fromfile</span></code></a>.</p></li>
+<li><p><strong>num_transducers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of transducers in the array. This is important to be able to reshape
 the data and have the correct number of states in the output.</p></li>
 </ul>
 </dd>
@@ -833,17 +885,17 @@ This makes it relatively easy to create closed paths by ensuring that the last s
 and the first state is designed to levitate at (almost) the same position.</p>
 <p>The required binary file <code class="xref py py-obj docutils literal notranslate"><span class="pre">array_control</span></code> is compiled from the included c++ source files if not present.
 Inspect the makefile in unix systems, or make.bat on windows to see how the files are compiled.
-If the compilation fails a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a> is raised. If the binary already exists it will be used.</p>
+If the compilation fails a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a> is raised. If the binary already exists it will be used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ip</strong> (<em>string</em><em>, </em><em>default '127.0.0.1'</em>) – The IP address to use for the local TCP-connection.</p></li>
-<li><p><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 0</em>) – The port to use for the TCP connection.</p></li>
-<li><p><strong>use_array</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – Set to false to not try to connect to an array, just run the c++
+<li><p><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>default 0</em>) – The port to use for the TCP connection.</p></li>
+<li><p><strong>use_array</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>default True</em>) – Set to false to not try to connect to an array, just run the c++
 executable in the background. Mostly for debugging.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 0</em>) – Control the verbosity level of the c++ program.
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>default 0</em>) – Control the verbosity level of the c++ program.
 0 will not print anything, higher values will give more information.</p></li>
-<li><p><strong>normalize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>default True</em>) – Toggles normalization of the state amplitudes.</p></li>
+<li><p><strong>normalize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>default True</em>) – Toggles normalization of the state amplitudes.</p></li>
 </ul>
 </dd>
 </dl>
@@ -883,7 +935,7 @@ executable in the background. Mostly for debugging.</p></li>
 <dd><p>Go to the next state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many states to move, default 1.</p>
+<dd class="field-odd"><p><strong>count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many states to move, default 1.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -894,7 +946,7 @@ executable in the background. Mostly for debugging.</p></li>
 <dd><p>Go to the previous state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many states to move, default 1.</p>
+<dd class="field-odd"><p><strong>count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many states to move, default 1.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -942,7 +994,7 @@ This is not to be confused with <code class="xref py py-obj docutils literal not
 reads a file to a numpy.array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The file to read.</p>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The file to read.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -960,7 +1012,7 @@ reads a file to a numpy.array.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="algorithm_wrappers.html" class="btn btn-neutral float-right" title="Algorithm Wrappers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="field_wrappers.html" class="btn btn-neutral float-right" title="Field Wrappers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="optimization.html" class="btn btn-neutral float-left" title="Optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title> &mdash; Levitate Python Toolbox 2.1.0 documentation</title>
+  <title> &mdash; Levitate Python Toolbox 2.2.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.2.0
               </div>
             
           
@@ -97,12 +97,13 @@
 <li class="toctree-l2"><a class="reference internal" href="examples.html#basic-trap">Basic Trap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#field-superposition">Field Superposition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#complex-setups">Complex Setups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#force-diagrams">Force Diagrams</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api_docs/index.html">API Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/transducers.html">Transducers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/arrays.html">Arrays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_docs/algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/fields.html">Fields</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/optimization.html">Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api_docs/utilities.html#module-levitate.visualize">Visualization</a></li>
@@ -110,19 +111,19 @@
 <li class="toctree-l3"><a class="reference internal" href="api_docs/utilities.html#module-levitate.hardware">Hardware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api_docs/algorithm_wrappers.html">Algorithm Wrappers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#basic-types">Basic Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#points">Points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#collections">Collections</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#implementation-details">Implementation Details</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_docs/algorithm_wrappers.html#class-list">Class list</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#public-api">Public API</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#id2">Basic Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#id3">Magnitude Squared Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#id4">Points</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#id5">Collections</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_docs/algorithm_wrappers.html#private-classes">Private Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/field_wrappers.html">Field Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/field_wrappers.html#basic-types">Basic Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/field_wrappers.html#squared-types">Squared Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/field_wrappers.html#multifield">MultiField</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/field_wrappers.html#multipoint">MultiPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/field_wrappers.html#implementation-details">Implementation Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/field_wrappers.html#class-list">Class list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/field_wrappers.html#public-api">Public API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/field_wrappers.html#id2">Basic Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/field_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/field_wrappers.html#multifields">MultiFields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/field_wrappers.html#multipoints">MultiPoints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_docs/field_wrappers.html#private-classes">Private Classes</a></li>
 </ul>
 </li>
 </ul>
@@ -248,15 +249,16 @@ The easiest is to use pip to install the latest stable release from PyPI:</p>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#basic-trap">Basic Trap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#field-superposition">Field Superposition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#complex-setups">Complex Setups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#force-diagrams">Force Diagrams</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api_docs/index.html">API Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/transducers.html">Transducers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/arrays.html">Arrays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_docs/algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/fields.html">Fields</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/optimization.html">Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/utilities.html">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api_docs/algorithm_wrappers.html">Algorithm Wrappers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_docs/field_wrappers.html">Field Wrappers</a></li>
 </ul>
 </li>
 </ul>

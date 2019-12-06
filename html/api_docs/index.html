@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API Documentation &mdash; Levitate Python Toolbox 2.1.0 documentation</title>
+  <title>API Documentation &mdash; Levitate Python Toolbox 2.2.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.2.0
               </div>
             
           
@@ -98,12 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#basic-trap">Basic Trap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#field-superposition">Field Superposition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#complex-setups">Complex Setups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#force-diagrams">Force Diagrams</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="transducers.html">Transducers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arrays.html">Arrays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html">Fields</a></li>
 <li class="toctree-l2"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.visualize">Visualization</a></li>
@@ -111,19 +112,19 @@
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.hardware">Hardware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html">Algorithm Wrappers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#basic-types">Basic Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#points">Points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#collections">Collections</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#implementation-details">Implementation Details</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#class-list">Class list</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#public-api">Public API</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id2">Basic Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id3">Magnitude Squared Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id4">Points</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id5">Collections</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#private-classes">Private Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html">Field Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#basic-types">Basic Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#squared-types">Squared Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#multifield">MultiField</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#multipoint">MultiPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#implementation-details">Implementation Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#class-list">Class list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#public-api">Public API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#id2">Basic Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#multifields">MultiFields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#multipoints">MultiPoints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#private-classes">Private Classes</a></li>
 </ul>
 </li>
 </ul>
@@ -199,7 +200,7 @@
 <p>Levitate, a python package for simulating acoustic levitation using ultrasonic transducer arrays.</p>
 <p>The API consists of four main modules, and a few supporting modules.
 The main modules contain models to handle transducers and transducer arrays, in the <a class="reference internal" href="transducers.html#module-levitate.transducers" title="levitate.transducers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transducers</span></code></a> and <a class="reference internal" href="arrays.html#module-levitate.arrays" title="levitate.arrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arrays</span></code></a> modules respectively,
-algorithms to calculate physical properties in the <a class="reference internal" href="algorithms.html#module-levitate.algorithms" title="levitate.algorithms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">algorithms</span></code></a> module, and some numerical optimization functions in the <a class="reference internal" href="optimization.html#module-levitate.optimization" title="levitate.optimization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimization</span></code></a> module.
+algorithms to calculate physical properties in the <a class="reference internal" href="fields.html#module-levitate.fields" title="levitate.fields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fields</span></code></a> module, and some numerical optimization functions in the <a class="reference internal" href="optimization.html#module-levitate.optimization" title="levitate.optimization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimization</span></code></a> module.
 There is also a <a class="reference internal" href="utilities.html#module-levitate.visualize" title="levitate.visualize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize</span></code></a> module with some convenience function to show various fields, a few utilities in <a class="reference internal" href="utilities.html#module-levitate.utils" title="levitate.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code></a>.
 It is possible to use different materials or material properties from the <a class="reference internal" href="utilities.html#module-levitate.materials" title="levitate.materials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">materials</span></code></a> module.</p>
 <p>The <a class="reference internal" href="utilities.html#module-levitate.hardware" title="levitate.hardware"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hardware</span></code></a> module includes definitions with array geometries corresponding to some physical prototypes,
@@ -209,7 +210,7 @@ This implementation of Ultrahaptics control from python is not officially suppor
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="transducers.html">Transducers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="arrays.html">Arrays</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fields.html">Fields</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="utilities.html#module-levitate.visualize">Visualization</a></li>
@@ -217,13 +218,13 @@ This implementation of Ultrahaptics control from python is not officially suppor
 <li class="toctree-l2"><a class="reference internal" href="utilities.html#module-levitate.hardware">Hardware</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="algorithm_wrappers.html">Algorithm Wrappers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html#basic-types">Basic Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html#points">Points</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html#collections">Collections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html#implementation-details">Implementation Details</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html#class-list">Class list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="field_wrappers.html">Field Wrappers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html#basic-types">Basic Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html#squared-types">Squared Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html#multifield">MultiField</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html#multipoint">MultiPoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html#implementation-details">Implementation Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html#class-list">Class list</a></li>
 </ul>
 </li>
 </ul>

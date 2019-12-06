@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Transducers &mdash; Levitate Python Toolbox 2.1.0 documentation</title>
+  <title>Transducers &mdash; Levitate Python Toolbox 2.2.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.2.0
               </div>
             
           
@@ -98,12 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#basic-trap">Basic Trap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#field-superposition">Field Superposition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#complex-setups">Complex Setups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#force-diagrams">Force Diagrams</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Transducers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arrays.html">Arrays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html">Fields</a></li>
 <li class="toctree-l2"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.visualize">Visualization</a></li>
@@ -111,19 +112,19 @@
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.hardware">Hardware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html">Algorithm Wrappers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#basic-types">Basic Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#points">Points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#collections">Collections</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#implementation-details">Implementation Details</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#class-list">Class list</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#public-api">Public API</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id2">Basic Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id3">Magnitude Squared Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id4">Points</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id5">Collections</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#private-classes">Private Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html">Field Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#basic-types">Basic Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#squared-types">Squared Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#multifield">MultiField</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#multipoint">MultiPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#implementation-details">Implementation Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#class-list">Class list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#public-api">Public API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#id2">Basic Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#multifields">MultiFields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#multipoints">MultiPoints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#private-classes">Private Classes</a></li>
 </ul>
 </li>
 </ul>
@@ -232,23 +233,23 @@ sound fields for any number of source positions and receiver positions at once.<
 </table>
 <dl class="class">
 <dt id="levitate.transducers.TransducerModel">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.transducers.</code><code class="sig-name descname">TransducerModel</code><span class="sig-paren">(</span><em class="sig-param">freq=40000.0</em>, <em class="sig-param">p0=6</em>, <em class="sig-param">medium=Air(c=343.23714360505863</em>, <em class="sig-param">rho=1.204082071218662)</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.transducers.TransducerModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.transducers.</code><code class="sig-name descname">TransducerModel</code><span class="sig-paren">(</span><em class="sig-param">freq=40000.0</em>, <em class="sig-param">p0=6</em>, <em class="sig-param">medium=Air(rho=1.204082071218662</em>, <em class="sig-param">c=343.23714360505863)</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.transducers.TransducerModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for ultrasonic single frequency transducers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 40 kHz</em>) – The resonant frequency of the transducer.</p></li>
-<li><p><strong>p0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 6 Pa</em>) – The sound pressure created at maximum amplitude at 1m distance, in Pa.
+<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default 40 kHz</em>) – The resonant frequency of the transducer.</p></li>
+<li><p><strong>p0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default 6 Pa</em>) – The sound pressure created at maximum amplitude at 1m distance, in Pa.
 Note: This is not an rms value!</p></li>
 <li><p><strong>medium</strong> (<a class="reference internal" href="utilities.html#levitate.materials.Material" title="levitate.materials.Material"><em>Material</em></a>) – The medium in which the array is operating.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Wavenumber in the medium.</p></li>
-<li><p><strong>wavelength</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Wavelength in the medium.</p></li>
-<li><p><strong>omega</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Angular frequency.</p></li>
-<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Wave frequency.</p></li>
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Wavenumber in the medium.</p></li>
+<li><p><strong>wavelength</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Wavelength in the medium.</p></li>
+<li><p><strong>omega</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Angular frequency.</p></li>
+<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Wave frequency.</p></li>
 </ul>
 </dd>
 </dl>
@@ -260,9 +261,9 @@ Note: This is not an rms value!</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
 </ul>
 </dd>
@@ -280,11 +281,11 @@ The first dimension must have length 3 and represent the coordinates of the poin
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -298,7 +299,7 @@ where <code class="xref py py-obj docutils literal notranslate"><span class="pre
 
 <dl class="class">
 <dt id="levitate.transducers.PointSource">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.transducers.</code><code class="sig-name descname">PointSource</code><span class="sig-paren">(</span><em class="sig-param">freq=40000.0</em>, <em class="sig-param">p0=6</em>, <em class="sig-param">medium=Air(c=343.23714360505863</em>, <em class="sig-param">rho=1.204082071218662)</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.transducers.PointSource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.transducers.</code><code class="sig-name descname">PointSource</code><span class="sig-paren">(</span><em class="sig-param">freq=40000.0</em>, <em class="sig-param">p0=6</em>, <em class="sig-param">medium=Air(rho=1.204082071218662</em>, <em class="sig-param">c=343.23714360505863)</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.transducers.PointSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point source transducers.</p>
 <p>A point source is in this context defines as a spherically spreading wave,
 optionally with a directivity. On its own this class defines a monopole,
@@ -316,9 +317,9 @@ function, and a source strength.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
 </ul>
 </dd>
@@ -335,8 +336,8 @@ The first dimension must have length 3 and represent the coordinates of the poin
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
 </ul>
 </dd>
@@ -356,9 +357,9 @@ Default implementation is omnidirectional sources.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
 </ul>
 </dd>
@@ -377,11 +378,11 @@ the derivatives of the directivity, including source strength.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -398,10 +399,10 @@ where <code class="xref py py-obj docutils literal notranslate"><span class="pre
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -422,11 +423,11 @@ and precision benefits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -446,11 +447,11 @@ wavefronts from the source position(s).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many orders of spherical harmonics coefficients to calculate.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many orders of spherical harmonics coefficients to calculate.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -476,7 +477,7 @@ possible.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>transducer</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">TrnsducerModel</span></code> instance or (sub)class) – The base transducer to reflect. If passed a class it will be instantiated
 with the remaining arguments not used by the reflector.</p></li>
-<li><p><strong>plane_distance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The distance between the array and the reflector, along the normal.</p></li>
+<li><p><strong>plane_distance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – The distance between the array and the reflector, along the normal.</p></li>
 <li><p><strong>plane_normal</strong> (<em>array_like</em><em>, </em><em>default</em><em> (</em><em>0</em><em>,</em><em>0</em><em>,</em><em>1</em><em>)</em>) – 3 element vector with the plane normal.</p></li>
 <li><p><strong>reflection_coefficient</strong> (<em>complex float</em><em>, </em><em>default 1</em>) – Reflection coefficient to tune the magnitude and phase of the reflection.</p></li>
 </ul>
@@ -492,9 +493,9 @@ with the remaining arguments not used by the reflector.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
 </ul>
 </dd>
@@ -511,11 +512,11 @@ The first dimension must have length 3 and represent the coordinates of the poin
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -529,7 +530,7 @@ where <code class="xref py py-obj docutils literal notranslate"><span class="pre
 
 <dl class="class">
 <dt id="levitate.transducers.PlaneWaveTransducer">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.transducers.</code><code class="sig-name descname">PlaneWaveTransducer</code><span class="sig-paren">(</span><em class="sig-param">freq=40000.0</em>, <em class="sig-param">p0=6</em>, <em class="sig-param">medium=Air(c=343.23714360505863</em>, <em class="sig-param">rho=1.204082071218662)</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.transducers.PlaneWaveTransducer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.transducers.</code><code class="sig-name descname">PlaneWaveTransducer</code><span class="sig-paren">(</span><em class="sig-param">freq=40000.0</em>, <em class="sig-param">p0=6</em>, <em class="sig-param">medium=Air(rho=1.204082071218662</em>, <em class="sig-param">c=343.23714360505863)</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.transducers.PlaneWaveTransducer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class representing planar waves.</p>
 <p>This is not representing a physical transducer per se, but a traveling
 plane wave.</p>
@@ -541,9 +542,9 @@ plane wave.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
 </ul>
 </dd>
@@ -560,11 +561,11 @@ The first dimension must have length 3 and represent the coordinates of the poin
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -584,7 +585,7 @@ where <code class="xref py py-obj docutils literal notranslate"><span class="pre
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>effective_radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The radius <span class="math notranslate nohighlight">\(a\)</span> in the above.</p></li>
+<li><p><strong>effective_radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – The radius <span class="math notranslate nohighlight">\(a\)</span> in the above.</p></li>
 <li><p><strong>**kwargs</strong> – See <a class="reference internal" href="#levitate.transducers.TransducerModel" title="levitate.transducers.TransducerModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransducerModel</span></code></a></p></li>
 </ul>
 </dd>
@@ -606,9 +607,9 @@ and and <span class="math notranslate nohighlight">\(J_1\)</span> is the first o
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
 </ul>
 </dd>
@@ -628,7 +629,7 @@ The first dimension must have length 3 and represent the coordinates of the poin
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>effective_radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The radius <span class="math notranslate nohighlight">\(a\)</span> in the above.</p></li>
+<li><p><strong>effective_radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – The radius <span class="math notranslate nohighlight">\(a\)</span> in the above.</p></li>
 <li><p><strong>**kwargs</strong> – See <a class="reference internal" href="#levitate.transducers.TransducerModel" title="levitate.transducers.TransducerModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransducerModel</span></code></a></p></li>
 </ul>
 </dd>
@@ -646,9 +647,9 @@ and <span class="math notranslate nohighlight">\(J_0\)</span> is the zeroth orde
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
 </ul>
 </dd>
@@ -667,11 +668,11 @@ on analytical differentiation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
-<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
+<li><p><strong>source_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>source_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The look direction of the transducer, as a (3, …) shape array.</p></li>
+<li><p><strong>receiver_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the radiation, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

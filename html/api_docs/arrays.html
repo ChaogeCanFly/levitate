@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Arrays &mdash; Levitate Python Toolbox 2.1.0 documentation</title>
+  <title>Arrays &mdash; Levitate Python Toolbox 2.2.0 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Algorithms" href="algorithms.html" />
+    <link rel="next" title="Fields" href="fields.html" />
     <link rel="prev" title="Transducers" href="transducers.html" /> 
 </head>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.2.0
               </div>
             
           
@@ -98,12 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#basic-trap">Basic Trap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#field-superposition">Field Superposition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#complex-setups">Complex Setups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#force-diagrams">Force Diagrams</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="transducers.html">Transducers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Arrays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html">Fields</a></li>
 <li class="toctree-l2"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.visualize">Visualization</a></li>
@@ -111,19 +112,19 @@
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.hardware">Hardware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="algorithm_wrappers.html">Algorithm Wrappers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#basic-types">Basic Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#points">Points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#collections">Collections</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#implementation-details">Implementation Details</a></li>
-<li class="toctree-l3"><a class="reference internal" href="algorithm_wrappers.html#class-list">Class list</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#public-api">Public API</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id2">Basic Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id3">Magnitude Squared Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id4">Points</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#id5">Collections</a></li>
-<li class="toctree-l4"><a class="reference internal" href="algorithm_wrappers.html#private-classes">Private Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="field_wrappers.html">Field Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#basic-types">Basic Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#squared-types">Squared Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#multifield">MultiField</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#multipoint">MultiPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#implementation-details">Implementation Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="field_wrappers.html#class-list">Class list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#public-api">Public API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#id2">Basic Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#magnitude-squared-types">Magnitude Squared Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#multifields">MultiFields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#multipoints">MultiPoints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="field_wrappers.html#private-classes">Private Classes</a></li>
 </ul>
 </li>
 </ul>
@@ -230,27 +231,27 @@ implementation instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>transducer_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The positions of the transducer elements in the array, shape 3xN.</p></li>
-<li><p><strong>transducer_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The normals of the transducer elements in the array, shape 3xN.</p></li>
+<li><p><strong>transducer_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The positions of the transducer elements in the array, shape 3xN.</p></li>
+<li><p><strong>transducer_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The normals of the transducer elements in the array, shape 3xN.</p></li>
 <li><p><strong>transducer_model</strong> – An object of <a class="reference internal" href="transducers.html#levitate.transducers.TransducerModel" title="levitate.transducers.TransducerModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">levitate.transducers.TransducerModel</span></code></a> or a subclass. If passed a class it will create a new instance.</p></li>
-<li><p><strong>transducer_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Fallback transducer size if no transducer model object is given, or if no grid is given.</p></li>
-<li><p><strong>transducer_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Extra keyword arguments used when instantiating a new transducer model.</p></li>
+<li><p><strong>transducer_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Fallback transducer size if no transducer model object is given, or if no grid is given.</p></li>
+<li><p><strong>transducer_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Extra keyword arguments used when instantiating a new transducer model.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>phases</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The phases of the transducer elements.</p></li>
-<li><p><strong>amplitudes</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The amplitudes of the transducer elements.</p></li>
-<li><p><a class="reference internal" href="#levitate.arrays.TransducerArray.complex_amplitudes" title="levitate.arrays.TransducerArray.complex_amplitudes"><strong>complex_amplitudes</strong></a> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – Transducer element controls on complex form.</p></li>
-<li><p><strong>num_transducers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of transducers used.</p></li>
-<li><p><strong>transducer_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – As above.</p></li>
-<li><p><strong>transducer_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – As above.</p></li>
+<li><p><strong>phases</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The phases of the transducer elements.</p></li>
+<li><p><strong>amplitudes</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The amplitudes of the transducer elements.</p></li>
+<li><p><a class="reference internal" href="#levitate.arrays.TransducerArray.complex_amplitudes" title="levitate.arrays.TransducerArray.complex_amplitudes"><strong>complex_amplitudes</strong></a> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – Transducer element controls on complex form.</p></li>
+<li><p><strong>num_transducers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of transducers used.</p></li>
+<li><p><strong>transducer_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – As above.</p></li>
+<li><p><strong>transducer_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – As above.</p></li>
 <li><p><strong>transducer_model</strong> (<a class="reference internal" href="transducers.html#levitate.transducers.TransducerModel" title="levitate.transducers.TransducerModel"><em>TransducerModel</em></a>) – An instance of a specific transducer model implementation.</p></li>
 <li><p><strong>calculate</strong> (<a class="reference internal" href="#levitate.arrays.TransducerArray.PersistentFieldEvaluator" title="levitate.arrays.TransducerArray.PersistentFieldEvaluator"><em>PersistentFieldEvaluator</em></a>) – Use to perform cashed field calculations.</p></li>
-<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Frequency of the transducer model.</p></li>
-<li><p><strong>omega</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Angular frequency of the transducer model.</p></li>
-<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Wavenumber in air, corresponding to <code class="xref py py-obj docutils literal notranslate"><span class="pre">freq</span></code>.</p></li>
-<li><p><strong>wavelength</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Wavelength in air, corresponding to <code class="xref py py-obj docutils literal notranslate"><span class="pre">freq</span></code>.</p></li>
+<li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Frequency of the transducer model.</p></li>
+<li><p><strong>omega</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Angular frequency of the transducer model.</p></li>
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Wavenumber in air, corresponding to <code class="xref py py-obj docutils literal notranslate"><span class="pre">freq</span></code>.</p></li>
+<li><p><strong>wavelength</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Wavelength in air, corresponding to <code class="xref py py-obj docutils literal notranslate"><span class="pre">freq</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -292,7 +293,7 @@ has been removed.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>position</strong> (<em>array_like</em>) – Three element array with a position for where the signature is relative to.</p></li>
-<li><p><strong>phases</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a><em>, </em><em>optional</em>) – The phases of which to calculate the signature.
+<li><p><strong>phases</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a><em>, </em><em>optional</em>) – The phases of which to calculate the signature.
 Will default to the current phases in the array.</p></li>
 </ul>
 </dd>
@@ -311,9 +312,9 @@ transducers in a Cartesian coordinate system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the derivatives, shape (3, …).
+<li><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the derivatives, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – How many orders of derivatives to calculate. Currently three orders are supported.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -336,9 +337,9 @@ scaling for each transducer-position combination.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the derivatives, shape (3, …).
+<li><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to evaluate the derivatives, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p></li>
-<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>default 0</em>) – The maximum order to expand to.</p></li>
+<li><p><strong>orders</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>default 0</em>) – The maximum order to expand to.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -372,7 +373,7 @@ the same as the <code class="xref py py-obj docutils literal notranslate"><span 
 <dd><p>Calculate the pressure field.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the pressure, shape (3, …).
+<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the pressure, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -387,7 +388,7 @@ The first dimension must have length 3 and represent the coordinates of the poin
 <dd><p>Calculate the velocity field.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the velocity, shape (3, …).
+<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the velocity, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -402,7 +403,7 @@ The first dimension must have length 3 and represent the coordinates of the poin
 <dd><p>Calculate the force field.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the force, shape (3, …).
+<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the force, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -417,7 +418,7 @@ The first dimension must have length 3 and represent the coordinates of the poin
 <dd><p>Calculate the stiffness field.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the stiffness, shape (3, …).
+<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the stiffness, shape (3, …).
 The first dimension must have length 3 and represent the coordinates of the points.</p>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -448,11 +449,11 @@ plane intersects with the xy-plane.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em> or </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>)</em><em>, </em><em>default 16</em>) – The number of transducer elements. Passing a single int will create a square array.</p></li>
-<li><p><strong>spread</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 10e-3</em>) – The distance between the array elements.</p></li>
+<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>)</em><em>, </em><em>default 16</em>) – The number of transducer elements. Passing a single int will create a square array.</p></li>
+<li><p><strong>spread</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default 10e-3</em>) – The distance between the array elements.</p></li>
 <li><p><strong>offset</strong> (<em>3 element array_like</em><em>, </em><em>default</em><em> (</em><em>0</em><em>, </em><em>0</em><em>, </em><em>0</em><em>)</em>) – The location of the center of the array.</p></li>
 <li><p><strong>normal</strong> (<em>3 element array_like</em><em>, </em><em>default</em><em> (</em><em>0</em><em>, </em><em>0</em><em>, </em><em>1</em><em>)</em>) – The normal of all elements in the array.</p></li>
-<li><p><strong>rotation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>default 0</em>) – The in-plane rotation of the array around the normal.</p></li>
+<li><p><strong>rotation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default 0</em>) – The in-plane rotation of the array around the normal.</p></li>
 </ul>
 </dd>
 </dl>
@@ -469,7 +470,7 @@ signature is returned.</p>
 <dl>
 <dt>Current signature (<code class="xref py py-obj docutils literal notranslate"><span class="pre">stype=None</span></code>)</dt><dd><p>Calculates the current phase signature. See <a class="reference internal" href="#levitate.arrays.TransducerArray.signature" title="levitate.arrays.TransducerArray.signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransducerArray.signature</span></code></a></p>
 <dl class="simple">
-<dt>phases (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, optional)</dt><dd><p>The phases of which to calculate the signature.
+<dt>phases (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, optional)</dt><dd><p>The phases of which to calculate the signature.
 Will default to the current phases in the array.</p>
 </dd>
 </dl>
@@ -477,7 +478,7 @@ Will default to the current phases in the array.</p>
 <dt>Twin signature (<code class="xref py py-obj docutils literal notranslate"><span class="pre">stype='twin'</span></code>)</dt><dd><p>Calculates the twin trap signature which shifts the phase of half
 of the elements by pi, splitting the array along a straight line.</p>
 <dl class="simple">
-<dt>angle (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>, optional)</dt><dd><p>The angle between the x-axis and the dividing line.
+<dt>angle (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>, optional)</dt><dd><p>The angle between the x-axis and the dividing line.
 Default is to create a line perpendicular to the line from the
 center of the array to <code class="xref py py-obj docutils literal notranslate"><span class="pre">position</span></code>.</p>
 </dd>
@@ -487,7 +488,7 @@ center of the array to <code class="xref py py-obj docutils literal notranslate"
 elements in the array according to their angle in the coordinate
 plane.</p>
 <dl class="simple">
-<dt>angle (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>, optional)</dt><dd><p>Additional angle to rotate the phase signature with.</p>
+<dt>angle (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>, optional)</dt><dd><p>Additional angle to rotate the phase signature with.</p>
 </dd>
 </dl>
 </dd>
@@ -496,7 +497,7 @@ elements in the array according to their distance from the center,
 creating an inner zone and an outer zone of equal area with a
 relative shift of pi.</p>
 <dl class="simple">
-<dt>radius (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>, optional)</dt><dd><p>A custom radius to use for the division of transducers.
+<dt>radius (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>, optional)</dt><dd><p>A custom radius to use for the division of transducers.
 The default is to use equal area partition based on the
 rectangular area occupied by each transducer. This gives the
 same number of transducers in the two groups for square arrays.</p>
@@ -508,7 +509,7 @@ same number of transducers in the two groups for square arrays.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>position</strong> (<em>array_like</em>) – Three element array with a location for where the signature is relative to.</p></li>
-<li><p><strong>stype</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, </em><em>'twin'</em><em>, </em><em>'bottle'</em><em>, </em><em>'vortex'. Default None</em>) – Chooses which type of signature to calculate.</p></li>
+<li><p><strong>stype</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>, </em><em>'twin'</em><em>, </em><em>'bottle'</em><em>, </em><em>'vortex'. Default None</em>) – Chooses which type of signature to calculate.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -545,8 +546,8 @@ overall position.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>array</strong> (Instance or (sub)class of <a class="reference internal" href="#levitate.arrays.TransducerArray" title="levitate.arrays.TransducerArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransducerArray</span></code></a>.) – The singlesided object used to the creation of the doublesided array.
 Classes will be instantiated to generate the array, using all input
-arguments except <a class="reference external" href="https://docs.python.org/3/library/array.html#module-array" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">separation</span></code>, and <code class="xref py py-obj docutils literal notranslate"><span class="pre">offset</span></code>.</p></li>
-<li><p><strong>separation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The distance between the two halves, along the normal.</p></li>
+arguments except <a class="reference external" href="https://docs.python.org/3/library/array.html#module-array" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">array</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">separation</span></code>, and <code class="xref py py-obj docutils literal notranslate"><span class="pre">offset</span></code>.</p></li>
+<li><p><strong>separation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – The distance between the two halves, along the normal.</p></li>
 <li><p><strong>offset</strong> (<em>array_like</em><em>, </em><em>3 elements</em>) – The placement of the center between the two arrays.</p></li>
 <li><p><strong>normal</strong> (<em>array_like</em><em>, </em><em>3 elements</em>) – The normal of the reflection plane.</p></li>
 </ul>
@@ -565,7 +566,7 @@ of the array used when creating the doublesided array are also available.</p>
 <dl>
 <dt>Current signature (<code class="xref py py-obj docutils literal notranslate"><span class="pre">stype=None</span></code>)</dt><dd><p>Calculates the current phase signature. See <a class="reference internal" href="#levitate.arrays.TransducerArray.signature" title="levitate.arrays.TransducerArray.signature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransducerArray.signature</span></code></a></p>
 <dl class="simple">
-<dt>phases (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, optional)</dt><dd><p>The phases of which to calculate the signature.
+<dt>phases (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, optional)</dt><dd><p>The phases of which to calculate the signature.
 Will default to the current phases in the array.</p>
 </dd>
 </dl>
@@ -578,7 +579,7 @@ of one side of the array half of the elements by pi.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>position</strong> (<em>array_like</em>) – Three element array with a location for where the signature is relative to.</p></li>
-<li><p><strong>stype</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><em>None</em></a><em>, </em><em>'doublesided'</em><em>, </em><em>etc. Default None</em>) – Chooses which type of signature to calculate.</p></li>
+<li><p><strong>stype</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a><em>, </em><em>'doublesided'</em><em>, </em><em>etc. Default None</em>) – Chooses which type of signature to calculate.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -608,7 +609,7 @@ behaves exactly like a <a class="reference internal" href="#levitate.arrays.Rect
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="algorithms.html" class="btn btn-neutral float-right" title="Algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="fields.html" class="btn btn-neutral float-right" title="Fields" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="transducers.html" class="btn btn-neutral float-left" title="Transducers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
