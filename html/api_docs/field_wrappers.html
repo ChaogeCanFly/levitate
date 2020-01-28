@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Field Wrappers &mdash; Levitate Python Toolbox 2.2.0 documentation</title>
+  <title>Field Wrappers &mdash; Levitate Python Toolbox 2.3.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.2.0
+                2.3.0
               </div>
             
           
@@ -404,14 +404,14 @@ as a cost function in optimizations.</p>
 <dd class="field-odd"><p><strong>array</strong> (<a class="reference internal" href="arrays.html#levitate.arrays.TransducerArray" title="levitate.arrays.TransducerArray"><em>TransducerArray</em></a>) – The object modeling the array.</p>
 </dd>
 </dl>
-<dl class="method">
+<dl class="class">
 <dt id="levitate._field_wrappers.FieldImplementation.requirement">
-<em class="property">static </em><code class="sig-name descname">requirement</code><span class="sig-paren">(</span><em class="sig-param">**requirements</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._field_wrappers.FieldImplementation.requirement" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">requirement</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._field_wrappers.FieldImplementation.requirement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse a set of requirements.</p>
 <p><a class="reference internal" href="#levitate._field_wrappers.FieldImplementation" title="levitate._field_wrappers.FieldImplementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FieldImplementation</span></code></a> objects should define requirements for values and jacobians.
-This function parses the requirements and checks that the request can be met upon call.
-Currently the inputs are converted to a dict and returned as is, but this might change
-without warning in the future.</p>
+This class parses the requirements and checks that the request can be met upon call.
+The requirements are stored as a non-mutable custom dictionary.
+Requirements can be added to each other to find the combined requirements.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments</dt>
 <dd class="field-odd"><ul class="simple">
@@ -429,11 +429,8 @@ where remaining dimensions are determined by the positions.</p></li>
 <li><p><strong>spherical_harmonics_individual</strong> – Like spherical_harmonics_summed, but for individual transducers.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>requirements</strong> (<em>dict</em>) – The parsed requirements.</p>
-</dd>
-<dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#NotImplementedError" title="(in Python v3.8)"><strong>NotImplementedError</strong></a> – If one or more of the requested keys is not implemented.</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#NotImplementedError" title="(in Python v3.8)"><strong>NotImplementedError</strong></a> – If one or more of the requested keys is not implemented.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1557,22 +1554,17 @@ resulting object to inspect the new structure.</p>
 <p>This class should not be instantiated directly.</p>
 </div>
 <dl class="method">
-<dt id="levitate._field_wrappers.FieldBase._type">
-<em class="property">property </em><code class="sig-name descname">_type</code><a class="headerlink" href="#levitate._field_wrappers.FieldBase._type" title="Permalink to this definition">¶</a></dt>
-<dd><p>The type of the field.</p>
-<p>In this context <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></a> refers for the combination of <code class="xref py py-obj docutils literal notranslate"><span class="pre">bound</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">cost</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="levitate._field_wrappers.FieldBase._evaluate_requirements">
-<code class="sig-name descname">_evaluate_requirements</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em>, <em class="sig-param">spatial_structures</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._field_wrappers.FieldBase._evaluate_requirements" title="Permalink to this definition">¶</a></dt>
+<dt id="levitate._field_wrappers.FieldBase.evaluate_requirements">
+<code class="sig-name descname">evaluate_requirements</code><span class="sig-paren">(</span><em class="sig-param">complex_transducer_amplitudes</em>, <em class="sig-param">position=None</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._field_wrappers.FieldBase.evaluate_requirements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate requirements for given complex transducer amplitudes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>complex_transducer_amplitudes</strong> (<em>complex ndarray</em>) – The transducer phase and amplitude on complex form,
 must correspond to the same array used to create the field.</p></li>
-<li><p><strong>spatial_structures</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Dictionary with the calculated spatial structures required by the field(s).</p></li>
+<li><p><strong>position</strong> (<em>ndarray</em>) – The position where to calculate the requirements needed.
+Shape (3,…). If position is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> or not passed, it is assumed
+that the field is bound to a position and <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.position</span></code> will be used.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1581,32 +1573,19 @@ of the requirement, this dict has the evaluated requirement at the positions and
 transducer amplitudes specified.</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fields which are bound to a position will cache the array requests, i.e. the requirements
+without any transducer amplitudes applied. It is therefore important to not manually change
+the position, since that will not clear the cache and the new position is not actually used.</p>
+</div>
 </dd></dl>
 
 <dl class="method">
-<dt id="levitate._field_wrappers.FieldBase._spatial_structures">
-<code class="sig-name descname">_spatial_structures</code><span class="sig-paren">(</span><em class="sig-param">position=None</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate._field_wrappers.FieldBase._spatial_structures" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate spatial structures.</p>
-<p>Uses <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.requires</span></code> to fill a dictionary of calculated required
-spatial structures at a give position to satisfy the fields(s) used
-for calculations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>position</strong> (<em>ndarray</em>) – The position where to calculate the spatial structures needed.
-Shape (3,…). If position is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> or not passed, it is assumed
-that the field is bound to a position and <code class="xref py py-obj docutils literal notranslate"><span class="pre">self.position</span></code> will be used.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>sptaial_structures</strong> (<em>dict</em>) – Dictionary with the spatial structures required to fulfill the evaluation
-of the field(s).</p>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Fields which are bound to a position will cache the spatial structures. It is
-therefore important to not manually change the position, since that will not clear the cache
-and the new position is not actually used.</p>
-</div>
+<dt id="levitate._field_wrappers.FieldBase._type">
+<em class="property">property </em><code class="sig-name descname">_type</code><a class="headerlink" href="#levitate._field_wrappers.FieldBase._type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the field.</p>
+<p>In this context <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></a> refers for the combination of <code class="xref py py-obj docutils literal notranslate"><span class="pre">bound</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">cost</span></code>.</p>
 </dd></dl>
 
 </dd></dl>

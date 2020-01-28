@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Arrays &mdash; Levitate Python Toolbox 2.2.0 documentation</title>
+  <title>Arrays &mdash; Levitate Python Toolbox 2.3.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.2.0
+                2.3.0
               </div>
             
           
@@ -348,6 +348,40 @@ are described in <a class="reference internal" href="utilities.html#levitate.uti
 Has shape (M, N, …) where <code class="xref py py-obj docutils literal notranslate"><span class="pre">M=len(SphericalHarmonicsIndexer(orders))</span></code>,
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">N</span></code> is the number of transducers in the array, and the remaining dimensions are
 the same as the <code class="xref py py-obj docutils literal notranslate"><span class="pre">positions</span></code> input with the first dimension removed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="levitate.arrays.TransducerArray.request">
+<code class="sig-name descname">request</code><span class="sig-paren">(</span><em class="sig-param">requests</em>, <em class="sig-param">position</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate a set of requests.</p>
+<p>This takes a mapping (e.g. dict) of requests, and evaluates them
+at a given position. This is independent of the current transducer state.
+If a certain quantity should be calculated with regards to the current
+transducer state, use a <code class="xref py py-obj docutils literal notranslate"><span class="pre">FieldImplementation</span></code> from the <code class="xref py py-obj docutils literal notranslate"><span class="pre">fields</span></code> module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>ndarray</em>) – The position where to calculate the requirements needed, shape (3,…).</p></li>
+<li><p><strong>requests</strong> (<em>mapping</em><em>, </em><em>e.g. dict</em>) – <p>A mapping of the desired requests. The keys in the mapping should
+start with the desired output, and the value indicates some kind of
+parameter set. Possible requests listed below:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>pressure_derivs</dt><dd><p>A number of spatial derivatives of the pressure. Should contain the
+maximum order of differentiation, see <a class="reference internal" href="#levitate.arrays.TransducerArray.pressure_derivs" title="levitate.arrays.TransducerArray.pressure_derivs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pressure_derivs</span></code></a>.</p>
+</dd>
+<dt>spherical_harmonics</dt><dd><p>Spherical harmonics coefficients for an expansion of the pressure.
+Should contain the maximum order of expansion, see <a class="reference internal" href="#levitate.arrays.TransducerArray.spherical_harmonics" title="levitate.arrays.TransducerArray.spherical_harmonics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spherical_harmonics</span></code></a>.</p>
+</dd>
+</dl>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>evaluated_requests</strong> (<em>dict</em>) – A dictionary of the set of calculated data, according to the requests.</p>
 </dd>
 </dl>
 </dd></dl>
