@@ -36,9 +36,6 @@ References
 import numpy as np
 from . import materials, utils
 from ._field_wrappers import FieldImplementation
-from ._algorithms_legacy import gorkov_potential, gorkov_gradient, gorkov_laplacian  # noqa: F401
-from ._algorithms_legacy import second_order_force, second_order_stiffness, second_order_curl, second_order_force_gradient  # noqa: F401
-from ._algorithms_legacy import pressure_squared_magnitude, velocity_squared_magnitude  # noqa: F401
 
 
 class Pressure(FieldImplementation):
@@ -115,22 +112,23 @@ class GorkovPotential(FieldImplementation):
     values_require = FieldImplementation.requirement(pressure_derivs_summed=1)
     jacobians_require = FieldImplementation.requirement(pressure_derivs_summed=1, pressure_derivs_individual=1)
 
-    def __init__(self, array, radius_sphere=1e-3, sphere_material=materials.styrofoam, *args, **kwargs):  # noqa: D205, D400
+    def __init__(self, array, radius=1e-3, material=materials.styrofoam, *args, **kwargs):  # noqa: D205, D400
         """
         Parameters
         ----------
         array : TransducerArray
             The object modeling the array.
-        radius_sphere : float, default 1e-3
+        radius : float, default 1e-3
             Radius of the spherical beads.
-        sphere_material : Material
+        material : Material
             The material of the sphere, default styrofoam.
 
         """
         super().__init__(array, *args, **kwargs)
-        V = 4 / 3 * np.pi * radius_sphere**3
-        monopole_coefficient = 1 - sphere_material.compressibility / array.medium.compressibility  # f_1 in H. Bruus 2012
-        dipole_coefficient = 2 * (sphere_material.rho / array.medium.rho - 1) / (2 * sphere_material.rho / array.medium.rho + 1)   # f_2 in H. Bruus 2012
+        V = 4 / 3 * np.pi * radius**3
+        self.mg = V * 9.82 * material.rho
+        monopole_coefficient = 1 - material.compressibility / array.medium.compressibility  # f_1 in H. Bruus 2012
+        dipole_coefficient = 2 * (material.rho / array.medium.rho - 1) / (2 * material.rho / array.medium.rho + 1)   # f_2 in H. Bruus 2012
         preToVel = 1 / (array.omega * array.medium.rho)  # Converting velocity to pressure gradient using equation of motion
         self.pressure_coefficient = V / 4 * array.medium.compressibility * monopole_coefficient
         self.gradient_coefficient = V * 3 / 8 * dipole_coefficient * preToVel**2 * array.medium.rho
@@ -253,23 +251,24 @@ class RadiationForce(FieldImplementation):
     values_require = FieldImplementation.requirement(pressure_derivs_summed=2)
     jacobians_require = FieldImplementation.requirement(pressure_derivs_summed=2, pressure_derivs_individual=2)
 
-    def __init__(self, array, radius_sphere=1e-3, sphere_material=materials.styrofoam, *args, **kwargs):  # noqa: D205, D400
+    def __init__(self, array, radius=1e-3, material=materials.styrofoam, *args, **kwargs):  # noqa: D205, D400
         """
         Parameters
         ----------
         array : TransducerArray
             The object modeling the array.
-        radius_sphere : float, default 1e-3
+        radius : float, default 1e-3
             Radius of the spherical beads.
-        sphere_material : Material
+        material : Material
             The material of the sphere, default styrofoam.
 
         """
         super().__init__(array, *args, **kwargs)
-        f_1 = 1 - sphere_material.compressibility / array.medium.compressibility  # f_1 in H. Bruus 2012
-        f_2 = 2 * (sphere_material.rho / array.medium.rho - 1) / (2 * sphere_material.rho / array.medium.rho + 1)   # f_2 in H. Bruus 2012
+        self.mg = 4 / 3 * np.pi * radius**3 * 9.82 * material.rho
+        f_1 = 1 - material.compressibility / array.medium.compressibility  # f_1 in H. Bruus 2012
+        f_2 = 2 * (material.rho / array.medium.rho - 1) / (2 * material.rho / array.medium.rho + 1)   # f_2 in H. Bruus 2012
 
-        ka = array.k * radius_sphere
+        ka = array.k * radius
         overall_coeff = -np.pi / array.k**5 * array.medium.compressibility
         self.pressure_coefficient = (ka**3 * 2 / 3 * f_1 - 2j / 9 * ka**6 * (f_1**2 + f_1 * f_2)) * array.k**2 * overall_coeff
         self.velocity_coefficient = (-ka**3 * f_2 - 1j / 6 * ka**6 * f_2**2) * overall_coeff
@@ -441,18 +440,19 @@ class SphericalHarmonicsForceDecomposition(FieldImplementation):
 
     ndim = 2
 
-    def __init__(self, array, orders, radius_sphere=1e-3, sphere_material=materials.styrofoam, scattering_model='Hard sphere', *args, **kwargs):  # noqa: D205, D400
+    def __init__(self, array, radius, orders=None, material=materials.styrofoam, scattering_model='Hard sphere', *args, **kwargs):  # noqa: D205, D400
         """
         Parameters
         ----------
         array : TransducerArray
             The object modeling the array.
+        radius : float
+            Radius of the spherical beads.
         orders : int
             The number of force orders to include. Note that the sound field will
-            be expanded at one order higher that the force order.
-        radius_sphere : float, default 1e-3
-            Radius of the spherical beads.
-        sphere_material : Material
+            be expanded at one order higher that the force order. Will default to
+            floor(ka) + 3, where `k` is the wavenumber and `a` is the radius.
+        material : Material
             The material of the sphere, default styrofoam.
         scattering_model:
             Chooses which scattering model to use. Currently `Hard sphere`, `Soft sphere`, and `Compressible sphere`
@@ -460,10 +460,12 @@ class SphericalHarmonicsForceDecomposition(FieldImplementation):
 
         """
         super().__init__(array, *args, **kwargs)
-        self.values_require = FieldImplementation.requirement(spherical_harmonics_summed=orders + 1)
-        self.jacobians_require = FieldImplementation.requirement(spherical_harmonics_summed=orders + 1, spherical_harmonics_individual=orders + 1)
+        self._orders = orders if orders is not None else int(self.array.k * radius) + 3
+        self.mg = 4 / 3 * np.pi * radius**3 * 9.82 * material.rho
+        self.values_require = FieldImplementation.requirement(spherical_harmonics_summed=self.orders + 1)
+        self.jacobians_require = FieldImplementation.requirement(spherical_harmonics_summed=self.orders + 1, spherical_harmonics_individual=self.orders + 1)
 
-        sph_idx = utils.SphericalHarmonicsIndexer(orders)
+        sph_idx = utils.SphericalHarmonicsIndexer(self.orders)
         from scipy.special import spherical_jn, spherical_yn
         # Create indexing arrays for sound field harmonics
         self.N_M = []  # Indices for the S_n^m coefficients
@@ -479,8 +481,8 @@ class SphericalHarmonicsForceDecomposition(FieldImplementation):
             self.Nr_mMr.append(sph_idx(n + 1, -1 - m))
 
         # Calculate bessel functions, hankel functions, and their derivatives
-        ka = array.k * radius_sphere
-        n = np.arange(0, orders + 2)
+        ka = array.k * radius
+        n = np.arange(0, self.orders + 2)
         bessel_function = spherical_jn(n, ka)
         hankel_function = bessel_function + 1j * spherical_yn(n, ka)
         bessel_derivative = spherical_jn(n, ka, derivative=True)
@@ -494,13 +496,13 @@ class SphericalHarmonicsForceDecomposition(FieldImplementation):
             scattering_coefficient = - bessel_function / hankel_function
         elif 'compressible' in scattering_model.lower():
             # See Blackstock, Hamilton (2008): Eq. 6.88, p.193
-            ka_interior = array.omega / sphere_material.c * radius_sphere
+            ka_interior = array.omega / material.c * radius
             bessel_function_interior = spherical_jn(n, ka_interior)
             # hankel_function_interior = bessel_function_interior + 1j * spherical_yn(n, ka_interior)
             bessel_derivative_interior = spherical_jn(n, ka_interior, derivative=True)
             # hankel_derivative_interior = bessel_derivative_interior + 1j * spherical_yn(n, ka_interior, derivative=True)
 
-            relative_impedance = sphere_material.impedance / array.medium.impedance
+            relative_impedance = material.impedance / array.medium.impedance
             numerator = bessel_function * bessel_derivative_interior - relative_impedance * bessel_derivative * bessel_function_interior
             denominator = hankel_function * bessel_derivative_interior - relative_impedance * hankel_derivative * bessel_function_interior
             scattering_coefficient = - numerator / denominator
@@ -508,8 +510,8 @@ class SphericalHarmonicsForceDecomposition(FieldImplementation):
             raise ValueError("Unknown scattering model '{}'".format(scattering_model))
 
         scaling = array.medium.compressibility / (8 * array.k**2)
-        self.xy_coefficients = np.zeros((orders + 1)**2, dtype=np.complex128)
-        self.z_coefficients = np.zeros((orders + 1)**2, dtype=np.complex128)
+        self.xy_coefficients = np.zeros((self.orders + 1)**2, dtype=np.complex128)
+        self.z_coefficients = np.zeros((self.orders + 1)**2, dtype=np.complex128)
         idx = 0
         for n in sph_idx.orders:
             psi = 1j * (1 + 2 * scattering_coefficient[n]) * (1 + 2 * np.conj(scattering_coefficient[n + 1])) - 1j
@@ -519,6 +521,10 @@ class SphericalHarmonicsForceDecomposition(FieldImplementation):
                 self.xy_coefficients[idx] = ((n + m + 1) * (n + m + 2))**0.5 * coeff
                 self.z_coefficients[idx] = -2 * ((n + m + 1) * (n - m + 1))**0.5 * coeff
                 idx += 1
+
+    @property
+    def orders(self):
+        return self._orders
 
     def __eq__(self, other):
         return (
@@ -594,12 +600,12 @@ class SphericalHarmonicsForceGradientDecomposition(SphericalHarmonicsForceDecomp
 
     ndim = 3
 
-    def __init__(self, array, orders, *args, **kwargs):
-        super().__init__(array, orders, *args, **kwargs)
-        self.values_require = FieldImplementation.requirement(spherical_harmonics_summed=orders + 1, spherical_harmonics_gradient_summed=orders + 1)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.values_require = FieldImplementation.requirement(spherical_harmonics_summed=self.orders + 1, spherical_harmonics_gradient_summed=self.orders + 1)
         self.jacobians_require = FieldImplementation.requirement(
-            spherical_harmonics_summed=orders + 1, spherical_harmonics_gradient_summed=orders + 1,
-            spherical_harmonics_individual=orders + 1, spherical_harmonics_gradient_individual=orders + 1)
+            spherical_harmonics_summed=self.orders + 1, spherical_harmonics_gradient_summed=self.orders + 1,
+            spherical_harmonics_individual=self.orders + 1, spherical_harmonics_gradient_individual=self.orders + 1)
 
     def values(self, spherical_harmonics_summed, spherical_harmonics_gradient_summed):  # noqa: D102
         # Reshape coefficients to allow multiple receiver positions

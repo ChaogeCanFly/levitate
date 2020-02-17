@@ -116,10 +116,8 @@ class TransducerModel:
     def wavelength(self, value):
         self.k = 2 * np.pi / value
 
-    def greens_function(self, source_position, source_normal, receiver_positions):
-        """Evaluate the transducer radiation.
-
-        This function needs to be implemented by concrete subclasses.
+    def pressure(self, source_positions, source_normals, receiver_positions, **kwargs):
+        """Calculate the complex sound pressure from the transducer.
 
         Parameters
         ----------
@@ -137,9 +135,9 @@ class TransducerModel:
             The pressure at the locations, shape `source_positions.shape[1:] + receiver_positions.shape[1:]`.
 
         """
-        raise NotImplementedError('Transducer model of type `{}` has not implemented a greens function'.format(self.__class__.__name__))
+        return self.pressure_derivs(source_positions=source_positions, source_normals=source_normals, receiver_positions=receiver_positions, orders=0, **kwargs)[0]
 
-    def pressure_derivs(self, source_position, source_normal, receiver_positions, orders=3, **kwargs):
+    def pressure_derivs(self, source_positions, source_normals, receiver_positions, orders=3, **kwargs):
         """Calculate the spatial derivatives of the greens function.
 
         Calculates Cartesian spatial derivatives of the pressure Green's function. Should be implemented by concrete subclasses.
@@ -180,56 +178,6 @@ class PointSource(TransducerModel):
     where :math:`r` is the distance from the source, and :math:`k` is the wavenumber of the wave.
     """
 
-    def greens_function(self, source_positions, source_normals, receiver_positions):
-        """Evaluate the transducer radiation.
-
-        This is a combination of spherically spreading waves, a directivity
-        function, and a source strength.
-
-        Parameters
-        ----------
-        source_positions : numpy.ndarray
-            The location of the transducer, as a (3, ...) shape array.
-        source_normals : numpy.ndarray
-            The look direction of the transducer, as a (3, ...) shape array.
-        receiver_positions : numpy.ndarray
-            The location(s) at which to evaluate the radiation, shape (3, ...).
-            The first dimension must have length 3 and represent the coordinates of the points.
-
-        Returns
-        -------
-        out : numpy.ndarray
-            The pressure at the locations, shape `source_positions.shape[1:] + receiver_positions.shape[1:]`.
-
-        """
-        if receiver_positions.shape[0] != 3:
-            raise ValueError('Incorrect shape of positions')
-        return self.p0 * self.wavefront_spreading(source_positions, receiver_positions) * self.directivity(source_positions, source_normals, receiver_positions)
-
-    def wavefront_spreading(self, source_positions, receiver_positions):
-        """Evaluate spherical wavefronts.
-
-        Parameters
-        ----------
-        source_positions : numpy.ndarray
-            The location of the transducer, as a (3, ...) shape array.
-        receiver_positions : numpy.ndarray
-            The location(s) at which to evaluate the radiation, shape (3, ...).
-            The first dimension must have length 3 and represent the coordinates of the points.
-
-        Returns
-        -------
-        out : numpy.ndarray
-            The amplitude and phase of the wavefront, shape `source_positions.shape[1:] + receiver_positions.shape[1:]`.
-            Assuming 1Pa at 1m distance, phase referenced to the transducer center.
-
-        """
-        if receiver_positions.shape[0] != 3:
-            raise ValueError('Incorrect shape of positions')
-        diff = receiver_positions.reshape((3,) + (1,) * (source_positions.ndim - 1) + receiver_positions.shape[1:]) - source_positions.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
-        distance = np.einsum('i...,i...', diff, diff)**0.5
-        return np.exp(1j * self.k * distance) / distance
-
     def directivity(self, source_positions, source_normals, receiver_positions):
         """Evaluate transducer directivity.
 
@@ -252,7 +200,7 @@ class PointSource(TransducerModel):
             The amplitude (and phase) of the directivity, shape `source_positions.shape[1:] + receiver_positions.shape[1:]`.
 
         """
-        return np.ones(source_positions.shape[1:2] + receiver_positions.shape[1:])
+        return np.ones(np.asarray(source_positions).shape[1:2] + np.asarray(receiver_positions).shape[1:])
 
     def pressure_derivs(self, source_positions, source_normals, receiver_positions, orders=3, **kwargs):
         """Calculate the spatial derivatives of the greens function.
@@ -279,6 +227,7 @@ class PointSource(TransducerModel):
             where `M` is the number of spatial derivatives, see `num_spatial_derivatives` and `spatial_derivative_order`.
 
         """
+        receiver_positions = np.asarray(receiver_positions)
         if receiver_positions.shape[0] != 3:
             raise ValueError('Incorrect shape of positions')
         wavefront_derivatives = self.wavefront_derivatives(source_positions, receiver_positions, orders)
@@ -337,6 +286,8 @@ class PointSource(TransducerModel):
             where `M` is the number of spatial derivatives, see `num_spatial_derivatives` and `spatial_derivative_order`.
 
         """
+        source_positions = np.asarray(source_positions)
+        receiver_positions = np.asarray(receiver_positions)
         if receiver_positions.shape[0] != 3:
             raise ValueError('Incorrect shape of positions')
         diff = receiver_positions.reshape((3,) + (1,) * (source_positions.ndim - 1) + receiver_positions.shape[1:]) - source_positions.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
@@ -407,6 +358,9 @@ class PointSource(TransducerModel):
             where `M` is the number of spatial derivatives, see `num_spatial_derivatives` and `spatial_derivative_order`.
 
         """
+        source_positions = np.asarray(source_positions)
+        source_normals = np.asarray(source_normals)
+        receiver_positions = np.asarray(receiver_positions)
         if receiver_positions.shape[0] != 3:
             raise ValueError('Incorrect shape of positions')
         finite_difference_coefficients = {'': (np.array([[0, 0, 0]]).T, np.array([1]))}
@@ -475,6 +429,9 @@ class PointSource(TransducerModel):
             for details on the structure of the coefficients.
 
         """
+        source_positions = np.asarray(source_positions)
+        source_normals = np.asarray(source_normals)
+        receiver_positions = np.asarray(receiver_positions)
         if receiver_positions.shape[0] != 3:
             raise ValueError('Incorrect shape of positions')
 
@@ -513,8 +470,8 @@ class TransducerReflector(TransducerModel):
     transducer : `TrnsducerModel` instance or (sub)class
         The base transducer to reflect. If passed a class it will be instantiated
         with the remaining arguments not used by the reflector.
-    plane_distance : float
-        The distance between the array and the reflector, along the normal.
+    plane_intersect : array_like, default (0, 0, 0)
+        A point which the reflection plane intersects.
     plane_normal : array_like, default (0,0,1)
         3 element vector with the plane normal.
     reflection_coefficient : complex float, default 1
@@ -527,21 +484,21 @@ class TransducerReflector(TransducerModel):
 
     """
 
-    _repr_fmt_spec = '{:%cls(transducer=%transducer_full, plane_distance=%plane_distance, plane_normal=%plane_normal, reflection_coefficient=%reflection_coefficient)}'
-    _str_fmt_spec = '{:%cls(transducer=%transducer, plane_distance=%plane_distance, plane_normal=%plane_normal, reflection_coefficient=%reflection_coefficient)}'
+    _repr_fmt_spec = '{:%cls(transducer=%transducer_full, plane_intersect=%plane_intersect, plane_normal=%plane_normal, reflection_coefficient=%reflection_coefficient)}'
+    _str_fmt_spec = '{:%cls(transducer=%transducer, plane_intersect=%plane_intersect, plane_normal=%plane_normal, reflection_coefficient=%reflection_coefficient)}'
 
-    def __init__(self, transducer, plane_distance, plane_normal=(0, 0, 1), reflection_coefficient=1, *args, **kwargs):
+    def __init__(self, transducer, plane_intersect=(0, 0, 0), plane_normal=(0, 0, 1), reflection_coefficient=1, *args, **kwargs):
         if type(transducer) is type:
             transducer = transducer(*args, **kwargs)
         self._transducer = transducer
-        self.plane_distance = plane_distance
-        self.plane_normal = np.asarray(plane_normal, dtype='float64')
+        self.plane_intersect = np.asarray(plane_intersect, dtype=float)
+        self.plane_normal = np.asarray(plane_normal, dtype=float)
         self.plane_normal /= (self.plane_normal**2).sum()**0.5
         self.reflection_coefficient = reflection_coefficient
 
     def __format__(self, fmt_str):
         s_out = fmt_str.replace('%transducer_full', repr(self._transducer)).replace('%transducer', str(self._transducer))
-        s_out = s_out.replace('%plane_distance', str(self.plane_distance)).replace('%plane_normal', str(tuple(self.plane_normal)))
+        s_out = s_out.replace('%plane_intersect', str(self.plane_intersect)).replace('%plane_normal', str(tuple(self.plane_normal)))
         s_out = s_out.replace('%reflection_coefficient', str(self.reflection_coefficient))
         return super().__format__(s_out)
 
@@ -549,7 +506,7 @@ class TransducerReflector(TransducerModel):
         return (
             super().__eq__(other)
             and self._transducer == other._transducer
-            and np.allclose(self.plane_distance, other.plane_distance)
+            and np.allclose(self.plane_intersect, other.plane_intersect)
             and np.allclose(self.plane_normal, other.plane_normal)
             and np.allclose(self.reflection_coefficient, other.reflection_coefficient)
         )
@@ -586,33 +543,7 @@ class TransducerReflector(TransducerModel):
     def p0(self, val):
         self._transducer.p0 = val
 
-    def greens_function(self, source_positions, source_normals, receiver_positions):
-        r"""Evaluate the pressure at a point.
-
-        Parameters
-        ----------
-        source_positions : numpy.ndarray
-            The location of the transducer, as a (3, ...) shape array.
-        source_normals : numpy.ndarray
-            The look direction of the transducer, as a (3, ...) shape array.
-        receiver_positions : numpy.ndarray
-            The location(s) at which to evaluate the radiation, shape (3, ...).
-            The first dimension must have length 3 and represent the coordinates of the points.
-
-        Returns
-        -------
-        out : numpy.ndarray
-            The pressure at the locations, shape `source_positions.shape[1:] + receiver_positions.shape[1:]`.
-
-        """
-        plane_normal = self.plane_normal.reshape((3,) + (1,) * (source_positions.ndim - 1))
-        direct = self._transducer.greens_function(source_positions, source_normals, receiver_positions)
-        mirror_position = source_positions - 2 * plane_normal * ((source_positions * plane_normal).sum(axis=0) - self.plane_distance)
-        mirror_normal = source_normals - 2 * plane_normal * (source_normals * plane_normal).sum(axis=0)
-        reflected = self._transducer.greens_function(mirror_position, mirror_normal, receiver_positions)
-        return direct + self.reflection_coefficient * reflected
-
-    def pressure_derivs(self, source_positions, source_normals, receiver_positions, orders=3, **kwargs):
+    def pressure_derivs(self, source_positions, source_normals, receiver_positions, *args, **kwargs):
         """Calculate the spatial derivatives of the greens function.
 
         Parameters
@@ -634,12 +565,47 @@ class TransducerReflector(TransducerModel):
             where `M` is the number of spatial derivatives, see `num_spatial_derivatives` and `spatial_derivative_order`.
 
         """
+        return self._evaluate_with_reflector(self._transducer.pressure_derivs, source_positions, source_normals, receiver_positions, *args, **kwargs)
+
+    def spherical_harmonics(self, source_positions, source_normals, receiver_positions, *args, **kwargs):
+        """Evaluate the spherical harmonics expansion at a point.
+
+        Mirrors the sources in the reflection plane and calculates the superposition of the expansions
+        from the combined sources.
+        For the full documentation of the parameters and output format, see the documentation of the
+        spherical harmonics method of the underlying transducer model.
+
+        """
+        return self._evaluate_with_reflector(self._transducer.spherical_harmonics, source_positions, source_normals, receiver_positions, *args, **kwargs)
+
+    def _evaluate_with_reflector(self, func, source_positions, source_normals, receiver_positions, *args, **kwargs):
+        """Evaluate a function using a mirror source model.
+
+        Calculates the positions and normals of the mirror sources. Evaluates the function
+        using both the real sources and the mirrored sources. Adds the two results, considering
+        some arbitrary complex reflections coefficient.
+
+        """
+        source_positions = np.asarray(source_positions)
+        source_normals = np.asarray(source_normals)
+        receiver_positions = np.asarray(receiver_positions)
         plane_normal = self.plane_normal.reshape((3,) + (1,) * (source_positions.ndim - 1))
-        direct = self._transducer.pressure_derivs(source_positions, source_normals, receiver_positions, orders, **kwargs)
-        mirror_position = source_positions - 2 * plane_normal * ((source_positions * plane_normal).sum(axis=0) - self.plane_distance)
+        plane_distance = np.sum(self.plane_normal * self.plane_intersect)
+        mirror_position = source_positions - 2 * plane_normal * ((source_positions * plane_normal).sum(axis=0) - plane_distance)
         mirror_normal = source_normals - 2 * plane_normal * (source_normals * plane_normal).sum(axis=0)
-        reflected = self._transducer.pressure_derivs(mirror_position, mirror_normal, receiver_positions, orders, **kwargs)
-        return direct + self.reflection_coefficient * reflected
+
+        direct = func(source_positions, source_normals, receiver_positions, *args, **kwargs)
+        reflected = func(mirror_position, mirror_normal, receiver_positions, *args, **kwargs)
+
+        source_side = np.sign((source_positions * plane_normal).sum(axis=0) - plane_distance).reshape(source_positions.shape[1:] + (1,) * (receiver_positions.ndim - 1))
+        receiver_side = np.sign(np.einsum('i...,i', receiver_positions, self.plane_normal) - plane_distance)
+        # `source_side` and `receiver_side` are zero if the source or receiver is inside the plane.
+        # `source_side * receiver_side` will be -1 if they are on different sides, 0 if any of them is in the plane, and 1 otherwise.
+        # We should return 0 if the source and receiver is on different sides, otherwise we return the calculated expression.
+        # The below expression maps (-1, 0, 1) to (0, 1, 1).
+        same_side = np.sign(source_side * receiver_side + 1)
+
+        return (direct + self.reflection_coefficient * reflected) * same_side
 
 
 class PlaneWaveTransducer(TransducerModel):
@@ -648,33 +614,6 @@ class PlaneWaveTransducer(TransducerModel):
     This is not representing a physical transducer per se, but a traveling
     plane wave.
     """
-
-    def greens_function(self, source_positions, source_normals, receiver_positions):
-        r"""Evaluate the pressure at a point.
-
-        The equation is that of a plane wave, :math:`G(\vec x) = p_0 \exp(i\vec k \cdot \vec x)`.
-
-        Parameters
-        ----------
-        source_positions : numpy.ndarray
-            The location of the transducer, as a (3, ...) shape array.
-        source_normals : numpy.ndarray
-            The look direction of the transducer, as a (3, ...) shape array.
-        receiver_positions : numpy.ndarray
-            The location(s) at which to evaluate the radiation, shape (3, ...).
-            The first dimension must have length 3 and represent the coordinates of the points.
-
-        Returns
-        -------
-        out : numpy.ndarray
-            The pressure at the locations, shape `source_positions.shape[1:] + receiver_positions.shape[1:]`.
-
-        """
-        source_normals = np.asarray(source_normals, dtype=np.float64)
-        source_normals /= (source_normals**2).sum(axis=0)**0.5
-        diff = receiver_positions.reshape((3,) + (1,) * (source_positions.ndim - 1) + receiver_positions.shape[1:]) - source_positions.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
-        x_dot_n = np.einsum('i..., i...', diff, source_normals)
-        return self.p0 * np.exp(1j * self.k * x_dot_n)
 
     def pressure_derivs(self, source_positions, source_normals, receiver_positions, orders=3, **kwargs):
         """Calculate the spatial derivatives of the greens function.
@@ -698,10 +637,16 @@ class PlaneWaveTransducer(TransducerModel):
             where `M` is the number of spatial derivatives, see `num_spatial_derivatives` and `spatial_derivative_order`.
 
         """
+        source_positions = np.asarray(source_positions)
+        receiver_positions = np.asarray(receiver_positions)
         source_normals = np.asarray(source_normals, dtype=np.float64)
         source_normals /= (source_normals**2).sum(axis=0)**0.5
+        diff = receiver_positions.reshape((3,) + (1,) * (source_positions.ndim - 1) + receiver_positions.shape[1:]) - source_positions.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
+        x_dot_n = np.einsum('i..., i...', diff, source_normals)
+
         derivatives = np.empty((utils.num_pressure_derivs[orders],) + source_positions.shape[1:2] + receiver_positions.shape[1:], dtype=np.complex128)
-        derivatives[0] = self.greens_function(source_positions, source_normals, receiver_positions)
+        derivatives[0] = self.p0 * np.exp(1j * self.k * x_dot_n)
+
         if orders > 0:
             derivatives[1] = 1j * self.k * source_normals[0] * derivatives[0]
             derivatives[2] = 1j * self.k * source_normals[1] * derivatives[0]
@@ -784,6 +729,9 @@ class CircularPiston(PointSource):
             The amplitude (and phase) of the directivity, shape `source_positions.shape[1:] + receiver_positions.shape[1:]`.
 
         """
+        source_positions = np.asarray(source_positions)
+        source_normals = np.asarray(source_normals)
+        receiver_positions = np.asarray(receiver_positions)
         source_normals = source_normals.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
         diff = receiver_positions.reshape((3,) + (1,) * (source_positions.ndim - 1) + receiver_positions.shape[1:]) - source_positions.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
         dots = np.einsum('i...,i...', diff, source_normals)
@@ -852,6 +800,9 @@ class CircularRing(PointSource):
             The amplitude (and phase) of the directivity, shape `source_positions.shape[1:] + receiver_positions.shape[1:]`.
 
         """
+        source_positions = np.asarray(source_positions)
+        source_normals = np.asarray(source_normals)
+        receiver_positions = np.asarray(receiver_positions)
         source_normals = source_normals.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
         diff = receiver_positions.reshape((3,) + (1,) * (source_positions.ndim - 1) + receiver_positions.shape[1:]) - source_positions.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
         dots = np.einsum('i...,i...', diff, source_normals)
@@ -887,6 +838,9 @@ class CircularRing(PointSource):
             where `M` is the number of spatial derivatives, see `num_spatial_derivatives` and `spatial_derivative_order`.
 
         """
+        source_positions = np.asarray(source_positions)
+        source_normals = np.asarray(source_normals)
+        receiver_positions = np.asarray(receiver_positions)
         source_normals = source_normals.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
         diff = receiver_positions.reshape((3,) + (1,) * (source_positions.ndim - 1) + receiver_positions.shape[1:]) - source_positions.reshape(source_positions.shape[:2] + (receiver_positions.ndim - 1) * (1,))
         dot = np.einsum('i...,i...', diff, source_normals)

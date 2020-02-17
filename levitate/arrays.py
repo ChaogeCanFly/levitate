@@ -14,7 +14,6 @@ simplify the creation of the transducer positions for common array geometries.
 """
 
 import numpy as np
-from .visualize import Visualizer
 from . import utils
 
 
@@ -26,11 +25,11 @@ class TransducerArray:
 
     Parameters
     ----------
-    transducer_positions : numpy.ndarray
+    positions : numpy.ndarray
         The positions of the transducer elements in the array, shape 3xN.
-    transducer_normals : numpy.ndarray
+    normals : numpy.ndarray
         The normals of the transducer elements in the array, shape 3xN.
-    transducer_model
+    transducer
         An object of `levitate.transducers.TransducerModel` or a subclass. If passed a class it will create a new instance.
     transducer_size : float
         Fallback transducer size if no transducer model object is given, or if no grid is given.
@@ -39,22 +38,14 @@ class TransducerArray:
 
     Attributes
     ----------
-    phases : numpy.ndarray
-        The phases of the transducer elements.
-    amplitudes : numpy.ndarray
-        The amplitudes of the transducer elements.
-    complex_amplitudes : numpy.ndarray
-        Transducer element controls on complex form.
     num_transducers : int
         The number of transducers used.
-    transducer_positions : numpy.ndarray
+    positions : numpy.ndarray
         As above.
-    transducer_normals : numpy.ndarray
+    normals : numpy.ndarray
         As above.
-    transducer_model : TransducerModel
+    transducer : TransducerModel
         An instance of a specific transducer model implementation.
-    calculate : PersistentFieldEvaluator
-        Use to perform cashed field calculations.
     freq : float
         Frequency of the transducer model.
     omega : float
@@ -66,46 +57,40 @@ class TransducerArray:
 
     """
 
-    _repr_fmt_spec = '{:%cls(transducer_model=%transducer_model_full, transducer_size=%transducer_size,\n\ttransducer_positions=%transducer_positions,\n\ttransducer_normals=%transducer_normals)}'
-    _str_fmt_spec = '{:%cls(transducer_model=%transducer_model): %num_transducers transducers}'
+    _repr_fmt_spec = '{:%cls(transducer=%transducer_full, transducer_size=%transducer_size,\n\tpositions=%positions,\n\tnormals=%normals)}'
+    _str_fmt_spec = '{:%cls(transducer=%transducer): %num_transducers transducers}'
+    from .visualizers import ArrayVisualizer
 
-    def __init__(self, transducer_positions, transducer_normals,
-                 transducer_model=None, transducer_size=10e-3, transducer_kwargs=None,
+    def __init__(self, positions, normals,
+                 transducer=None, transducer_size=10e-3, transducer_kwargs=None,
                  medium=None, **kwargs
                  ):
         self.transducer_size = transducer_size
         transducer_kwargs = transducer_kwargs or {}
         self._extra_print_args = {}
 
-        if transducer_model is None:
+        if transducer is None:
             from .transducers import PointSource
-            self.transducer_model = PointSource(**transducer_kwargs)
-        elif type(transducer_model) is type:
-            self.transducer_model = transducer_model(**transducer_kwargs)
+            self.transducer = PointSource(**transducer_kwargs)
+        elif type(transducer) is type:
+            self.transducer = transducer(**transducer_kwargs)
         else:
-            self.transducer_model = transducer_model
+            self.transducer = transducer
         if medium is not None:
             self.medium = medium
 
-        self.calculate = self.PersistentFieldEvaluator(self)
+        self.positions = positions
+        self.normals = normals
 
-        self.transducer_positions = transducer_positions
-        self.num_transducers = self.transducer_positions.shape[1]
-        if transducer_normals.ndim == 1:
-            transducer_normals = np.tile(transducer_normals.reshape(3, 1), (1, self.num_transducers))
-        self.transducer_normals = transducer_normals
-        self.amplitudes = np.ones(self.num_transducers)
-        self.phases = np.zeros(self.num_transducers)
-
-        self.visualize = Visualizer(self)
+        self.visualize = type(self).ArrayVisualizer(self, 'Transducers')
 
     def __format__(self, fmt_spec):
         s_out = fmt_spec
         s_out = s_out.replace('%cls', self.__class__.__name__).replace('%num_transducers', str(self.num_transducers))
         s_out = s_out.replace('%transducer_size', str(self.transducer_size))
         s_out = s_out.replace('%medium_full', repr(self.medium)).replace('%medium', str(self.medium))
-        s_out = s_out.replace('%transducer_model_full', repr(self.transducer_model)).replace('%transducer_model', str(self.transducer_model))
-        s_out = s_out.replace('%transducer_positions', repr(self.transducer_positions)).replace('%transducer_normals', repr(self.transducer_normals))
+        s_out = s_out.replace('%transducer_full', repr(self.transducer)).replace('%transducer', str(self.transducer))
+        s_out = s_out.replace('%positions', repr(self.positions)).replace('%normals', repr(self.normals))
         for key, value in self._extra_print_args.items():
             s_out = s_out.replace('%' + key, str(value))
         return s_out
@@ -114,9 +99,9 @@ class TransducerArray:
         return (
             isinstance(other, TransducerArray)
             and self.num_transducers == other.num_transducers
-            and np.allclose(self.transducer_positions, other.transducer_positions)
-            and np.allclose(self.transducer_normals, other.transducer_normals)
-            and self.transducer_model == other.transducer_model
+            and np.allclose(self.positions, other.positions)
+            and np.allclose(self.normals, other.normals)
+            and self.transducer == other.transducer
         )
 
     def __repr__(self):
@@ -130,63 +115,79 @@ class TransducerArray:
 
     @property
     def k(self):
-        return self.transducer_model.k
+        return self.transducer.k
 
     @k.setter
     def k(self, value):
-        self.transducer_model.k = value
+        self.transducer.k = value
 
     @property
     def omega(self):
-        return self.transducer_model.omega
+        return self.transducer.omega
 
     @omega.setter
     def omega(self, value):
-        self.transducer_model.omega = value
+        self.transducer.omega = value
 
     @property
     def freq(self):
-        return self.transducer_model.freq
+        return self.transducer.freq
 
     @freq.setter
     def freq(self, value):
-        self.transducer_model.freq = value
+        self.transducer.freq = value
 
     @property
     def wavelength(self):
-        return self.transducer_model.wavelength
+        return self.transducer.wavelength
 
     @wavelength.setter
     def wavelength(self, value):
-        self.transducer_model.wavelength = value
+        self.transducer.wavelength = value
 
     @property
     def medium(self):
-        return self.transducer_model.medium
+        return self.transducer.medium
 
     @medium.setter
     def medium(self, val):
-        self.transducer_model.medium = val
+        self.transducer.medium = val
 
     @property
-    def complex_amplitudes(self):
-        """Transducer element controls on complex form.
+    def positions(self):
+        return self._positions
 
-        The complex form of the transducer element controls is a convenience form.
-        The returned value will be calculated from the normal phases and amplitudes.
+    @positions.setter
+    def positions(self, val):
+        val = np.asarray(val)
+        if not val.shape[0] == 3:
+            raise ValueError('Cannot set position to these values, the first axis must have length 3 and represent the [x,y,z] coordinates!')
+        self._positions = val
+        self._num_transducers = val.shape[1]
 
-        Warning
-        -------
-        Do not try to set a single complex element as `array.complex_amplitudes[0] = 1 + 1j`.
-        It will not change the underlying phases and amplitudes, only the temporary complex numpy array.
+    @property
+    def normals(self):
+        return self._normals
 
-        """
-        return self.amplitudes * np.exp(1j * self.phases)
+    @normals.setter
+    def normals(self, val):
+        val = np.asarray(val)
+        if not val.shape[0] == 3:
+            raise ValueError('Cannot set normals to these values, the first axis must have length 3 and represent the [x,y,z] components!')
+        if self.num_transducers == 0:
+            raise ValueError('Set the array positions before setting the normals!')
+        if val.ndim == 1:
+            val = np.tile(val.reshape(3, 1), (1, self.num_transducers))
+        elif val.shape[1] != self.num_transducers:
+            raise ValueError('The array needs to have the same number of normals as transducers!')
+        self._normals = val / np.sum(val**2, axis=0)**0.5
 
-    @complex_amplitudes.setter
-    def complex_amplitudes(self, value):
-        self.amplitudes = np.abs(value)
-        self.phases = np.angle(value)
+    @property
+    def num_transducers(self):
+        try:
+            return self._num_transducers
+        except AttributeError:
+            return 0
 
     def focus_phases(self, focus):
         """Focuses the phases to create a focus point.
@@ -202,11 +203,12 @@ class TransducerArray:
             Array with the phases for the transducer elements.
 
         """
-        phase = -np.sum((self.transducer_positions - focus.reshape([3, 1]))**2, axis=0)**0.5 * self.k
+        focus = np.asarray(focus)
+        phase = -np.sum((self.positions - focus.reshape([3, 1]))**2, axis=0)**0.5 * self.k
         phase = np.mod(phase + np.pi, 2 * np.pi) - np.pi  # Wrap phase to [-pi, pi]
         return phase
 
-    def signature(self, position, phases=None, stype=None):
+    def signature(self, position, phases, stype=None):
         """Calculate the phase signature of the array.
 
         The signature of an array if the phase of the transducer elements
@@ -217,9 +219,8 @@ class TransducerArray:
         ----------
         position : array_like
             Three element array with a position for where the signature is relative to.
-        phases : numpy.ndarray, optional
+        phases : numpy.ndarray
             The phases of which to calculate the signature.
-            Will default to the current phases in the array.
 
         Returns
         -------
@@ -229,8 +230,6 @@ class TransducerArray:
         """
         if stype is not None:
             raise NotImplementedError("Unknown phase signature '{}' for array of type `{}`".format(stype, self.__class__.__name__))
-        if phases is None:
-            phases = self.phases
         focus_phases = self.focus_phases(position)
         return np.mod(phases - focus_phases + np.pi, 2 * np.pi) - np.pi
 
@@ -256,7 +255,7 @@ class TransducerArray:
             and the remaining dimensions are the same as the `positions` input with the first dimension removed.
 
         """
-        return self.transducer_model.pressure_derivs(self.transducer_positions, self.transducer_normals, positions, orders)
+        return self.transducer.pressure_derivs(self.positions, self.normals, positions, orders)
 
     def spherical_harmonics(self, positions, orders=0):
         """Spherical harmonics expansion of transducer sound fields.
@@ -285,7 +284,7 @@ class TransducerArray:
             the same as the `positions` input with the first dimension removed.
 
         """
-        return self.transducer_model.spherical_harmonics(self.transducer_positions, self.transducer_normals, positions, orders)
+        return self.transducer.spherical_harmonics(self.positions, self.normals, positions, orders)
 
     def request(self, requests, position):
         """Evaluate a set of requests.
@@ -317,6 +316,7 @@ class TransducerArray:
             A dictionary of the set of calculated data, according to the requests.
 
         """
+        position = np.asarray(position)
         parsed_requests = {}
         for key, value in requests.items():
             if key.find('pressure_derivs') > -1:
@@ -376,113 +376,6 @@ class TransducerArray:
             raise ValueError('Unevaluated requests: {}'.format(parsed_requests))
         return evaluated_requests
 
-    class PersistentFieldEvaluator:
-        """Implementation of cashed field calculations.
-
-        Parameters
-        ----------
-        array : `TransducerArray`
-            The array of which to calculate the fields.
-
-        """
-
-        from .fields import RadiationForce as _force, RadiationForceStiffness as _stiffness
-
-        def __init__(self, array):
-            self.array = array
-            self._last_positions = None
-            self._pressure_derivs = None
-            self._existing_orders = -1
-
-        def pressure_derivs(self, positions, orders=3):
-            """Cashed wrapper around `TransducerArray.pressure_derivs`."""
-            if (
-                self._pressure_derivs is not None
-                and self._existing_orders >= orders
-                and positions.shape == self._last_positions.shape
-                and np.allclose(positions, self._last_positions)
-            ):
-                return self._pressure_derivs
-
-            self._pressure_derivs = self.array.pressure_derivs(positions, orders)
-            self._existing_orders = orders
-            self._last_positions = positions.copy()  # In case the position is modified externally we need to keep a separate reference
-            return self._pressure_derivs
-
-        def pressure(self, positions, complex_amplitudes=None):
-            """Calculate the pressure field.
-
-            Parameters
-            ----------
-            positions : numpy.ndarray
-                The location(s) at which to calculate the pressure, shape (3, ...).
-                The first dimension must have length 3 and represent the coordinates of the points.
-
-            Returns
-            -------
-            pressure : numpy.ndarray
-                The complex pressure amplitudes, shape (...) as the positions.
-
-            """
-            complex_amplitudes = complex_amplitudes if complex_amplitudes is not None else self.array.complex_amplitudes
-            return np.einsum('i..., i', self.pressure_derivs(positions, orders=0)[0], complex_amplitudes)
-
-        def velocity(self, positions, complex_amplitudes=None):
-            """Calculate the velocity field.
-
-            Parameters
-            ----------
-            positions : numpy.ndarray
-                The location(s) at which to calculate the velocity, shape (3, ...).
-                The first dimension must have length 3 and represent the coordinates of the points.
-
-            Returns
-            -------
-            velocity : numpy.ndarray
-                The complex vector particle velocity, shape (3, ...) as the positions.
-
-            """
-            complex_amplitudes = complex_amplitudes if complex_amplitudes is not None else self.array.complex_amplitudes
-            return np.einsum('ji..., i->j...', self.pressure_derivs(positions, orders=1)[1:4], complex_amplitudes) / (1j * self.array.omega * self.array.medium.rho)
-
-        def force(self, positions, complex_amplitudes=None, **kwargs):
-            """Calculate the force field.
-
-            Parameters
-            ----------
-            positions : numpy.ndarray
-                The location(s) at which to calculate the force, shape (3, ...).
-                The first dimension must have length 3 and represent the coordinates of the points.
-
-            Returns
-            -------
-            force : numpy.ndarray
-                The vector radiation force, shape (3, ...) as the positions.
-
-            """
-            complex_amplitudes = complex_amplitudes if complex_amplitudes is not None else self.array.complex_amplitudes
-            summed_derivs = np.einsum('ji..., i->j...', self.pressure_derivs(positions, orders=2), complex_amplitudes)
-            return TransducerArray.PersistentFieldEvaluator._force(self.array, **kwargs).values(summed_derivs)
-
-        def stiffness(self, positions, complex_amplitudes=None, **kwargs):
-            """Calculate the stiffness field.
-
-            Parameters
-            ----------
-            positions : numpy.ndarray
-                The location(s) at which to calculate the stiffness, shape (3, ...).
-                The first dimension must have length 3 and represent the coordinates of the points.
-
-            Returns
-            -------
-            force : numpy.ndarray
-                The radiation stiffness, shape (...) as the positions.
-
-            """
-            complex_amplitudes = complex_amplitudes if complex_amplitudes is not None else self.array.complex_amplitudes
-            summed_derivs = np.einsum('ji..., i->j...', self.pressure_derivs(positions, orders=3), complex_amplitudes)
-            return TransducerArray.PersistentFieldEvaluator._stiffness(self.array, **kwargs).values(summed_derivs)
-
 
 class RectangularArray(TransducerArray):
     """TransducerArray implementation for rectangular arrays.
@@ -512,11 +405,11 @@ class RectangularArray(TransducerArray):
 
     """
 
-    _str_fmt_spec = '{:%cls(transducer_model=%transducer_model, shape=%shape, spread=%spread, offset=%offset, normal=%normal, rotation=%rotation)}'
+    _str_fmt_spec = '{:%cls(transducer=%transducer, shape=%shape, spread=%spread, offset=%offset, normal=%normal, rotation=%rotation)}'
 
     def __init__(self, shape=16, spread=10e-3, offset=(0, 0, 0), normal=(0, 0, 1), rotation=0, **kwargs):
         extra_print_args = {'shape': shape, 'spread': spread, 'offset': offset, 'normal': normal, 'rotation': rotation}
-        normal = np.asarray(normal, dtype='float64')
+        normal = np.asarray(normal, dtype=float)
         normal /= (normal**2).sum()**0.5
         positions, normals = self._grid_generator(shape=shape, spread=spread, normal=normal, **kwargs)
 
@@ -544,8 +437,8 @@ class RectangularArray(TransducerArray):
         positions += np.asarray(offset).reshape([3] + (positions.ndim - 1) * [1])
 
         kwargs.setdefault('transducer_size', spread)
-        kwargs.setdefault('transducer_positions', positions)
-        kwargs.setdefault('transducer_normals', normals)
+        kwargs.setdefault('positions', positions)
+        kwargs.setdefault('normals', normals)
         super().__init__(**kwargs)
         self._extra_print_args.update(extra_print_args)
 
@@ -570,10 +463,10 @@ class RectangularArray(TransducerArray):
 
         X, Y, Z = np.meshgrid(x, y, 0)
         positions = np.stack((X.flatten(), Y.flatten(), Z.flatten()))
-        normals = np.tile(normal.reshape((3, 1)), (1, positions.shape[1]))
+        normals = np.tile(np.asarray(normal).reshape((3, 1)), (1, positions.shape[1]))
         return positions, normals
 
-    def signature(self, position=None, stype=None, *args, **kwargs):
+    def signature(self, position=None, *args, stype=None, **kwargs):
         """Calculate phase signatures of the array.
 
         The signature of an array if the phase of the transducer elements
@@ -640,17 +533,17 @@ class RectangularArray(TransducerArray):
             angle = kwargs.get('angle', None)
             if angle is None:
                 angle = np.arctan2(position[1], position[0]) + np.pi / 2
-            signature = np.arctan2(self.transducer_positions[1] - position[1], self.transducer_positions[0] - position[0]) - angle
+            signature = np.arctan2(self.positions[1] - position[1], self.positions[0] - position[0]) - angle
             signature = np.round(np.mod(signature / (2 * np.pi), 1))
             signature = (signature - 0.5) * np.pi
             return signature
         if stype.lower().strip() == 'vortex':
             angle = kwargs.get('angle', 0)
-            return np.arctan2(self.transducer_positions[1] - position[1], self.transducer_positions[0] - position[0]) + angle
+            return np.arctan2(self.positions[1] - position[1], self.positions[0] - position[0]) + angle
         if stype.lower().strip() == 'bottle':
             position = np.asarray(position)[:2]
             radius = kwargs.get('radius', (self.num_transducers / 2 / np.pi)**0.5 * self.transducer_size)
-            return np.where(np.sum((self.transducer_positions[:2] - position[:, None])**2, axis=0) > radius**2, np.pi, 0)
+            return np.where(np.sum((self.positions[:2] - position[:, None])**2, axis=0) > radius**2, np.pi, 0)
         return super().signature(position, stype=stype, *args, **kwargs)
 
 
@@ -694,25 +587,25 @@ class DoublesidedArray(TransducerArray):
         if type(array) is type:
             array = array(normal=normal, **kwargs)
         extra_print_args = {'separation': separation, 'normal': normal, 'offset': offset, 'array': str(array)}
-        normal = np.asarray(normal, dtype='float64').copy()
+        normal = np.asarray(normal, dtype=float).copy()
         normal /= (normal**2).sum()**0.5
         offset = np.asarray(offset).copy()
-        lower_positions = array.transducer_positions - 0.5 * separation * normal[:, None]
-        lower_positions -= np.mean(array.transducer_positions, axis=1)[:, None]
+        lower_positions = array.positions - 0.5 * separation * normal[:, None]
+        lower_positions -= np.mean(array.positions, axis=1)[:, None]
         upper_positions = lower_positions - 2 * np.sum(lower_positions * normal[:, None], axis=0) * normal[:, None]
-        lower_normals = array.transducer_normals.copy()
+        lower_normals = array.normals.copy()
         normal_proj = np.sum(lower_normals * normal[:, None], axis=0) * normal[:, None]
         upper_normals = lower_normals - 2 * normal_proj
         super().__init__(
-            transducer_positions=np.concatenate([lower_positions, upper_positions], axis=1) + offset[:, None],
-            transducer_normals=np.concatenate([lower_normals, upper_normals], axis=1),
-            transducer_model=array.transducer_model, transducer_size=array.transducer_size,
+            positions=np.concatenate([lower_positions, upper_positions], axis=1) + offset[:, None],
+            normals=np.concatenate([lower_normals, upper_normals], axis=1),
+            transducer=array.transducer, transducer_size=array.transducer_size,
         )
         self._extra_print_args.update(extra_print_args)
 
         self._array_type = type(array)
 
-    def signature(self, position=None, stype=None, *args, **kwargs):
+    def signature(self, position=None, *args, stype=None, **kwargs):
         """Calculate phase signatures of the array.
 
         The signature of an array if the phase of the transducer elements
@@ -767,7 +660,7 @@ class DragonflyArray(RectangularArray):
     behaves exactly like a `RectangularArray`.
     """
 
-    _str_fmt_spec = '{:%cls(transducer_model=%transducer_model, offset=%offset, normal=%normal, rotation=%rotation)}'
+    _str_fmt_spec = '{:%cls(transducer=%transducer, offset=%offset, normal=%normal, rotation=%rotation)}'
 
     @classmethod
     def _grid_generator(cls, **kwargs):

@@ -12,21 +12,19 @@ support complex arrangements like this one.
 
 import numpy as np
 import levitate
-import plotly.graph_objects as go
 
 transducer = levitate.transducers.TransducerReflector(
     levitate.transducers.CircularPiston, effective_radius=3e-3,
-    plane_distance=0, plane_normal=(0, 0, 1))
+    plane_intersect=(0, 0, 0), plane_normal=(0, 0, 1))
 
 array = levitate.arrays.DoublesidedArray(
     levitate.arrays.RectangularArray, separation=200e-3,
     normal=(1, 0, 0), offset=(0, 0, 50e-3),
-    shape=(5, 10), transducer_model=transducer)
+    shape=(5, 10), transducer=transducer)
 
-array.phases = array.focus_phases(np.array([25e-3, 0, 40e-3]))
+phases = array.focus_phases(np.array([25e-3, 0, 40e-3]))
+amps = levitate.utils.complex(phases)
 array.visualize.zlimits = (0, 0.1)
-go.Figure(levitate.visualize.selection_figure(
-    (array.visualize.pressure(), 'Pressure'),
-    (array.visualize.velocity(), 'Velocity'),
-    additional_traces=[array.visualize.transducers()])
-).write_html(file='complex_setup.html', include_mathjax='cdn')
+array.visualize.append('Pressure')
+array.visualize.append('Velocity')
+array.visualize(amps).write_html(file='complex_setup.html', include_mathjax='cdn')

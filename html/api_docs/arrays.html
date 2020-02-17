@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Arrays &mdash; Levitate Python Toolbox 2.3.0 documentation</title>
+  <title>Arrays &mdash; Levitate Python Toolbox 2.4.0 documentation</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.3.0
+                2.4.0
               </div>
             
           
@@ -107,7 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="fields.html">Fields</a></li>
 <li class="toctree-l2"><a class="reference internal" href="optimization.html">Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utilities.html">Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.visualize">Visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.visualizers">Visualization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.materials">Materials</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utilities.html#module-levitate.hardware">Hardware</a></li>
 </ul>
@@ -224,30 +224,26 @@ simplify the creation of the transducer positions for common array geometries.</
 </table>
 <dl class="class">
 <dt id="levitate.arrays.TransducerArray">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.arrays.</code><code class="sig-name descname">TransducerArray</code><span class="sig-paren">(</span><em class="sig-param">transducer_positions</em>, <em class="sig-param">transducer_normals</em>, <em class="sig-param">transducer_model=None</em>, <em class="sig-param">transducer_size=0.01</em>, <em class="sig-param">transducer_kwargs=None</em>, <em class="sig-param">medium=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.arrays.</code><code class="sig-name descname">TransducerArray</code><span class="sig-paren">(</span><em class="sig-param">positions</em>, <em class="sig-param">normals</em>, <em class="sig-param">transducer=None</em>, <em class="sig-param">transducer_size=0.01</em>, <em class="sig-param">transducer_kwargs=None</em>, <em class="sig-param">medium=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class to handle transducer arrays.</p>
 <p>This class has no notion of the layout. If possible, try to use a more specific
 implementation instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>transducer_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The positions of the transducer elements in the array, shape 3xN.</p></li>
-<li><p><strong>transducer_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The normals of the transducer elements in the array, shape 3xN.</p></li>
-<li><p><strong>transducer_model</strong> – An object of <a class="reference internal" href="transducers.html#levitate.transducers.TransducerModel" title="levitate.transducers.TransducerModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">levitate.transducers.TransducerModel</span></code></a> or a subclass. If passed a class it will create a new instance.</p></li>
+<li><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The positions of the transducer elements in the array, shape 3xN.</p></li>
+<li><p><strong>normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The normals of the transducer elements in the array, shape 3xN.</p></li>
+<li><p><strong>transducer</strong> – An object of <a class="reference internal" href="transducers.html#levitate.transducers.TransducerModel" title="levitate.transducers.TransducerModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">levitate.transducers.TransducerModel</span></code></a> or a subclass. If passed a class it will create a new instance.</p></li>
 <li><p><strong>transducer_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Fallback transducer size if no transducer model object is given, or if no grid is given.</p></li>
 <li><p><strong>transducer_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Extra keyword arguments used when instantiating a new transducer model.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>phases</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The phases of the transducer elements.</p></li>
-<li><p><strong>amplitudes</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The amplitudes of the transducer elements.</p></li>
-<li><p><a class="reference internal" href="#levitate.arrays.TransducerArray.complex_amplitudes" title="levitate.arrays.TransducerArray.complex_amplitudes"><strong>complex_amplitudes</strong></a> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – Transducer element controls on complex form.</p></li>
 <li><p><strong>num_transducers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of transducers used.</p></li>
-<li><p><strong>transducer_positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – As above.</p></li>
-<li><p><strong>transducer_normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – As above.</p></li>
-<li><p><strong>transducer_model</strong> (<a class="reference internal" href="transducers.html#levitate.transducers.TransducerModel" title="levitate.transducers.TransducerModel"><em>TransducerModel</em></a>) – An instance of a specific transducer model implementation.</p></li>
-<li><p><strong>calculate</strong> (<a class="reference internal" href="#levitate.arrays.TransducerArray.PersistentFieldEvaluator" title="levitate.arrays.TransducerArray.PersistentFieldEvaluator"><em>PersistentFieldEvaluator</em></a>) – Use to perform cashed field calculations.</p></li>
+<li><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – As above.</p></li>
+<li><p><strong>normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – As above.</p></li>
+<li><p><strong>transducer</strong> (<a class="reference internal" href="transducers.html#levitate.transducers.TransducerModel" title="levitate.transducers.TransducerModel"><em>TransducerModel</em></a>) – An instance of a specific transducer model implementation.</p></li>
 <li><p><strong>freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Frequency of the transducer model.</p></li>
 <li><p><strong>omega</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Angular frequency of the transducer model.</p></li>
 <li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – Wavenumber in air, corresponding to <code class="xref py py-obj docutils literal notranslate"><span class="pre">freq</span></code>.</p></li>
@@ -255,17 +251,22 @@ implementation instead.</p>
 </ul>
 </dd>
 </dl>
+<dl class="class">
+<dt id="levitate.arrays.TransducerArray.ArrayVisualizer">
+<em class="property">class </em><code class="sig-name descname">ArrayVisualizer</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.ArrayVisualizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualizations of a trandcuer array.</p>
+<p>It is possible to set an item using either just a trace specifier,
+e.g. “Pressure”, which create the appropriate trace with default arguments.
+If arguments are required or wanted, set the item to a tuple where the
+first element is the trace specifier, and subsequent elements are the
+arguments. If the last element in the tuple is a dictionary, it will
+be used as keyword arguments for the trace type.</p>
 <dl class="method">
-<dt id="levitate.arrays.TransducerArray.complex_amplitudes">
-<em class="property">property </em><code class="sig-name descname">complex_amplitudes</code><a class="headerlink" href="#levitate.arrays.TransducerArray.complex_amplitudes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transducer element controls on complex form.</p>
-<p>The complex form of the transducer element controls is a convenience form.
-The returned value will be calculated from the normal phases and amplitudes.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Do not try to set a single complex element as <code class="xref py py-obj docutils literal notranslate"><span class="pre">array.complex_amplitudes[0]</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">+</span> <span class="pre">1j</span></code>.
-It will not change the underlying phases and amplitudes, only the temporary complex numpy array.</p>
-</div>
+<dt id="levitate.arrays.TransducerArray.ArrayVisualizer.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">*complex_transducer_amplitudes</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.ArrayVisualizer.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="method">
@@ -284,7 +285,7 @@ It will not change the underlying phases and amplitudes, only the temporary comp
 
 <dl class="method">
 <dt id="levitate.arrays.TransducerArray.signature">
-<code class="sig-name descname">signature</code><span class="sig-paren">(</span><em class="sig-param">position</em>, <em class="sig-param">phases=None</em>, <em class="sig-param">stype=None</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.signature" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">signature</code><span class="sig-paren">(</span><em class="sig-param">position</em>, <em class="sig-param">phases</em>, <em class="sig-param">stype=None</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.signature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the phase signature of the array.</p>
 <p>The signature of an array if the phase of the transducer elements
 when the phase required to focus all elements to a specific point
@@ -293,8 +294,7 @@ has been removed.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>position</strong> (<em>array_like</em>) – Three element array with a position for where the signature is relative to.</p></li>
-<li><p><strong>phases</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a><em>, </em><em>optional</em>) – The phases of which to calculate the signature.
-Will default to the current phases in the array.</p></li>
+<li><p><strong>phases</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The phases of which to calculate the signature.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -386,83 +386,6 @@ Should contain the maximum order of expansion, see <a class="reference internal"
 </dl>
 </dd></dl>
 
-<dl class="class">
-<dt id="levitate.arrays.TransducerArray.PersistentFieldEvaluator">
-<em class="property">class </em><code class="sig-name descname">PersistentFieldEvaluator</code><span class="sig-paren">(</span><em class="sig-param">array</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.PersistentFieldEvaluator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implementation of cashed field calculations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>array</strong> (<a class="reference internal" href="#levitate.arrays.TransducerArray" title="levitate.arrays.TransducerArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransducerArray</span></code></a>) – The array of which to calculate the fields.</p>
-</dd>
-</dl>
-<dl class="method">
-<dt id="levitate.arrays.TransducerArray.PersistentFieldEvaluator.pressure_derivs">
-<code class="sig-name descname">pressure_derivs</code><span class="sig-paren">(</span><em class="sig-param">positions</em>, <em class="sig-param">orders=3</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.PersistentFieldEvaluator.pressure_derivs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cashed wrapper around <a class="reference internal" href="#levitate.arrays.TransducerArray.pressure_derivs" title="levitate.arrays.TransducerArray.pressure_derivs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransducerArray.pressure_derivs</span></code></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="levitate.arrays.TransducerArray.PersistentFieldEvaluator.pressure">
-<code class="sig-name descname">pressure</code><span class="sig-paren">(</span><em class="sig-param">positions</em>, <em class="sig-param">complex_amplitudes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.PersistentFieldEvaluator.pressure" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the pressure field.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the pressure, shape (3, …).
-The first dimension must have length 3 and represent the coordinates of the points.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>pressure</strong> (<em>numpy.ndarray</em>) – The complex pressure amplitudes, shape (…) as the positions.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="levitate.arrays.TransducerArray.PersistentFieldEvaluator.velocity">
-<code class="sig-name descname">velocity</code><span class="sig-paren">(</span><em class="sig-param">positions</em>, <em class="sig-param">complex_amplitudes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.PersistentFieldEvaluator.velocity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the velocity field.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the velocity, shape (3, …).
-The first dimension must have length 3 and represent the coordinates of the points.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>velocity</strong> (<em>numpy.ndarray</em>) – The complex vector particle velocity, shape (3, …) as the positions.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="levitate.arrays.TransducerArray.PersistentFieldEvaluator.force">
-<code class="sig-name descname">force</code><span class="sig-paren">(</span><em class="sig-param">positions</em>, <em class="sig-param">complex_amplitudes=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.PersistentFieldEvaluator.force" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the force field.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the force, shape (3, …).
-The first dimension must have length 3 and represent the coordinates of the points.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>force</strong> (<em>numpy.ndarray</em>) – The vector radiation force, shape (3, …) as the positions.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="levitate.arrays.TransducerArray.PersistentFieldEvaluator.stiffness">
-<code class="sig-name descname">stiffness</code><span class="sig-paren">(</span><em class="sig-param">positions</em>, <em class="sig-param">complex_amplitudes=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.PersistentFieldEvaluator.stiffness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the stiffness field.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The location(s) at which to calculate the stiffness, shape (3, …).
-The first dimension must have length 3 and represent the coordinates of the points.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>force</strong> (<em>numpy.ndarray</em>) – The radiation stiffness, shape (…) as the positions.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
 </dd></dl>
 
 <dl class="class">
@@ -493,7 +416,7 @@ plane intersects with the xy-plane.</p>
 </dl>
 <dl class="method">
 <dt id="levitate.arrays.RectangularArray.signature">
-<code class="sig-name descname">signature</code><span class="sig-paren">(</span><em class="sig-param">position=None</em>, <em class="sig-param">stype=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.RectangularArray.signature" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">signature</code><span class="sig-paren">(</span><em class="sig-param">position=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">stype=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.RectangularArray.signature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate phase signatures of the array.</p>
 <p>The signature of an array if the phase of the transducer elements
 when the phase required to focus all elements to a specific point
@@ -589,7 +512,7 @@ arguments except <a class="reference external" href="https://docs.python.org/3/l
 </dl>
 <dl class="method">
 <dt id="levitate.arrays.DoublesidedArray.signature">
-<code class="sig-name descname">signature</code><span class="sig-paren">(</span><em class="sig-param">position=None</em>, <em class="sig-param">stype=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.DoublesidedArray.signature" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">signature</code><span class="sig-paren">(</span><em class="sig-param">position=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">stype=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.DoublesidedArray.signature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate phase signatures of the array.</p>
 <p>The signature of an array if the phase of the transducer elements
 when the phase required to focus all elements to a specific point

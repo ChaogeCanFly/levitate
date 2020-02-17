@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Levitate Python Toolbox 2.3.0 documentation</title>
+  <title>Index &mdash; Levitate Python Toolbox 2.4.0 documentation</title>
   
 
   
@@ -22,11 +22,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.3.0
+                2.4.0
               </div>
             
           
@@ -106,7 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api_docs/fields.html">Fields</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/optimization.html">Optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_docs/utilities.html">Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_docs/utilities.html#module-levitate.visualize">Visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_docs/utilities.html#module-levitate.visualizers">Visualization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_docs/utilities.html#module-levitate.materials">Materials</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_docs/utilities.html#module-levitate.hardware">Hardware</a></li>
 </ul>
@@ -244,7 +244,13 @@
 </li>
         <li><a href="api_docs/field_wrappers.html#levitate._field_wrappers.MultiFieldPoint.__call__">(levitate._field_wrappers.MultiFieldPoint method)</a>
 </li>
+        <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.ArrayVisualizer.__call__">(levitate.arrays.TransducerArray.ArrayVisualizer method)</a>
+</li>
         <li><a href="api_docs/utilities.html#levitate.utils.SphericalHarmonicsIndexer.__call__">(levitate.utils.SphericalHarmonicsIndexer method)</a>
+</li>
+        <li><a href="api_docs/utilities.html#levitate.visualizers.ArrayVisualizer.__call__">(levitate.visualizers.ArrayVisualizer method)</a>
+</li>
+        <li><a href="api_docs/utilities.html#levitate.visualizers.ForceDiagram.__call__">(levitate.visualizers.ForceDiagram method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -267,6 +273,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.amplitude">amplitude() (levitate.hardware.TCPArray property)</a>
 </li>
+      <li><a href="api_docs/utilities.html#levitate.visualizers.ArrayVisualizer">ArrayVisualizer (class in levitate.visualizers)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -287,17 +295,15 @@
       </ul></li>
       <li><a href="api_docs/utilities.html#levitate.materials.Solid.c_transversal">c_transversal() (levitate.materials.Solid property)</a>
 </li>
-      <li><a href="api_docs/transducers.html#levitate.transducers.CircularPiston">CircularPiston (class in levitate.transducers)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_docs/transducers.html#levitate.transducers.CircularPiston">CircularPiston (class in levitate.transducers)</a>
+</li>
       <li><a href="api_docs/transducers.html#levitate.transducers.CircularRing">CircularRing (class in levitate.transducers)</a>
 </li>
       <li><a href="api_docs/utilities.html#levitate.materials.MaterialMeta.class_instance_property">class_instance_property() (levitate.materials.MaterialMeta static method)</a>
 </li>
       <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.close">close() (levitate.hardware.TCPArray method)</a>
-</li>
-      <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.complex_amplitudes">complex_amplitudes() (levitate.arrays.TransducerArray property)</a>
 </li>
       <li><a href="api_docs/utilities.html#levitate.materials.Material.compressibility">compressibility() (levitate.materials.Material property)</a>
 </li>
@@ -359,8 +365,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/field_wrappers.html#levitate._field_wrappers.Field">Field (class in levitate._field_wrappers)</a>
 </li>
-      <li><a href="api_docs/utilities.html#levitate.visualize.Visualizer.field_slice">field_slice() (levitate.visualize.Visualizer method)</a>
-</li>
       <li><a href="api_docs/field_wrappers.html#levitate._field_wrappers.FieldBase">FieldBase (class in levitate._field_wrappers)</a>
 </li>
       <li><a href="api_docs/field_wrappers.html#levitate._field_wrappers.FieldImplementation">FieldImplementation (class in levitate._field_wrappers)</a>
@@ -369,23 +373,19 @@
 </li>
       <li><a href="api_docs/field_wrappers.html#levitate._field_wrappers.FieldImplementationMeta">FieldImplementationMeta (class in levitate._field_wrappers)</a>
 </li>
-      <li><a href="api_docs/field_wrappers.html#levitate._field_wrappers.FieldMeta">FieldMeta (class in levitate._field_wrappers)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_docs/field_wrappers.html#levitate._field_wrappers.FieldMeta">FieldMeta (class in levitate._field_wrappers)</a>
+</li>
       <li><a href="api_docs/field_wrappers.html#levitate._field_wrappers.FieldPoint">FieldPoint (class in levitate._field_wrappers)</a>
 </li>
-      <li><a href="api_docs/utilities.html#levitate.visualize.Visualizer.find_trap">find_trap() (levitate.visualize.Visualizer method)</a>
+      <li><a href="api_docs/utilities.html#levitate.utils.find_trap">find_trap() (in module levitate.utils)</a>
 </li>
       <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.focus_phases">focus_phases() (levitate.arrays.TransducerArray method)</a>
 </li>
-      <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.PersistentFieldEvaluator.force">force() (levitate.arrays.TransducerArray.PersistentFieldEvaluator method)</a>
-</li>
       <li><a href="api_docs/utilities.html#levitate.materials.Material.force_all_to_global">force_all_to_global() (levitate.materials.Material class method)</a>
 </li>
-      <li><a href="api_docs/utilities.html#levitate.visualize.Visualizer.force_diagram_layout">force_diagram_layout() (levitate.visualize.Visualizer method)</a>
-</li>
-      <li><a href="api_docs/utilities.html#levitate.visualize.Visualizer.force_diagram_traces">force_diagram_traces() (levitate.visualize.Visualizer method)</a>
+      <li><a href="api_docs/utilities.html#levitate.visualizers.ForceDiagram">ForceDiagram (class in levitate.visualizers)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -397,22 +397,12 @@
 </li>
       <li><a href="api_docs/fields.html#levitate.fields.GorkovGradient">GorkovGradient (class in levitate.fields)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/fields.html#levitate.fields.GorkovLaplacian">GorkovLaplacian (class in levitate.fields)</a>
 </li>
       <li><a href="api_docs/fields.html#levitate.fields.GorkovPotential">GorkovPotential (class in levitate.fields)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_docs/transducers.html#levitate.transducers.PlaneWaveTransducer.greens_function">greens_function() (levitate.transducers.PlaneWaveTransducer method)</a>
-
-      <ul>
-        <li><a href="api_docs/transducers.html#levitate.transducers.PointSource.greens_function">(levitate.transducers.PointSource method)</a>
-</li>
-        <li><a href="api_docs/transducers.html#levitate.transducers.TransducerModel.greens_function">(levitate.transducers.TransducerModel method)</a>
-</li>
-        <li><a href="api_docs/transducers.html#levitate.transducers.TransducerReflector.greens_function">(levitate.transducers.TransducerReflector method)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -424,6 +414,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.index">index() (levitate.hardware.TCPArray property)</a>
+</li>
+      <li><a href="api_docs/utilities.html#levitate.visualizers.Visualizer.insert">insert() (levitate.visualizers.Visualizer method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -463,7 +455,7 @@
 </li>
       <li><a href="api_docs/utilities.html#module-levitate.utils">levitate.utils (module)</a>
 </li>
-      <li><a href="api_docs/utilities.html#module-levitate.visualize">levitate.visualize (module)</a>
+      <li><a href="api_docs/utilities.html#module-levitate.visualizers">levitate.visualizers (module)</a>
 </li>
       <li><a href="api_docs/utilities.html#levitate.materials.Material.load_from_global">load_from_global() (levitate.materials.Material method)</a>
 </li>
@@ -503,6 +495,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.next">next() (levitate.hardware.TCPArray method)</a>
 </li>
+      <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.normals">normals() (levitate.hardware.TCPArray property)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/utilities.html#levitate.utils.num_pressure_derivs">num_pressure_derivs (in module levitate.utils)</a>
@@ -537,19 +531,17 @@
         <li><a href="api_docs/utilities.html#levitate.materials.Styrofoam.poisson_ratio">(levitate.materials.Styrofoam property)</a>
 </li>
       </ul></li>
+      <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.positions">positions() (levitate.hardware.TCPArray property)</a>
+</li>
       <li><a href="api_docs/fields.html#levitate.fields.Pressure">Pressure (class in levitate.fields)</a>
 </li>
-      <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.PersistentFieldEvaluator.pressure">pressure() (levitate.arrays.TransducerArray.PersistentFieldEvaluator method)</a>
-
-      <ul>
-        <li><a href="api_docs/utilities.html#levitate.visualize.Visualizer.pressure">(levitate.visualize.Visualizer method)</a>
+      <li><a href="api_docs/transducers.html#levitate.transducers.TransducerModel.pressure">pressure() (levitate.transducers.TransducerModel method)</a>
 </li>
-      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.pressure_derivs">pressure_derivs() (levitate.arrays.TransducerArray method)</a>
 
       <ul>
-        <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.PersistentFieldEvaluator.pressure_derivs">(levitate.arrays.TransducerArray.PersistentFieldEvaluator method)</a>
-</li>
         <li><a href="api_docs/transducers.html#levitate.transducers.PlaneWaveTransducer.pressure_derivs">(levitate.transducers.PlaneWaveTransducer method)</a>
 </li>
         <li><a href="api_docs/transducers.html#levitate.transducers.PointSource.pressure_derivs">(levitate.transducers.PointSource method)</a>
@@ -559,8 +551,6 @@
         <li><a href="api_docs/transducers.html#levitate.transducers.TransducerReflector.pressure_derivs">(levitate.transducers.TransducerReflector method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/utilities.html#levitate.utils.pressure_derivs_order">pressure_derivs_order (in module levitate.utils)</a>
 </li>
       <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.prev">prev() (levitate.hardware.TCPArray method)</a>
@@ -624,6 +614,8 @@
       <ul>
         <li><a href="api_docs/transducers.html#levitate.transducers.PointSource.spherical_harmonics">(levitate.transducers.PointSource method)</a>
 </li>
+        <li><a href="api_docs/transducers.html#levitate.transducers.TransducerReflector.spherical_harmonics">(levitate.transducers.TransducerReflector method)</a>
+</li>
       </ul></li>
       <li><a href="api_docs/fields.html#levitate.fields.SphericalHarmonicsExpansion">SphericalHarmonicsExpansion (class in levitate.fields)</a>
 </li>
@@ -633,10 +625,10 @@
 </li>
       <li><a href="api_docs/fields.html#levitate.fields.SphericalHarmonicsForceDecomposition">SphericalHarmonicsForceDecomposition (class in levitate.fields)</a>
 </li>
-      <li><a href="api_docs/fields.html#levitate.fields.SphericalHarmonicsForceGradient">SphericalHarmonicsForceGradient (class in levitate.fields)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_docs/fields.html#levitate.fields.SphericalHarmonicsForceGradient">SphericalHarmonicsForceGradient (class in levitate.fields)</a>
+</li>
       <li><a href="api_docs/fields.html#levitate.fields.SphericalHarmonicsForceGradientDecomposition">SphericalHarmonicsForceGradientDecomposition (class in levitate.fields)</a>
 </li>
       <li><a href="api_docs/utilities.html#levitate.utils.SphericalHarmonicsIndexer">SphericalHarmonicsIndexer (class in levitate.utils)</a>
@@ -655,8 +647,6 @@
 </li>
       <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.states">states() (levitate.hardware.TCPArray property)</a>
 </li>
-      <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.PersistentFieldEvaluator.stiffness">stiffness() (levitate.arrays.TransducerArray.PersistentFieldEvaluator method)</a>
-</li>
       <li><a href="api_docs/utilities.html#levitate.materials.Styrofoam">Styrofoam (class in levitate.materials)</a>
 </li>
       <li><a href="api_docs/utilities.html#levitate.utils.SVL">SVL() (in module levitate.utils)</a>
@@ -669,21 +659,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray">TCPArray (class in levitate.hardware)</a>
 </li>
-      <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.transducer_normals">transducer_normals() (levitate.hardware.TCPArray property)</a>
-</li>
-      <li><a href="api_docs/utilities.html#levitate.hardware.TCPArray.transducer_positions">transducer_positions() (levitate.hardware.TCPArray property)</a>
-</li>
       <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray">TransducerArray (class in levitate.arrays)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.PersistentFieldEvaluator">TransducerArray.PersistentFieldEvaluator (class in levitate.arrays)</a>
+      <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.ArrayVisualizer">TransducerArray.ArrayVisualizer (class in levitate.arrays)</a>
 </li>
       <li><a href="api_docs/transducers.html#levitate.transducers.TransducerModel">TransducerModel (class in levitate.transducers)</a>
 </li>
       <li><a href="api_docs/transducers.html#levitate.transducers.TransducerReflector">TransducerReflector (class in levitate.transducers)</a>
-</li>
-      <li><a href="api_docs/utilities.html#levitate.visualize.Visualizer.transducers">transducers() (levitate.visualize.Visualizer method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -705,17 +689,11 @@
         <li><a href="api_docs/field_wrappers.html#levitate._field_wrappers.SquaredFieldBase.values">(levitate._field_wrappers.SquaredFieldBase method)</a>
 </li>
       </ul></li>
-      <li><a href="api_docs/fields.html#levitate.fields.Velocity">Velocity (class in levitate.fields)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_docs/arrays.html#levitate.arrays.TransducerArray.PersistentFieldEvaluator.velocity">velocity() (levitate.arrays.TransducerArray.PersistentFieldEvaluator method)</a>
-
-      <ul>
-        <li><a href="api_docs/utilities.html#levitate.visualize.Visualizer.velocity">(levitate.visualize.Visualizer method)</a>
+      <li><a href="api_docs/fields.html#levitate.fields.Velocity">Velocity (class in levitate.fields)</a>
 </li>
-      </ul></li>
-      <li><a href="api_docs/utilities.html#levitate.visualize.Visualizer">Visualizer (class in levitate.visualize)</a>
+      <li><a href="api_docs/utilities.html#levitate.visualizers.Visualizer">Visualizer (class in levitate.visualizers)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -724,10 +702,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_docs/transducers.html#levitate.transducers.PointSource.wavefront_derivatives">wavefront_derivatives() (levitate.transducers.PointSource method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_docs/transducers.html#levitate.transducers.PointSource.wavefront_spreading">wavefront_spreading() (levitate.transducers.PointSource method)</a>
 </li>
   </ul></td>
 </tr></table>
