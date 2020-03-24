@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Arrays &mdash; Levitate Python Toolbox 2.4.0 documentation</title>
+  <title>Arrays &mdash; Levitate Python Toolbox 2.4.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4.0
+                2.4.1
               </div>
             
           
@@ -211,13 +211,16 @@ simplify the creation of the transducer positions for common array geometries.</
 <tr class="row-odd"><td><p><a class="reference internal" href="#levitate.arrays.TransducerArray" title="levitate.arrays.TransducerArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransducerArray</span></code></a></p></td>
 <td><p>Base class to handle transducer arrays.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#levitate.arrays.RectangularArray" title="levitate.arrays.RectangularArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RectangularArray</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#levitate.arrays.NormalTransducerArray" title="levitate.arrays.NormalTransducerArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NormalTransducerArray</span></code></a></p></td>
+<td><p>Transducer array with a clearly defined normal.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#levitate.arrays.RectangularArray" title="levitate.arrays.RectangularArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RectangularArray</span></code></a></p></td>
 <td><p>TransducerArray implementation for rectangular arrays.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#levitate.arrays.DoublesidedArray" title="levitate.arrays.DoublesidedArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DoublesidedArray</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#levitate.arrays.DoublesidedArray" title="levitate.arrays.DoublesidedArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DoublesidedArray</span></code></a></p></td>
 <td><p>TransducerArray implementation for doublesided arrays.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#levitate.arrays.DragonflyArray" title="levitate.arrays.DragonflyArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DragonflyArray</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#levitate.arrays.DragonflyArray" title="levitate.arrays.DragonflyArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DragonflyArray</span></code></a></p></td>
 <td><p>Rectangular array with Ultrahaptics Dragonfly U5 layout.</p></td>
 </tr>
 </tbody>
@@ -264,6 +267,17 @@ be used as keyword arguments for the trace type.</p>
 <dl class="method">
 <dt id="levitate.arrays.TransducerArray.ArrayVisualizer.__call__">
 <code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">*complex_transducer_amplitudes</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.ArrayVisualizer.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate.arrays.TransducerArray.ForceDiagram">
+<em class="property">class </em><code class="sig-name descname">ForceDiagram</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">scale_to_gravity=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.ForceDiagram" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="levitate.arrays.TransducerArray.ForceDiagram.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">*complex_transducer_amplitudes</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.TransducerArray.ForceDiagram.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call self as a function.</p>
 </dd></dl>
 
@@ -389,34 +403,33 @@ Should contain the maximum order of expansion, see <a class="reference internal"
 </dd></dl>
 
 <dl class="class">
-<dt id="levitate.arrays.RectangularArray">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.arrays.</code><code class="sig-name descname">RectangularArray</code><span class="sig-paren">(</span><em class="sig-param">shape=16</em>, <em class="sig-param">spread=0.01</em>, <em class="sig-param">offset=(0</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">normal=(0</em>, <em class="sig-param">0</em>, <em class="sig-param">1)</em>, <em class="sig-param">rotation=0</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.RectangularArray" title="Permalink to this definition">¶</a></dt>
-<dd><p>TransducerArray implementation for rectangular arrays.</p>
-<p>Defines the locations and normals of elements (transducers) in an array.
-For rotated arrays, the rotation is as follows:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>A grid of the correct layout is crated in the xy-plane</p></li>
-<li><p>The grid is rotated to the desired plane, as defined by the normal.</p></li>
-<li><p>The grid is rotated around the normal.</p></li>
-</ol>
-</div></blockquote>
-<p>The rotation to the desired plane is around the line where the desired
-plane intersects with the xy-plane.</p>
+<dt id="levitate.arrays.NormalTransducerArray">
+<em class="property">class </em><code class="sig-prename descclassname">levitate.arrays.</code><code class="sig-name descname">NormalTransducerArray</code><span class="sig-paren">(</span><em class="sig-param">positions</em>, <em class="sig-param">normals</em>, <em class="sig-param">offset=(0</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">normal=(0</em>, <em class="sig-param">0</em>, <em class="sig-param">1)</em>, <em class="sig-param">rotation=0</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.NormalTransducerArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transducer array with a clearly defined normal.</p>
+<p>This is mostly intended as a base class for other implementations.
+The advantage is that a simple arrangement can be created assuming a normal
+along the z-axis, which is then rotated and moved to the desired orientation.
+The positions and normals of the transducers should be input assuming that
+the overall normal for the array is along the z-axis. The positions and normals
+will be rotated around the origin to give the desired overall normal.
+This rotation will take place along the intersection line of the plane specificed
+by the desired normal, and the xy-plane.
+If rotation is desired, the positions are further rotated using the normal
+as the rotation axis. Finally an offset is applied to the entire array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>)</em><em>, </em><em>default 16</em>) – The number of transducer elements. Passing a single int will create a square array.</p></li>
-<li><p><strong>spread</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default 10e-3</em>) – The distance between the array elements.</p></li>
+<li><p><strong>positions</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The positions of the transducer elements in the array, shape 3xN.</p></li>
+<li><p><strong>normals</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><em>numpy.ndarray</em></a>) – The normals of the transducer elements in the array, shape 3xN (or 3 elements which will broadcast).</p></li>
 <li><p><strong>offset</strong> (<em>3 element array_like</em><em>, </em><em>default</em><em> (</em><em>0</em><em>, </em><em>0</em><em>, </em><em>0</em><em>)</em>) – The location of the center of the array.</p></li>
-<li><p><strong>normal</strong> (<em>3 element array_like</em><em>, </em><em>default</em><em> (</em><em>0</em><em>, </em><em>0</em><em>, </em><em>1</em><em>)</em>) – The normal of all elements in the array.</p></li>
+<li><p><strong>normal</strong> (<em>3 element array_like</em><em>, </em><em>default</em><em> (</em><em>0</em><em>, </em><em>0</em><em>, </em><em>1</em><em>)</em>) – The normal of the overall array.</p></li>
 <li><p><strong>rotation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default 0</em>) – The in-plane rotation of the array around the normal.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="method">
-<dt id="levitate.arrays.RectangularArray.signature">
-<code class="sig-name descname">signature</code><span class="sig-paren">(</span><em class="sig-param">position=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">stype=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.RectangularArray.signature" title="Permalink to this definition">¶</a></dt>
+<dt id="levitate.arrays.NormalTransducerArray.signature">
+<code class="sig-name descname">signature</code><span class="sig-paren">(</span><em class="sig-param">position=None</em>, <em class="sig-param">*args</em>, <em class="sig-param">stype=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.NormalTransducerArray.signature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate phase signatures of the array.</p>
 <p>The signature of an array if the phase of the transducer elements
 when the phase required to focus all elements to a specific point
@@ -475,6 +488,56 @@ same number of transducers in the two groups for square arrays.</p>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate.arrays.RectangularArray">
+<em class="property">class </em><code class="sig-prename descclassname">levitate.arrays.</code><code class="sig-name descname">RectangularArray</code><span class="sig-paren">(</span><em class="sig-param">shape=16</em>, <em class="sig-param">spread=0.01</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.RectangularArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>TransducerArray implementation for rectangular arrays.</p>
+<p>Defines the locations and normals of elements (transducers) in an array.
+See <code class="xref py py-obj docutils literal notranslate"><span class="pre">NormaltransducerArray</span></code> for documentation of roration and transslation options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>)</em><em>, </em><em>default 16</em>) – The number of transducer elements. Passing a single int will create a square array.</p></li>
+<li><p><strong>spread</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default 10e-3</em>) – The distance between the array elements.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="levitate.arrays.SphericalCapArray">
+<em class="property">class </em><code class="sig-prename descclassname">levitate.arrays.</code><code class="sig-name descname">SphericalCapArray</code><span class="sig-paren">(</span><em class="sig-param">radius</em>, <em class="sig-param">rings</em>, <em class="sig-param">spread=0.01</em>, <em class="sig-param">packing='distance'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.SphericalCapArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transducer array implementation for spherical caps.</p>
+<p>The transducers will be placed on a virtual spherical surface, i.e. on the same
+distance from a given point in space. Control the overall shape of the array
+with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">radius</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">rings</span></code>, and <code class="xref py py-obj docutils literal notranslate"><span class="pre">spead</span></code> parameters.
+See <code class="xref py py-obj docutils literal notranslate"><span class="pre">NormalTransdcerArray</span></code> for details on the overall placement of the array,
+e.g. rotations and offsets.</p>
+<p>There are many ways to pack transdcuers on a spherical surface.
+The ‘distance’ method will place the transducers on concentric rings where
+the distance between each ring is pre-determined. Each ring will have as
+many transducers as possible for the given ring size. This will typically
+pack the transducers densely, and the outer dimentions of the array is
+quite consistent.
+The ‘count’ method will use a pre-determined number of transducers in each ring,
+with 6 additional transducers for each successive ring. The inter-ring distance
+will be set to fit the requested number of transducers. This method will deliver
+a pre-determined number of transducers, but will not be as dense.
+If too many rings are requested, the ‘count’ method will fill a half-spere with
+transducers and then stop. The ‘distance’ method can fill the entire sphere with
+transducers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – The curvature of the spherical cap, i.e. how for away the focus is.</p></li>
+<li><p><strong>rings</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of consecutive rings of transducers in the array.</p></li>
+<li><p><strong>packing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>default 'distance'</em>) – Controlls which packing method is used. One of ‘distance’ or ‘count’, see above.</p></li>
+<li><p><strong>spread</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>default 10e-3</em>) – Controls the minimum spacing between individual transducers.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="class">
@@ -549,7 +612,7 @@ of one side of the array half of the elements by pi.</p>
 
 <dl class="class">
 <dt id="levitate.arrays.DragonflyArray">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.arrays.</code><code class="sig-name descname">DragonflyArray</code><span class="sig-paren">(</span><em class="sig-param">shape=16</em>, <em class="sig-param">spread=0.01</em>, <em class="sig-param">offset=(0</em>, <em class="sig-param">0</em>, <em class="sig-param">0)</em>, <em class="sig-param">normal=(0</em>, <em class="sig-param">0</em>, <em class="sig-param">1)</em>, <em class="sig-param">rotation=0</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.DragonflyArray" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.arrays.</code><code class="sig-name descname">DragonflyArray</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.arrays.DragonflyArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangular array with Ultrahaptics Dragonfly U5 layout.</p>
 <p>This is a 16x16 element array where the order of the transducer elements
 are the same as the iteration order in the Ultrahaptics SDK. Otherwise

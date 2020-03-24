@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Fields &mdash; Levitate Python Toolbox 2.4.0 documentation</title>
+  <title>Fields &mdash; Levitate Python Toolbox 2.4.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4.0
+                2.4.1
               </div>
             
           
@@ -261,7 +261,7 @@ J Acoust Soc Am, vol. 133, no. 2, pp. 661–676, Feb. 2013.</p>
 </div>
 <dl class="class">
 <dt id="levitate.fields.Pressure">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">Pressure</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.Pressure" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">Pressure</code><span class="sig-paren">(</span><em class="sig-param">array</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.Pressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Complex sound pressure <span class="math notranslate nohighlight">\(p\)</span>.</p>
 <p>Calculates the complex-valued sound pressure.</p>
 <dl class="field-list simple">
@@ -290,7 +290,7 @@ This is a vector value using a Cartesian coordinate system.</p>
 
 <dl class="class">
 <dt id="levitate.fields.GorkovPotential">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">GorkovPotential</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(poisson_ratio=0.35</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">c=2350)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.GorkovPotential" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">GorkovPotential</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(c=2350</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">poisson_ratio=0.35)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.GorkovPotential" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gor’kov’s potential <span class="math notranslate nohighlight">\(U\)</span>.</p>
 <p>Calculates the Gor’kov potential <a class="reference internal" href="#gorkov" id="id1"><span>[Gorkov]</span></a></p>
 <div class="math notranslate nohighlight">
@@ -315,7 +315,7 @@ where <span class="math notranslate nohighlight">\(a\)</span> is the radius of t
 
 <dl class="class">
 <dt id="levitate.fields.GorkovGradient">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">GorkovGradient</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(poisson_ratio=0.35</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">c=2350)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.GorkovGradient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">GorkovGradient</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(c=2350</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">poisson_ratio=0.35)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.GorkovGradient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gradient of Gor’kov’s potential, <span class="math notranslate nohighlight">\(\nabla U\)</span>.</p>
 <p>Calculates the Cartesian spatial gradient of Gor’kov’s potential,
 see <a class="reference internal" href="#levitate.fields.GorkovPotential" title="levitate.fields.GorkovPotential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GorkovPotential</span></code></a> and <a class="reference internal" href="#gorkov" id="id2"><span>[Gorkov]</span></a>. This is a vector value used to calculate the
@@ -338,7 +338,7 @@ traveling wave components. If this is the case, use the
 
 <dl class="class">
 <dt id="levitate.fields.GorkovLaplacian">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">GorkovLaplacian</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(poisson_ratio=0.35</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">c=2350)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.GorkovLaplacian" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">GorkovLaplacian</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(c=2350</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">poisson_ratio=0.35)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.GorkovLaplacian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Laplacian of Gor’kov’s potential, <span class="math notranslate nohighlight">\(\nabla^2 U\)</span>.</p>
 <p>This calculates the Cartesian parts of the Laplacian of
 Gor’kov’s potential, see <a class="reference internal" href="#levitate.fields.GorkovPotential" title="levitate.fields.GorkovPotential"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GorkovPotential</span></code></a> and <a class="reference internal" href="#gorkov" id="id3"><span>[Gorkov]</span></a>. This is not
@@ -361,7 +361,7 @@ traveling wave components. If this is the case, use the
 
 <dl class="class">
 <dt id="levitate.fields.RadiationForce">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">RadiationForce</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(poisson_ratio=0.35</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">c=2350)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.RadiationForce" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">RadiationForce</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(c=2350</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">poisson_ratio=0.35)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.RadiationForce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Radiation force calculation for small beads in arbitrary sound fields.</p>
 <p>Calculates the radiation force on a small particle in a sound field which
 can have both strong standing wave components or strong traveling wave components.
@@ -396,7 +396,7 @@ The actual implementation uses a further algebraic simplification of the above e
 
 <dl class="class">
 <dt id="levitate.fields.RadiationForceStiffness">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">RadiationForceStiffness</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(poisson_ratio=0.35</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">c=2350)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.RadiationForceStiffness" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">RadiationForceStiffness</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(c=2350</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">poisson_ratio=0.35)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.RadiationForceStiffness" title="Permalink to this definition">¶</a></dt>
 <dd><p>Radiation force gradient for small beads in arbitrary sound fields.</p>
 <p>Calculates the non-mixed spatial derivatives of the radiation force,</p>
 <div class="math notranslate nohighlight">
@@ -436,7 +436,7 @@ The actual implementation uses a further algebraic simplification of the above e
 
 <dl class="class">
 <dt id="levitate.fields.RadiationForceGradient">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">RadiationForceGradient</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(poisson_ratio=0.35</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">c=2350)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.RadiationForceGradient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">RadiationForceGradient</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius=0.001</em>, <em class="sig-param">material=Styrofoam(c=2350</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">poisson_ratio=0.35)</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.RadiationForceGradient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Full matrix gradient of the radiation force.</p>
 <p>Calculates the full gradient matrix of the radiation force on a small spherical bead.
 Component <span class="math notranslate nohighlight">\((i,j)\)</span> in the matrix is <span class="math notranslate nohighlight">\({\partial F_i \over \partial q_j}\)</span>
@@ -456,7 +456,7 @@ This is based on analytical differentiation of the radiation force on small bead
 
 <dl class="class">
 <dt id="levitate.fields.SphericalHarmonicsForceDecomposition">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">SphericalHarmonicsForceDecomposition</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius</em>, <em class="sig-param">orders=None</em>, <em class="sig-param">material=Styrofoam(poisson_ratio=0.35</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">c=2350)</em>, <em class="sig-param">scattering_model='Hard sphere'</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.SphericalHarmonicsForceDecomposition" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">SphericalHarmonicsForceDecomposition</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius</em>, <em class="sig-param">orders=None</em>, <em class="sig-param">material=Styrofoam(c=2350</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">poisson_ratio=0.35)</em>, <em class="sig-param">scattering_model='Hard sphere'</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.SphericalHarmonicsForceDecomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Radiation force decomposed in spherical harmonics.</p>
 <p>This is mostly intended for research purposes, when the radiation force
 decomposed in individual spherical harmonics bases is of interest.</p>
@@ -478,7 +478,7 @@ are implemented.</p></li>
 
 <dl class="class">
 <dt id="levitate.fields.SphericalHarmonicsForce">
-<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">SphericalHarmonicsForce</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius</em>, <em class="sig-param">orders=None</em>, <em class="sig-param">material=Styrofoam(poisson_ratio=0.35</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">c=2350)</em>, <em class="sig-param">scattering_model='Hard sphere'</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.SphericalHarmonicsForce" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">levitate.fields.</code><code class="sig-name descname">SphericalHarmonicsForce</code><span class="sig-paren">(</span><em class="sig-param">array</em>, <em class="sig-param">radius</em>, <em class="sig-param">orders=None</em>, <em class="sig-param">material=Styrofoam(c=2350</em>, <em class="sig-param">rho=25</em>, <em class="sig-param">poisson_ratio=0.35)</em>, <em class="sig-param">scattering_model='Hard sphere'</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#levitate.fields.SphericalHarmonicsForce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Spherical harmonics based radiation force.</p>
 <p>Expands the local sound field in spherical harmonics and calculates
 the radiation force in the spherical harmonics domain.
